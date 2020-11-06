@@ -31,14 +31,34 @@ public class UnizServiceTest {
 	public void testRegister() {
 		UnizVO uniz = UnizVO.builder()
 				.unizSN(5000L)
-				.unizKeyword("테스트유니즈")
+				.unizKeyword("테스트유니즈svc")
 				.unizTypeSN(8)
+				.imgUrl("")
 				.build();
 		
 		service.registerNoseq(uniz);
 		log.info(uniz);
 		
 		service.remove(uniz.getUnizSN());
+		
+		log.info("생성된 유니즈의 SN: " + uniz.getUnizSN());
+	}
+	
+	@Test
+	public void testRegisterSelectKey() {
+		UnizVO uniz = UnizVO.builder()
+				.unizKeyword("테스트유니즈svc")
+				.unizTypeSN(8)
+				.imgUrl("")
+				.build();
+		
+		service.registerSelectKey(uniz);
+		log.info(uniz);
+		
+		Long sn = uniz.getUnizSN();
+		
+		if (sn != null)
+		service.remove(sn);
 		
 		log.info("생성된 유니즈의 SN: " + uniz.getUnizSN());
 	}
@@ -58,12 +78,13 @@ public class UnizServiceTest {
 	public void testModify() {
 		UnizVO uniz = UnizVO.builder()
 				.unizSN(5000L)
-				.unizKeyword("테스트유니즈")
+				.unizKeyword("테스트유니즈svc")
 				.unizTypeSN(8)
+				.imgUrl("")
 				.build();
 		
 		service.registerNoseq(uniz);
-		uniz.setUnizKeyword("테스트유니수정");
+		uniz.setUnizKeyword("테스트유니즈수정svc");
 		
 		log.info("MODIFY RESULT: " + service.modify(uniz));
 		service.remove(uniz.getUnizSN());
@@ -73,8 +94,9 @@ public class UnizServiceTest {
 	public void testRemove() {
 		UnizVO uniz = UnizVO.builder()
 				.unizSN(5000L)
-				.unizKeyword("테스트유니즈")
+				.unizKeyword("테스트유니즈svc")
 				.unizTypeSN(8)
+				.imgUrl("")
 				.build();
 		
 		service.registerNoseq(uniz);

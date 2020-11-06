@@ -1,7 +1,5 @@
 package com.uniz.mapper;
 
-import java.util.List;
-
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
@@ -22,30 +20,32 @@ public class UnizMapperTest {
 	@Setter(onMethod_ = @Autowired)
 	private UnizMapper mapper;
 
-	//@Test
-	public void testGetList() {
+	@Test
+	public void testGetPresetList() {
 		mapper.getPresetList(1).forEach(uniz -> log.info(uniz));
 	}
 	
-	//@Test
+	@Test
 	public void testInsert() {
 		UnizVO uniz = UnizVO.builder()
 				.unizSN(5000L)
-				.unizKeyword("테스트유니즈")
+				.unizKeyword("테스트유니즈mp")
 				.unizTypeSN(8)
+				.imgUrl("")
 				.build();
-		
+		log.info(uniz);
 		mapper.insertNoSeq(uniz);
 		log.info(uniz);
 		
 		mapper.delete(uniz.getUnizSN());
 	}
 	
-	//@Test
+	@Test
 	public void testInsertSelectKey() {
 		UnizVO uniz = UnizVO.builder()
-				.unizKeyword("테스트유니즈")
+				.unizKeyword("테스트유니즈mp")
 				.unizTypeSN(8)
+				.imgUrl("")
 				.build();
 		
 		mapper.insertSelectKey(uniz);
@@ -62,12 +62,13 @@ public class UnizMapperTest {
 		log.info(uniz);
 	}
 	
-	//@Test
+	@Test
 	public void testDelete() {
 		UnizVO uniz = UnizVO.builder()
 				.unizSN(5000L)
-				.unizKeyword("테스트유니즈")
+				.unizKeyword("테스트유니즈mp")
 				.unizTypeSN(8)
+				.imgUrl("")
 				.build();
 		
 		mapper.insertNoSeq(uniz);
@@ -79,12 +80,13 @@ public class UnizMapperTest {
 		
 		UnizVO uniz = UnizVO.builder()
 				.unizSN(5000L)
-				.unizKeyword("테스트유니즈")
+				.unizKeyword("테스트유니즈mp")
 				.unizTypeSN(8)
+				.imgUrl("")
 				.build();
 		
 		mapper.insertNoSeq(uniz);
-		uniz.setUnizKeyword("테스트유니즈수정");		
+		uniz.setUnizKeyword("테스트유니즈수정mp");		
 		log.info("UPDATE COUNT : " + mapper.update(uniz));
 		mapper.delete(uniz.getUnizSN());
 	}

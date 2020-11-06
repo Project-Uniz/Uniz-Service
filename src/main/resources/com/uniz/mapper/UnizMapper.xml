@@ -20,7 +20,7 @@
 	</insert>
 	
 	<insert id="insertSelectKey">
-	<selectKey keyProperty="unizSN" order="BEFORE" resultType="long">
+	<selectKey keyProperty="unizSN" order="BEFORE" resultType="Long">
 	SELECT UNIZ_SEQ.nextval FROM dual
 	</selectKey>	
 	INSERT INTO uniz (unizSN, unizTypeSN, unizKeyword, imgUrl) VALUES (#{unizSN}, #{unizTypeSN}, #{unizKeyword}, #{imgUrl})
@@ -46,7 +46,7 @@
 		unizKeyword = #{unizKeyword},
 		imgUrl = #{imgUrl},
 		enable = #{enable},
-		updateDate = sysdate
+		updateDateTime = sysdate
 	WHERE
 		unizSN = #{unizSN}
 	</update>
