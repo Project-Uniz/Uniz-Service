@@ -5,39 +5,64 @@
 	<select id="getPresetList" resultType = "com.uniz.domain.UnizVO">
 	<![CDATA[
 	SELECT
-		*
+		u.*
 	FROM
-		uniz
+		uniz u, presetunizlist p
 	WHERE
-		unizsn IN (
-			SELECT unizsn FROM presetunizlist WHERE menusn = #{menuSN}
-		)
+		p.menuSN = #{menusn}
+		AND p.unizSN = u.unizSN
+	ORDER BY
+		p.priority
 	]]>
-	</select>	
+	</select>
 
 	<insert id="insertNoSeq">
-	INSERT INTO uniz (unizSN, unizTypeSN, unizKeyword, imgUrl) VALUES (#{unizSN}, #{unizTypeSN}, #{unizKeyword}, #{imgUrl})
+	INSERT INTO uniz (unizSN, unizTypeSN, unizKeyword, imgUrl)
+		VALUES (#{unizSN}, #{unizTypeSN}, #{unizKeyword}, #{imgUrl})
 	</insert>
-	
+
 	<insert id="insertSelectKey">
 	<selectKey keyProperty="unizSN" order="BEFORE" resultType="Long">
 	SELECT UNIZ_SEQ.nextval FROM dual
-	</selectKey>	
-	INSERT INTO uniz (unizSN, unizTypeSN, unizKeyword, imgUrl) VALUES (#{unizSN}, #{unizTypeSN}, #{unizKeyword}, #{imgUrl})
+	</selectKey>
+	INSERT INTO uniz (unizSN, unizTypeSN, unizKeyword, imgUrl)
+		VALUES (#{unizSN}, #{unizTypeSN}, #{unizKeyword}, #{imgUrl})
 	</insert>
-	
+
 	<select id="read" resultType="com.uniz.domain.UnizVO">
 	SELECT * FROM uniz WHERE unizSN = #{unizSN}
 	</select>
 
 	<select id="readByKeyword" resultType="com.uniz.domain.UnizVO">
-	SELECT * FROM uniz WHERE unizKeyword = #{keyword}
+	SELECT * FROM uniz WHERE unizKeyword = #{keyword} AND unizTypeSN = #{unizType} 
+	</select>
+
+	<select id="readByKeywordForUserUnizInsert" resultType="com.uniz.domain.UnizVO">
+	SELECT * FROM uniz WHERE unizKeyword = #{keyword} AND unizTypeSN IN (8, 9, 10) AND ROWNUM = 1
 	</select>
 	
+	<select id="getListByKeyword" resultType = "com.uniz.domain.UnizVO">
+	<![CDATA[
+	SELECT * FROM uniz WHERE unizKeyword = #{keyword}
+	]]>
+	</select>
+
+	<select id="getFavoriteList">
+	<![CDATA[
+	SELECT unizSN FROM myunizpointlist
+	WHERE
+		userSN = #{userSN}
+		AND point >= #{fvPoint}
+		AND ROWNUM <= #{limit}
+	ORDER BY point DESC
+
+	]]>
+	</select>
+
 	<delete id="delete">
 	DELETE FROM uniz WHERE unizSN = #{unizSN}
 	</delete>
-	
+
 	<update id="update">
 	UPDATE
 		uniz

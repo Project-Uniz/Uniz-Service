@@ -71,7 +71,7 @@ public class UnizServiceTest {
 	
 	@Test
 	public void testGet() {
-		log.info(service.findByKeyword("프로야구"));
+		log.info(service.findByKeyword("프로야구", UnizTypeEnum.USERMADE.getTypeSN()));
 	}
 	
 	@Test
