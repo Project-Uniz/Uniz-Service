@@ -10,7 +10,7 @@ public interface UnizService {
 
 	public boolean registerSelectKey(UnizVO uniz);
 
-	public UnizVO get(int unizSN);
+	public UnizVO get(Long unizSN);
 
 	public UnizVO findByKeywordForUserUnizInsert(String keyword);
 

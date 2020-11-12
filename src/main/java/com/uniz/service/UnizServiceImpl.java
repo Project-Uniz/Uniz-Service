@@ -36,7 +36,7 @@ public class UnizServiceImpl implements UnizService {
 	}
 
 	@Override
-	public UnizVO get(int unizSN) {
+	public UnizVO get(Long unizSN) {
 		log.info("get............ : " + unizSN);
 
 		return mapper.read(unizSN);
