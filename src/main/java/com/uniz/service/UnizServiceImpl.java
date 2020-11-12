@@ -43,25 +43,11 @@ public class UnizServiceImpl implements UnizService {
 	}
 	
 	@Override
-	public UnizVO findByKeyword(String keyword, int unizType) {
-		log.info("getByKeyword............ : " + keyword + ", " + unizType);
-
-		return mapper.readByKeyword(keyword, unizType);
-	}
-
-	@Override
 	public UnizVO findByKeywordForUserUnizInsert(String keyword) {
 		log.info("findByKeywordForUserUnizInsert............ : " + keyword);
 		
 		return mapper.readByKeywordForUserUnizInsert(keyword);
 
-	}
-
-	@Override
-	public List<UnizVO> findListByKeyword(String keyword) {
-		log.info("findListByKeyword............ : " + keyword);
-
-		return mapper.getListByKeyword(keyword);
 	}
 
 	@Override

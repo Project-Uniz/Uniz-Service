@@ -12,11 +12,7 @@ public interface UnizService {
 
 	public UnizVO get(int unizSN);
 
-	public UnizVO findByKeyword(String keyword, int unizType);
-
 	public UnizVO findByKeywordForUserUnizInsert(String keyword);
-
-	public List<UnizVO> findListByKeyword(String keyword);
 
 	public List<UnizVO> getFavoriteList(Long unizSN, int fvPoint, int maxCnt);
 

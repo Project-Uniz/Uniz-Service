@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.uniz.domain.MenuType;
+import com.uniz.domain.UnizTypeEnum;
 import com.uniz.domain.UnizVO;
 
 import lombok.Setter;
@@ -32,7 +34,7 @@ public class UnizServiceTest {
 		UnizVO uniz = UnizVO.builder()
 				.unizSN(5000L)
 				.unizKeyword("테스트유니즈svc")
-				.unizTypeSN(8)
+				.unizTypeSN(UnizTypeEnum.USERMADE.getTypeSN())
 				.imgUrl("")
 				.build();
 		
@@ -48,7 +50,7 @@ public class UnizServiceTest {
 	public void testRegisterSelectKey() {
 		UnizVO uniz = UnizVO.builder()
 				.unizKeyword("테스트유니즈svc")
-				.unizTypeSN(8)
+				.unizTypeSN(UnizTypeEnum.USERMADE.getTypeSN())
 				.imgUrl("")
 				.build();
 		
@@ -66,20 +68,15 @@ public class UnizServiceTest {
 	@Test
 	public void testGetPresetList() {
 		
-		service.getPresetList(5).forEach(uniz->log.info(uniz));
+		service.getPresetList(MenuType.SEARCH.getMenu()).forEach(uniz->log.info(uniz));
 	}
-	
-	@Test
-	public void testGet() {
-		log.info(service.findByKeyword("프로야구", UnizTypeEnum.USERMADE.getTypeSN()));
-	}
-	
+
 	@Test
 	public void testModify() {
 		UnizVO uniz = UnizVO.builder()
 				.unizSN(5000L)
 				.unizKeyword("테스트유니즈svc")
-				.unizTypeSN(8)
+				.unizTypeSN(UnizTypeEnum.USERMADE.getTypeSN())
 				.imgUrl("")
 				.build();
 		
@@ -95,7 +92,7 @@ public class UnizServiceTest {
 		UnizVO uniz = UnizVO.builder()
 				.unizSN(5000L)
 				.unizKeyword("테스트유니즈svc")
-				.unizTypeSN(8)
+				.unizTypeSN(UnizTypeEnum.USERMADE.getTypeSN())
 				.imgUrl("")
 				.build();
 		

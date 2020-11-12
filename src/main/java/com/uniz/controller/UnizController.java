@@ -1,6 +1,5 @@
 package com.uniz.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -112,11 +111,9 @@ public class UnizController {
 
 		log.info("getFavoriteList : " + userSN + "/" + limit);
 
+		// TODO : 매직넘버 제거
 		int favoritePoint = 100;
-
 		List<UnizVO> list = service.getFavoriteList(userSN, favoritePoint, limit);
-
-		System.out.println("f list  : " + list);
 
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
