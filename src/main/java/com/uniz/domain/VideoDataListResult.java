@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VideoDataListResult {
-	private List<VideoDataVO> videoList;
+	private String tag;
+	private Long unizSN;
 	private int count;
-	private UnizVO uniz;
+	private List<VideoDataVO> videoList;
 }

@@ -20,4 +20,36 @@
 	WHERE
 		userSN = #{userSN}
 	</update>
-	</mapper>
+
+	<select id="getSearchUnizList" resultType = "com.uniz.domain.UnizVO">
+	<![CDATA[
+	SELECT * FROM uniz
+	WHERE unizSN IN (
+		SELECT searchUnizSN FROM searchunizlist
+		WHERE
+			targetUnizSN = #{unizSN}
+	)
+	]]>
+	</select>
+
+	<select id="getSearchUnizListBySNList" resultType = "com.uniz.domain.UnizVO">
+	SELECT * FROM uniz
+	WHERE unizSN IN
+		<foreach item="unizSN" index="index" collection="unizSNList"
+			open="(" separator="," close=")">
+			#{unizSN}
+		</foreach>
+	</select>
+
+	<select id="getUnizTypeFromUnizSN" resultType = "Integer">
+	<![CDATA[
+	SELECT unizTypeSN FROM searchuniztype
+	WHERE searchUnizSN IN (
+		SELECT targetUnizSN FROM searchunizlist
+		WHERE
+			searchUnizSN = #{unizSN}
+	)
+	]]>
+	</select>
+
+</mapper>
