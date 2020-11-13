@@ -4,7 +4,7 @@
 
 	<insert id="insertNoSeq">
 	INSERT INTO uniz (unizSN, unizTypeSN, unizKeyword, imgUrl)
-		VALUES (#{unizSN}, #{unizTypeSN}, #{unizKeyword}, #{imgUrl})
+		VALUES (#{unizSN}, #{unizTypeSN}, #{unizKeyword}, #{imgUrl, jdbcType=VARCHAR}})
 	</insert>
 
 	<insert id="insertSelectKey">
@@ -12,7 +12,7 @@
 	SELECT UNIZ_SEQ.nextval FROM dual
 	</selectKey>
 	INSERT INTO uniz (unizSN, unizTypeSN, unizKeyword, imgUrl)
-		VALUES (#{unizSN}, #{unizTypeSN}, #{unizKeyword}, #{imgUrl})
+		VALUES (#{unizSN}, #{unizTypeSN}, #{unizKeyword}, #{imgUrl, jdbcType=VARCHAR})
 	</insert>
 
 	<select id="read" resultType="com.uniz.domain.UnizVO">
@@ -25,7 +25,7 @@
 	SET
 		unizTypeSN = #{unizTypeSN},
 		unizKeyword = #{unizKeyword},
-		imgUrl = #{imgUrl},
+		imgUrl = #{imgUrl, jdbcType=VARCHAR},
 		enable = #{enable},
 		updateDateTime = sysdate
 	WHERE

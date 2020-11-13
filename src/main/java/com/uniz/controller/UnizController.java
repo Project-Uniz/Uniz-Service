@@ -55,10 +55,10 @@ public class UnizController {
 			UnizVO newUniz = UnizVO.builder()
 					.unizKeyword(keyWord)
 					.unizTypeSN(UnizTypeEnum.USERMADE.getTypeSN())
-					.build(); 
+					.build();
 	
 			service.registerSelectKey(newUniz);
-			uniz = service.get(newUniz.getUnizTypeSN());
+			uniz = service.get(newUniz.getUnizSN());
 		}
 
 		// 3. 유니즈 정보 반환
@@ -85,13 +85,13 @@ public class UnizController {
 
 	@GetMapping(value = "/getUnizNames",
 			produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<Integer, String>> getNameList(@RequestParam("unizSN") int[] unizSNList ) {
+	public ResponseEntity<Map<Long, String>> getNameList(@RequestParam("unizSN") Long[] unizSNList ) {
 
 		log.info("get UnizNames List : " + unizSNList);
 
-		Map<Integer, String> map = new HashMap<>();
+		Map<Long, String> map = new HashMap<>();
 
-		for (int unizSN : unizSNList) {
+		for (Long unizSN : unizSNList) {
 			UnizVO uniz = service.get(unizSN);
 			if(uniz == null || uniz.isEnable() == false ) {
 				continue;
