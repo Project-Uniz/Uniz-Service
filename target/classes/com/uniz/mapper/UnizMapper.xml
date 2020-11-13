@@ -2,52 +2,82 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.uniz.mapper.UnizMapper">
 
-	<select id="getPresetList" resultType = "com.uniz.domain.UnizVO">
-	<![CDATA[
-	SELECT
-		*
-	FROM
-		uniz
-	WHERE
-		unizsn IN (
-			SELECT unizsn FROM presetunizlist WHERE menusn = #{menuSN}
-		)
-	]]>
-	</select>	
-
 	<insert id="insertNoSeq">
-	INSERT INTO uniz (unizSN, unizTypeSN, unizKeyword, imgUrl) VALUES (#{unizSN}, #{unizTypeSN}, #{unizKeyword}, #{imgUrl})
+	INSERT INTO uniz (unizSN, unizTypeSN, unizKeyword, imgUrl)
+		VALUES (#{unizSN}, #{unizTypeSN}, #{unizKeyword}, #{imgUrl, jdbcType=VARCHAR}})
 	</insert>
-	
+
 	<insert id="insertSelectKey">
 	<selectKey keyProperty="unizSN" order="BEFORE" resultType="Long">
 	SELECT UNIZ_SEQ.nextval FROM dual
-	</selectKey>	
-	INSERT INTO uniz (unizSN, unizTypeSN, unizKeyword, imgUrl) VALUES (#{unizSN}, #{unizTypeSN}, #{unizKeyword}, #{imgUrl})
+	</selectKey>
+	INSERT INTO uniz (unizSN, unizTypeSN, unizKeyword, imgUrl)
+		VALUES (#{unizSN}, #{unizTypeSN}, #{unizKeyword}, #{imgUrl, jdbcType=VARCHAR})
 	</insert>
-	
+
 	<select id="read" resultType="com.uniz.domain.UnizVO">
 	SELECT * FROM uniz WHERE unizSN = #{unizSN}
 	</select>
 
-	<select id="readByKeyword" resultType="com.uniz.domain.UnizVO">
-	SELECT * FROM uniz WHERE unizKeyword = #{keyword}
-	</select>
-	
-	<delete id="delete">
-	DELETE FROM uniz WHERE unizSN = #{unizSN}
-	</delete>
-	
 	<update id="update">
 	UPDATE
 		uniz
 	SET
 		unizTypeSN = #{unizTypeSN},
 		unizKeyword = #{unizKeyword},
-		imgUrl = #{imgUrl},
+		imgUrl = #{imgUrl, jdbcType=VARCHAR},
 		enable = #{enable},
 		updateDateTime = sysdate
 	WHERE
 		unizSN = #{unizSN}
 	</update>
+
+	<delete id="delete">
+	DELETE FROM uniz WHERE unizSN = #{unizSN}
+	</delete>
+
+	<select id="getPresetList" resultType = "com.uniz.domain.UnizVO">
+	<![CDATA[
+	SELECT
+		u.*
+	FROM
+		uniz u, presetunizlist p
+	WHERE
+		p.menuSN = #{menusn}
+		AND p.unizSN = u.unizSN
+	ORDER BY
+		p.priority
+	]]>
+	</select>
+
+	<select id="readByKeywordForUserUnizInsert" resultType="com.uniz.domain.UnizVO">
+	SELECT * FROM uniz WHERE unizKeyword = #{keyword} AND unizTypeSN IN (11, 12, 13) AND ROWNUM = 1
+	</select>
+
+	<select id="getUnizListByKeywordOptList" resultType = "com.uniz.domain.UnizVO">
+	SELECT * FROM uniz
+	WHERE unizKeyword IN
+		<foreach item="keyword" index="index" collection="keywordList"
+			open="(" separator="," close=")">
+			#{keyword}
+		</foreach>
+		AND unizTypeSN IN
+		<foreach item="unizTypeSN" index="index" collection="unizTypeList"
+			open="(" separator="," close=")">
+			#{unizTypeSN}
+		</foreach>
+	</select>
+
+	<select id="getFavoriteList" resultType = "com.uniz.domain.UnizVO">
+	<![CDATA[
+	SELECT u.*
+	FROM myunizpointlist m, uniz u
+	WHERE m.unizSN = u.unizSN
+		AND m.userSN = #{userSN}
+		AND m.point >= #{fvPoint}
+		AND ROWNUM <= #{limit}
+	ORDER BY m.point DESC
+	]]>
+	</select>
+
 </mapper>
