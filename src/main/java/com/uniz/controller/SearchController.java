@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.uniz.domain.MenuType;
+import com.uniz.domain.SearchResult;
 import com.uniz.domain.UnizTypeEnum;
 import com.uniz.domain.UnizVO;
 import com.uniz.domain.VideoDataListResult;
@@ -42,7 +44,7 @@ public class SearchController {
 
 	@GetMapping(value="/list",
 			produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<VideoDataListResult>> list(String keyword, Long userSN) {
+	public ResponseEntity<SearchResult> list(@RequestParam("keyword") List<String> keyword, Long userSN) {
 
 		log.info("search/list.....");
 
@@ -50,12 +52,11 @@ public class SearchController {
 		List<UnizVO> searchUnizList = searchService.getSearchUnizList(userSN);
 
 		// 2. 서치 유니즈 리스트를 통해 비디오 데이터 검색
-		List<VideoDataListResult> results = searchService.getSearchResult(keyword, searchUnizList);
+		List<VideoDataListResult> resultVideos = searchService.getSearchResult(keyword, searchUnizList);
 
+		SearchResult searchResult = new SearchResult(keyword, resultVideos);
 		// 3. 결과 반환
-		return results.size() > 0
-				? new ResponseEntity<>(results, HttpStatus.OK)
-				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(searchResult, HttpStatus.OK);
 		// model.addAttribute("searchResult", mapResult);
 	}
 

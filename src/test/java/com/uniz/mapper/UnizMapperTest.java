@@ -34,7 +34,6 @@ public class UnizMapperTest {
 				.unizSN(5000L)
 				.unizKeyword("테스트유니즈mp")
 				.unizTypeSN(8)
-				.imgUrl("")
 				.build();
 		log.info(uniz);
 		mapper.insertNoSeq(uniz);
@@ -48,7 +47,6 @@ public class UnizMapperTest {
 		UnizVO uniz = UnizVO.builder()
 				.unizKeyword("테스트유니즈mp")
 				.unizTypeSN(8)
-				.imgUrl("")
 				.build();
 
 		mapper.insertSelectKey(uniz);
@@ -71,7 +69,6 @@ public class UnizMapperTest {
 				.unizSN(5000L)
 				.unizKeyword("테스트유니즈mp")
 				.unizTypeSN(8)
-				.imgUrl("")
 				.build();
 
 		mapper.insertNoSeq(uniz);
@@ -96,10 +93,10 @@ public class UnizMapperTest {
 	
 	@Test
 	public void testGetListByKeywordOptList() {
-
+		List<String> keywords = Arrays.asList(new String[] {"야구", "프로야구"});
 		List<Integer> list = Arrays.asList(new Integer[] {1,2,4});
 
-		log.info("searchList : " + mapper.getUnizListByKeywordOptList("야구", list) );
+		log.info("searchList : " + mapper.getUnizListByKeywordOptList(keywords, list) );
 	}
 
 }

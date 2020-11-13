@@ -205,10 +205,10 @@ public class SearchServiceImpl implements SearchService {
 	 * @return
 	 * 
 	 */
-	private List<ArrayList<VideoDataVO>> getVideoListByOptions(String keyword, List<Integer> options) {
+	private List<ArrayList<VideoDataVO>> getVideoListByOptions(List<String> keywordList, List<Integer> options) {
 
 		// 1. 키워드, 옵션으로 유니즈 리스트 획득
-		List<UnizVO> uList = unizMapper.getUnizListByKeywordOptList(keyword, options);
+		List<UnizVO> uList = unizMapper.getUnizListByKeywordOptList(keywordList, options);
 
 		// 2. 유니즈 별 비디오리스트 획득
 		List<ArrayList<VideoDataVO>> videoList = new ArrayList<>();
@@ -253,7 +253,7 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List<VideoDataListResult> getSearchResult(String keyword, List<UnizVO> searchUnizList) {
+	public List<VideoDataListResult> getSearchResult(List<String> keywordList, List<UnizVO> searchUnizList) {
 
 		List<VideoDataListResult> result = new ArrayList<>();
 
@@ -268,7 +268,8 @@ public class SearchServiceImpl implements SearchService {
 			// 2-b안 : 다 가져온 후 로직에서 교집합 유니즈만 처리
 
 			// 일단 2-b안 으로
-			List<ArrayList<VideoDataVO>> rawVideolist = getVideoListByOptions(keyword, options);
+			// 멀티 키워드도 일단은 IN 조건으로만
+			List<ArrayList<VideoDataVO>> rawVideolist = getVideoListByOptions(keywordList, options);
 
 			// 옵션 결과값 수와 옵션의 수가 안맞으면 검색실패 : 교집합 대상 옵션 중 하나의 검색 결과가 없는것, 검사하기도 전에 탈락
 			if (rawVideolist.size() != options.size()) {

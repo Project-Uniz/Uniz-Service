@@ -18,5 +18,5 @@ public interface SearchService {
 
 	public Map<Integer, String> setOptions(Long userSN, List<Integer> options);
 
-	public List<VideoDataListResult> getSearchResult(String keyword, List<UnizVO> searchUnizList);
+	public List<VideoDataListResult> getSearchResult(List<String> keywordList, List<UnizVO> searchUnizList);
 }

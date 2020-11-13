@@ -35,7 +35,7 @@
 	<delete id="delete">
 	DELETE FROM uniz WHERE unizSN = #{unizSN}
 	</delete>
-	
+
 	<select id="getPresetList" resultType = "com.uniz.domain.UnizVO">
 	<![CDATA[
 	SELECT
@@ -48,7 +48,7 @@
 	ORDER BY
 		p.priority
 	]]>
-	</select>	
+	</select>
 
 	<select id="readByKeywordForUserUnizInsert" resultType="com.uniz.domain.UnizVO">
 	SELECT * FROM uniz WHERE unizKeyword = #{keyword} AND unizTypeSN IN (11, 12, 13) AND ROWNUM = 1
@@ -56,7 +56,11 @@
 
 	<select id="getUnizListByKeywordOptList" resultType = "com.uniz.domain.UnizVO">
 	SELECT * FROM uniz
-	WHERE unizKeyword = #{keyword}
+	WHERE unizKeyword IN
+		<foreach item="keyword" index="index" collection="keywordList"
+			open="(" separator="," close=")">
+			#{keyword}
+		</foreach>
 		AND unizTypeSN IN
 		<foreach item="unizTypeSN" index="index" collection="unizTypeList"
 			open="(" separator="," close=")">
@@ -69,12 +73,11 @@
 	SELECT u.*
 	FROM myunizpointlist m, uniz u
 	WHERE m.unizSN = u.unizSN
-	    AND m.userSN = #{userSN}
-	    AND m.point >= #{fvPoint}
-	    AND ROWNUM <= #{limit}
+		AND m.userSN = #{userSN}
+		AND m.point >= #{fvPoint}
+		AND ROWNUM <= #{limit}
 	ORDER BY m.point DESC
 	]]>
 	</select>
 
-	
 </mapper>

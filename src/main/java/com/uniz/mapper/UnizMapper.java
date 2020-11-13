@@ -22,7 +22,7 @@ public interface UnizMapper {
 
 	public UnizVO readByKeywordForUserUnizInsert(@Param("keyword") String keyword);
 
-	public List<UnizVO> getUnizListByKeywordOptList(@Param("keyword") String keyword, @Param("unizTypeList") List<Integer> unizTypeList);
+	public List<UnizVO> getUnizListByKeywordOptList(@Param("keywordList") List<String> keywordList, @Param("unizTypeList") List<Integer> unizTypeList);
 
 	public List<UnizVO> getFavoriteList(@Param("userSN") Long userSN, @Param("fvPoint") int point, @Param("limit") int limit);
 
