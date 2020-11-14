@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.uniz.mapper.UnizPointMapper">
+
+	<insert id="insert">
+	INSERT INTO myunizpointlist (userSN, unizSN, point)
+		VALUES (#{userSN}, #{unizSN}, #{point})
+	</insert>
+
+	<select id="read" resultType="com.uniz.domain.MyUnizPoint">
+	SELECT * FROM myunizpointlist
+	WHERE userSN = #{userSN}
+		AND unizSN = #{unizSN}
+	</select>
+
+	<update id="update">
+	UPDATE
+		myunizpointlist
+	SET
+		point = #{point},
+		updateDateTime = sysdate
+	WHERE
+		userSN = #{userSN}
+		AND unizSN IN
+		<foreach item="unizSN" index="index" collection="unizSNList"
+			open="(" separator="," close=")">
+			#{unizSN}
+		</foreach>
+	</update>
+
+	<update id="incMyUnizPoint">
+	UPDATE
+		myunizpointlist
+	SET
+		point = point + #{incPoint},
+		updateDateTime = sysdate
+	WHERE
+		userSN = #{userSN}
+		AND unizSN IN
+		<foreach item="unizSN" index="index" collection="unizSNList"
+			open="(" separator="," close=")">
+			#{unizSN}
+		</foreach>
+	</update>
+
+	<update id="decMyUnizPoint">
+	UPDATE
+		myunizpointlist
+	SET
+		point = point - #{decPoint},
+		updateDateTime = sysdate
+	WHERE
+		userSN = #{userSN}
+		AND unizSN IN
+		<foreach item="unizSN" index="index" collection="unizSNList"
+			open="(" separator="," close=")">
+			#{unizSN}
+		</foreach>
+	</update>
+
+	<select id="getMyUnizPointList" resultType = "com.uniz.domain.MyUnizPoint">
+	<![CDATA[
+	SELECT *
+	FROM myunizpointlist
+	WHERE userSN = #{userSN}
+	ORDER BY point DESC
+	]]>
+	</select>
+
+</mapper>

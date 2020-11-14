@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uniz.domain.UnizTypeEnum;
 import com.uniz.domain.UnizVO;
+import com.uniz.service.UnizPointService;
 import com.uniz.service.UnizService;
 
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @RequestMapping("/uniz/")
@@ -25,7 +28,11 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @AllArgsConstructor
 public class UnizController {
+	@Setter(onMethod_ = @Autowired)
 	private UnizService service;
+	
+	@Setter(onMethod_ = @Autowired)
+	private UnizPointService upsvc;
 
 	@PostMapping(value = "/register",
 			produces = {
@@ -102,6 +109,24 @@ public class UnizController {
 		System.out.println("map : " + map);
 
 		return new ResponseEntity<>(map, HttpStatus.OK);
+	}	
+
+	@PostMapping(value = "/registLikeUniz",
+			produces = {
+					MediaType.APPLICATION_XML_VALUE,
+					MediaType.APPLICATION_JSON_UTF8_VALUE
+				})
+	public ResponseEntity<UnizVO> sendLikeUniz(@RequestParam("unizSN") Long[] unizSNList) {
+		log.info("sendLikeUniz : " + unizSNList);
+
+		UnizVO uniz = null;
+
+		// 3. 유니즈 정보 반환
+		System.out.println(uniz);
+
+		return uniz != null
+				? new ResponseEntity<>(uniz, HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 
@@ -117,4 +142,44 @@ public class UnizController {
 
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
+
+	@PostMapping(value = "/mylike",
+			produces = {
+					MediaType.APPLICATION_XML_VALUE,
+					MediaType.APPLICATION_JSON_UTF8_VALUE
+				})
+	public ResponseEntity<List<Long>> myLike(@RequestParam("userSN") Long userSN, @RequestParam("unizSN") List<Long> unizSNList) {
+
+		int default_like_point = 100;
+		
+		List<Long> result = null;
+		if (upsvc.registUnizPoint(userSN, unizSNList, default_like_point)) {
+			result = unizSNList;
+		}
+
+		return result != null
+				? new ResponseEntity<>(result, HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@PostMapping(value = "/mydislike",
+			produces = {
+					MediaType.APPLICATION_XML_VALUE,
+					MediaType.APPLICATION_JSON_UTF8_VALUE
+				})
+	public ResponseEntity<List<Long>> myDislike(@RequestParam("userSN") Long userSN, @RequestParam("unizSN") List<Long> unizSNList) {
+
+		int default_like_point = 30;
+		
+		List<Long> result = null;
+		if (upsvc.registUnizPoint(userSN, unizSNList, default_like_point)) {
+			result = unizSNList;
+		}
+
+		return result != null
+				? new ResponseEntity<>(result, HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	
 }
