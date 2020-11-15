@@ -30,7 +30,7 @@
 						
 						<div class="form-group">
 							<label>작성자</label>
-							<input class="form-control" name='userSN' value='<c:out value="${board.userSN}"/>' readonly="readonly">
+							<input class="form-control" name='userSN' value='<c:out value="${board.nick}"/>' readonly="readonly">
 						</div>
 						
 						<div class="form-group">

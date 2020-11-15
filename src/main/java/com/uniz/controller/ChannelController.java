@@ -88,7 +88,7 @@ public class ChannelController {
 	@RequestMapping(method = { RequestMethod.PUT , RequestMethod.PATCH } ,
 			value = "/{postSN}",
 			consumes = "application/json",
-			produces = { MediaType.TEXT_PLAIN_VALUE } )
+			produces = { MediaType.TEXT_PLAIN_VALUE  ,"application/json" } )
 	public ResponseEntity<String> modify(@RequestBody ChannelBoardVO vo , @PathVariable("postSN") Long postSN){
 		
 		vo.setPostSN(postSN);

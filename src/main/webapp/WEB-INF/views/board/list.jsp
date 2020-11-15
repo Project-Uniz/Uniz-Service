@@ -39,7 +39,7 @@
 				<c:out value="${board.title}" /></a>
 			</td>
 			<td>
-				<c:out value="${board.userSN}" />
+				<c:out value="${board.nick}" />
 			</td>
    			<td>
    			<fmt:formatDate pattern ="yyyy-MM-dd" value="${board.createDateTime}"/>

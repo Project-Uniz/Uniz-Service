@@ -20,9 +20,9 @@
 		
 		<!-- 게시글 보여 주기 -->
 		<select id ="getPost" resultType="com.uniz.domain.ChannelBoardVO">
-			select channelsn , postsn, usersn, title , createdatetime
-			from channelpost
-			where postsn = #{postSN}
+			select p.channelsn , p.postsn, p.usersn, p.title , p.createdatetime , c.postContent
+			from channelpost p , channelpostcontent c
+			where p.postsn = #{postSN} and c.postSN = p.postSN
 		</select>
 	
 		<insert id="createChannel">

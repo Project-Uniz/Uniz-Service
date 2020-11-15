@@ -37,7 +37,7 @@
 						
 						<div class="form-group">
 							<label>작성자</label>
-							<input class="form-control" name=userSN value='<c:out value="${board.userSN}" />' readonly="readonly">
+							<input class="form-control" name=userSN value='<c:out value="${board.nick}" />' readonly="readonly">
 						</div>
 						
 						<div class="form-group">
@@ -126,6 +126,8 @@
 <%@include file="../includes/footer.jsp" %>
 
 <script type="text/javascript" src="/resources/js/reply.js"></script>
+<script type="text/javascript" src="/resources/js/channel.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function(){
 	
@@ -136,11 +138,15 @@ $(document).ready(function(){
 	
 	showList(1);
 	
-replyService.add(
-		{replyContent: "hhhhh", userSN: 6 , postSN: postValue}
-		, function(result){
-			alert("result: " + result);
-		});
+	
+	channelService.update({
+		postSN : 14,
+		title : "파싱을 어떻게 해야 할까",
+		postContent : "그러게 말이야"
+	} , function(result){
+		alert("수정완료");
+	});
+
 	
 	function showList(page){
 		console.log("show list: " + page);

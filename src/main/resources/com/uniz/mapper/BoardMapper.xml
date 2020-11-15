@@ -8,12 +8,17 @@
 	
 	<select id="getListWithPaging" resultType="com.uniz.domain.BoardVO">
 		<![CDATA[
-	select  postsn , title ,createdatetime ,usersn
+	select  *
     	from(
-            select
-            rownum rn, p.postsn , p.title , p.createdatetime , u.usersn
-            from boardpost p , boardpostcontent c , userdata u
-    		where
+            select rownum rn , a.*
+            from
+            	(
+            	select
+           		p.postsn , p.title , p.createdatetime , u.usersn , u.nick
+            	from boardpost p , boardpostcontent c , userdata u
+    			where u.usersn = p.usersn and p.postsn = c.postsn
+    			order by postsn desc
+    			)a
 		]]>	
 		
 		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
@@ -35,8 +40,8 @@
 		</trim>
 		<![CDATA[
 			
-			rownum <= #{pageNum} * #{amount} and u.usersn = p.usersn and p.postsn = c.postsn
-			order by postsn desc
+			where rownum <= #{pageNum} * #{amount} 
+			
 			)
 		where rn > (#{pageNum} -1 ) * #{amount}
 		]]>

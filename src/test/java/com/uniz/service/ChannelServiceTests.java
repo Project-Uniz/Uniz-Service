@@ -38,23 +38,23 @@ public class ChannelServiceTests {
 //		log.info("삭제 완료");
 //	}
 	
-//	@Test
-//	public void testUpdate() {
-//		
-//		ChannelBoardVO vo = new ChannelBoardVO();
-//		
-//		vo.setPostSN(14L);
-//		vo.setTitle("수정 된 제목");
-//		vo.setPostContent("수정된 내용");
-//		
-//		service.update(vo);
-//		
-//	}
-	
 	@Test
-	public void testGetList() {
-		log.info("채널 리스트 게시글 불러오기");
-		service.getPostList(5L);
+	public void testUpdate() {
+		
+		ChannelBoardVO vo = new ChannelBoardVO();
+		
+		vo.setPostSN(14L);
+		vo.setTitle("왜 안돼");
+		vo.setPostContent("그러니까");
+		
+		service.update(vo);
+		
 	}
+	
+//	@Test
+//	public void testGetList() {
+//		log.info("채널 리스트 게시글 불러오기");
+//		service.getPostList(5L);
+//	}
 	
 }
