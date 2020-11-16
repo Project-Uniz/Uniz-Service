@@ -10,4 +10,9 @@
 		)
 	]]>
 	</select>
+	
+	
+	<select id="getVideo" resultType="com.uniz.domain.VideoDataVO">
+		SELECT * FROM videoData where videoSn = #{videoSN}
+	</select>
 </mapper>
