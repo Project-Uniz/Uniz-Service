@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.uniz.mapper.SearchMapper">
+
+	<select id="getOptions" resultType="Integer">
+	SELECT options FROM usersearchoptions WHERE userSN = #{userSN}
+	</select>
+
+	<insert id="makeOptions">
+	INSERT INTO usersearchoptions (userSN, options)
+		VALUES (#{userSN}, #{options})
+	</insert>
+
+	<update id="setOptions">
+	UPDATE
+		usersearchoptions
+	SET
+		options = #{options},
+		updateDateTime = sysdate
+	WHERE
+		userSN = #{userSN}
+	</update>
+
+	<select id="getSearchUnizList" resultType = "com.uniz.domain.UnizVO">
+	<![CDATA[
+	SELECT * FROM uniz
+	WHERE unizSN IN (
+		SELECT searchUnizSN FROM searchunizlist
+		WHERE
+			targetUnizSN = #{unizSN}
+	)
+	]]>
+	</select>
+
+	<select id="getSearchUnizListBySNList" resultType = "com.uniz.domain.UnizVO">
+	SELECT * FROM uniz
+	WHERE unizSN IN
+		<foreach item="unizSN" index="index" collection="unizSNList"
+			open="(" separator="," close=")">
+			#{unizSN}
+		</foreach>
+	</select>
+
+	<select id="getUnizTypeFromUnizSN" resultType = "Integer">
+	<![CDATA[
+	SELECT unizTypeSN FROM searchuniztype
+	WHERE searchUnizSN IN (
+		SELECT targetUnizSN FROM searchunizlist
+		WHERE
+			searchUnizSN = #{unizSN}
+	)
+	]]>
+	</select>
+
+</mapper>
