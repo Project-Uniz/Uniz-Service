@@ -85,6 +85,10 @@
 		</form>
 	</div>
 
+	<div>
+		<text id='bodyText'>
+	</div>
+
 	<div class="inner-div-1200">
 		<div class="video-align-center">
 			<div id='contents'>
@@ -93,164 +97,17 @@
 	</div>
 </div>
 
-<div>
-<text id='bodyText'>
-</div>
 
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
 <!-- Ajax -->
 <script type="text/javascript" src="/resources/js/searchAjax.js"></script>
 <script type="text/javascript" src="/resources/js/unizAjax.js"></script>
 
-<script type="text/javascript">
-$(document).ready(function() {
-	let searchForm = $('#searchForm');
-	let contentHtml = $('#contents');
-
-	console.log(1);
-
-	var resultAjax;
-
-	let searchMenuNum = 5;
-
-	setUnitagsByPreset(searchMenuNum, 7);
-
-	$("#btnGetOpt").on("click", function(e) {
-		e.preventDefault();
-
-		console.log(1);
-
-		let userSN = $('#userSN').val();
-
-		searchService.getOptions(
-				{userSN : userSN},
-				function(result) {
-					let keys = [];
-					
-					for(property in result) {
-						keys.push(property);
-						console.log("result [" + property + "] : " + result[property]);	
-					}
-
-					$("#option").val(keys.join(','));
-				}
-			);
-	});
-
-	$("#btnSetOpt").on("click", function(e) {
-		e.preventDefault();
-		console.log(2);
-
-		let userSN = $('#userSN').val();
-		let optionStrs = $('#option').val().split(',');
-		let options = [];
-
-		for(idx in optionStrs) {
-			opt = parseInt(optionStrs[idx]);
-			console.log("set opt:" + opt);
-			if (opt != undefined && opt != null && !isNaN(opt)) {
-				options.push(opt);
-			}
-		}
-
-		console.log("param options:" + options);
-
-		searchService.setOptions(
-				{userSN : userSN, options: options},
-				function(result) {
-					for(property in result) {
-						console.log("result [" + property + "] : " + result[property]);	
-					}
-				}
-			);
-	});
-
-	$("#btnSearch").on("click", function(e) {
-		e.preventDefault();
-
-		console.log(3);
-
-		let keyword = $('#keyword').val();
-		let userSN = $('#userSN').val();
-		
-		searchService.getSearchedList(
-				{keyword : keyword , userSN : userSN},
-				function(result) {
-					let datas = result.result
-					let resultHtml = "";
-
-					for(idx in datas) {	// 배열이라 인덱스
-						let data =  datas[idx];	// 단일 인덱스 개체는 인스턴스 객체
-						// 인스턴스 객체는  . <- 이걸로 이름을 그대로 쓸수 있음
-						console.log("result Data [" + idx + "] group("  + data.group + "), unizSN("  + data.unizSN + "), count("  + data.count + ")");
-						resultHtml += makeDivGroup(data);
-					}
-
-					contentHtml.html(resultHtml);
-				}
-			);
-	});
-
-	function setUnitagsByPreset(menu, limit) {
-		unizService.getPreset(
-				{menu : menu},
-				function(result) {
-					let keys = [];
-
-					let tagsHTML = ""; 
-
-					//tagsHTML += "<p><button id='tag' name='unitags' value='야구'>야구</button></p>"
-					for(let idx = 0 ; idx<limit ; idx++) {
-						let uniz = result[idx];
-						tagsHTML += "<p><button id='tag"+ idx +"' name='unitags' value='" + uniz.unizKeyword + "'>"  + uniz.unizKeyword + "</button></p>"
-						keys.push(uniz.unizKeyword);
-					}
-
-					$("#unitags").html(tagsHTML);
-
-					$("button[name='unitags']").each(function(i){
-						$(this).click(function(e){
-							e.preventDefault();
-							$("#keyword").val($(this).val());
-							$("#btnSearch").trigger("click");
-						})
-					});
-				}
-			);
-	}
-
-	function makeDivGroup(data) {
-
-		let divGroup = "";
-		console.log("div group("  + data.group + "), unizSN("  + data.unizSN + "), count("  + data.count + ")");
-		divGroup += "<div id='group_" + data.unizSN + "' value="+ data.unizSN +" count="+ data.count + ">";
-		divGroup += "<h3>#" + data.group + "</h3>";
-		divGroup += makeDivVideo(data.videoList);
-		divGroup += "</div>";
-
-		return divGroup;
-	}
-
-	function makeDivVideo(videoList) {
-		let divVideo = "";
-
-		for(idx in videoList) {	// 배열이라 인덱스
-			console.log("- videoList [" + idx + "]");
-			vdata = videoList[idx];	// 단일 인덱스 개체는 인스턴스 객체
-
-			divVideo += "<div id='video_" + vdata.videoSN + "'>";
-			divVideo += "<a href='/video/"+ vdata.videoSN + "'>";
-			divVideo += "<img src='https://i.ytimg.com/vi/"+ vdata.utbVideoID +"/maxresdefault.jpg' alt='" + vdata.title +"'></img>";
-			divVideo += "</a>";
-			divVideo += '</div>';		// end video div
-		}
-
-		return divVideo;
-	}
-});
-</script>
+<!-- js Func -->
+<script type="text/javascript" src="/resources/js/search.js"/></script>
 
 </body>
 </html>
