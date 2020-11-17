@@ -38,5 +38,9 @@ public class SearchMapperTest {
 		log.info("getUnizTypeFromUnizSN..... : " + list);
 	}
 	
+	@Test
+	public void testGetOptions() {
+		log.info("getOptions................ : " + mapper.getOptions(5001L));
+	}
 }
 

@@ -1,9 +1,11 @@
 package com.uniz.controller;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.uniz.domain.MenuType;
 import com.uniz.domain.SearchResult;
-import com.uniz.domain.UnizTypeEnum;
 import com.uniz.domain.UnizVO;
 import com.uniz.domain.VideoDataListResult;
 import com.uniz.service.SearchService;
@@ -38,9 +38,23 @@ public class SearchController {
 
 	@Setter(onMethod_ = @Autowired)
 	private UnizService unizService;
-	
+
 	@Setter(onMethod_ = @Autowired)
 	private SearchService searchService;
+
+
+	@GetMapping(value="/index")
+	public void index(Locale locale, Model model) {
+
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+
+		String formattedDate = dateFormat.format(date);
+
+		model.addAttribute("serverTime", formattedDate );
+
+		return;
+	}
 
 	@GetMapping(value="/list",
 			produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -96,10 +110,10 @@ public class SearchController {
 			produces = {
 					MediaType.APPLICATION_JSON_UTF8_VALUE
 				})
-	public ResponseEntity<Map<Integer, String>> setOptions(Integer[] options, Long userSN) {
+	public ResponseEntity<Map<Integer, String>> setOptions( @RequestParam("options") ArrayList<Integer> options, @RequestParam("userSN") Long userSN) {
 		log.info("options: " + options);
 
-		Map<Integer, String> map = searchService.setOptions(userSN, new ArrayList<Integer>(Arrays.asList(options)));
+		Map<Integer, String> map = searchService.setOptions(userSN, options);
 
 		System.out.println(map);
 

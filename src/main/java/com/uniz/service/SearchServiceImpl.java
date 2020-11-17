@@ -143,19 +143,26 @@ public class SearchServiceImpl implements SearchService {
 
 		List<Integer> list = new ArrayList<>();
 
-		Integer optionValue = mapper.getOptions(userSN);
+		Integer optionValue = userSN != null ? mapper.getOptions(userSN) : null;
+
+		if (optionValue == null) {
+			optionValue = (1<<UnizTypeEnum.SEARCHEND.getTypeSN()) - 1;
+		}
 
 		// TODO 스트림변환?
-		if (optionValue != null) {
-			UnizTypeEnum[] opts = UnizTypeEnum.values();
-			for( int i=1 ; i<opts.length ; i++) {
-				if (optionValue == 0) {
-					break;
-				} else if ((optionValue & 1) == 1 ) {
-					list.add(opts[i].getTypeSN());
-				}
-				optionValue >>>= 1;
+		// UnizTypeEnum 을 클래스로 변경하도록 고려
+		// 해당 클래스 리스트를 관리하는 매니저를 싱글턴으로 만들고
+		// 첫 호출 시점에 DB 접근해서 클래스 오브젝트를 박는 형태
+		//
+
+		UnizTypeEnum[] opts = UnizTypeEnum.values();
+		for( int i=1 ; i<opts.length ; i++) {
+			if (optionValue == 0) {
+				break;
+			} else if ((optionValue & 1) == 1 ) {
+				list.add(opts[i].getTypeSN());
 			}
+			optionValue >>>= 1;
 		}
 
 		return list;

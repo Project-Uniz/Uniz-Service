@@ -22,6 +22,7 @@ public enum UnizTypeEnum {
 	RECOMMEND(14, "추천", "Recommend"),
 	SEARCH(15, "검색옵션", "SearchOpt"),
 	HIT(16, "인기영상", "Hit"),
+	SEARCHEND(7, "검색옵션최고값", "SearchMax"),
 	;
 
 	private final int typeSN;
