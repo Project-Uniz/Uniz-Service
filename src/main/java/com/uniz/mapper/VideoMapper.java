@@ -9,4 +9,6 @@ import com.uniz.domain.VideoDataVO;
 public interface VideoMapper {
 
 	public List<VideoDataVO> getVideoList(@Param("unizSN") Long unizSN);
+	
+	public VideoDataVO getVideo(Long videoSn);
 }

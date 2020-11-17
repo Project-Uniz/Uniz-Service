@@ -33,26 +33,63 @@ public class UnizPointServiceImpl implements UnizPointService {
 										.build()) ) {
 				return false;
 			}
+
+			if (0 == mapper.addHistory(userSN, unizSN, point, 1)) {
+				return false;
+			}
 		}
 
 		return true;
 	}
 
+	@Transactional
 	@Override
 	public boolean setMyUnizPoint(Long userSN, List<Long> unizSNList, int point) {
 
-		return mapper.update(userSN, unizSNList, point) == unizSNList.size();
+		boolean result = false;
+		if ( mapper.update(userSN, unizSNList, point) == unizSNList.size() ) {
+			result = true;
+			for (Long unizSN : unizSNList) {
+				result = mapper.addHistory(userSN, unizSN, point, 2) == 1;
+				if (result == false) {
+					break;
+				}
+			}
+		}
+		return result;
 	}
 
+	@Transactional
 	@Override
 	public boolean incMyUnizPoint(Long userSN, List<Long> unizSNList, int point) {
 
-		return mapper.incMyUnizPoint(userSN, unizSNList, point) == unizSNList.size();
+		boolean result = false;
+		if ( mapper.incMyUnizPoint(userSN, unizSNList, point) == unizSNList.size() ) {
+			result = true;
+			for (Long unizSN : unizSNList) {
+				result = mapper.addHistory(userSN, unizSN, point, 3) == 1;
+				if (result == false) {
+					break;
+				}
+			}
+		}
+		return result;
 	}
 
+	@Transactional
 	@Override
 	public boolean decMyUnizPoint(Long userSN, List<Long> unizSNList, int point) {
 
-		return mapper.decMyUnizPoint(userSN, unizSNList, point) == unizSNList.size();
+		boolean result = false;
+		if ( mapper.decMyUnizPoint(userSN, unizSNList, point) == unizSNList.size() ) {
+			result = true;
+			for (Long unizSN : unizSNList) {
+				result = mapper.addHistory(userSN, unizSN, point, 4) == 1;
+				if (result == false) {
+					break;
+				}
+			}
+		}
+		return result;
 	}
 }
