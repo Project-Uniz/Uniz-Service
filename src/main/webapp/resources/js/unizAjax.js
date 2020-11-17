@@ -23,6 +23,25 @@ var unizService = (function(){
 		})
 	}
 
+	function registLike(params, callback, error) {
+		post("/uniz/mylike", params, callback, error);
+	};
+
+	function registDislike(params, callback, error) {
+		post("/uniz/mydislike", params, callback, error);
+	};
+
+	function feedPositive(params, callback, error) {
+		post("/uniz/positiveFeed", params, callback, error);
+	};
+
+	function feedNegative(params, callback, error) {
+		post("/uniz/negativeFeed", params, callback, error);
+	};
+
+	function feedRecovery(params, callback, error) {
+		post("/uniz/recoverFeed", params, callback, error);
+	};
 
 	function getPreset(params, callback, error) {
 		getJson("/uniz/getPreset", params, callback, error);
@@ -70,6 +89,11 @@ var unizService = (function(){
 
 	return {
 		post: post,
+		registLike: registLike,
+		registDislike: registDislike,
+		feedPositive: feedPositive,
+		feedNegative: feedNegative,
+		feedRecovery: feedRecovery,
 		getJson: getJson,
 		getPreset : getPreset,
 		getUnitags : getUnitags,

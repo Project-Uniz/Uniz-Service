@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.uniz.domain.MenuType;
 import com.uniz.domain.UnizVO;
 import com.uniz.mapper.UnizMapper;
 
@@ -54,7 +55,11 @@ public class UnizServiceImpl implements UnizService {
 	public List<UnizVO> getFavoriteList(Long userSN, int fvPoint, int limit) {
 		log.info("getFavoriteList............ : " + userSN + "/" + limit);
 
-		return mapper.getFavoriteList(userSN, fvPoint, limit);
+		// userSN 이 null 이면 추천메뉴 프리셋을 가져옴
+		return userSN != null ?
+				mapper.getFavoriteList(userSN, fvPoint, limit)
+				: getPresetList(MenuType.RECOMMEND.getMenu())
+					;
 	}
 
 	@Override
