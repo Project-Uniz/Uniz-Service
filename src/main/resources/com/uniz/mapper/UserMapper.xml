@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.uniz.mapper.UserMapper">
+  
+  <select id="getList" resultType="com.uniz.domain.UserTemp">
+  <![CDATA[
+  select * from UserTemp
+  
+  ]]>
+  </select>
+  
+  <insert id="insert">
+	<selectKey keyProperty="userSN" order="BEFORE" resultType="Long">
+	SELECT userData_SEQ.nextval FROM dual
+	</selectKey>
+	INSERT INTO userData (userSN, provider, userType, nick, imgUrl, state, lastLoginDateTime)
+		VALUES (#{userSN}, #{provider}, #{userType}, #{nick},  #{imgUrl, jdbcType=VARCHAR}, #{state},
+				sysdate)
+	</insert>
+	
+	<insert id="insertTemp">
+	insert into userTemp (userSN, userId, password) values( #{userSN}, #{userId}, #{password})
+	</insert>
+
+  
+  <select id="chkId" resultType="INTEGER">
+  select count(*) from userTemp where userId = #{userId} 
+  </select>
+  
+  <select id="isIdPwdValid" resultType="INTEGER">
+  select count(*) from userTemp where userId  = #{userId} and password =#{password}
+  </select>
+  
+  
+  <select id="selectUserTemp" resultType="com.uniz.domain.UserTemp">
+  select * from userTemp where userId = #{userId}
+  </select>
+  
+  <select id="getDataSN" resultType="long">
+  select userSN from userData where userSN = #{userSN}
+  </select>
+  
+  <select id="getUserData" resultType="com.uniz.domain.UserData">
+  select * from userData where userSN = #{userSN}
+  </select>
+  
+  
+  </mapper>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+
+
+</style>
+
+<body>
+    <form action="http://lab.alexcican.com/minimal_signup_form/about.html" method="get">
+        <h1>Sign up</h1><br/>
+      
+        <span class="input"></span>
+        <input type="text" name="name" placeholder="Full name" title="Format: Xx[space]Xx (e.g. Alex Cican)" autofocus autocomplete="off" required pattern="^\w+\s\w+$" />
+        <span class="input"></span>
+        <input type="email" name="email" placeholder="Email address" required />
+        <span id="passwordMeter"></span>
+        <input type="password" name="password" id="password" placeholder="Password" title="Password min 8 characters. At least one UPPERCASE and one lowercase letter" required pattern="(?=^.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"/>
+      
+        <button type="submit" value="Sign Up" title="Submit form" class="icon-arrow-right"><span>Sign up</span></button>
+      </form>   
+      
+      <form action="/" method="post">
+        UserId<input type="text" name="userId">
+        UserId<input type="text" name="pwd">
+            <input type="submit" value="submit">
+    
+    
+    </form>
+</body>
+</html>
