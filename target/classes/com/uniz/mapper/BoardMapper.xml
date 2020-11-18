@@ -45,7 +45,6 @@
 		
 		<![CDATA[
 			 rownum <= #{pageNum} * #{amount} 
-			
 			)
 		where rn > (#{pageNum} -1 ) * #{amount}
 		]]>
