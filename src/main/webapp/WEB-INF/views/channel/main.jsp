@@ -11,7 +11,8 @@
 
 <h1> 채널 게시판 </h1>
 	<div>
-	<button  id="boardPost">카테고리 별 게시판으로 이동</button>
+	<button id="boardPost">카테고리 별 게시판으로 이동</button>
+	<button id="createChannel">채널 게시판 신청 페이지로 이동</button>
 	</div>
 	<h3>채널 목록</h3>
 	<div id = "channelList"></div>
@@ -37,6 +38,9 @@ $(document).ready(function(){
 	
 	$("#boardPost").on("click",function(){
 		self.location = "/board/list";
+	});
+	$("#createChannel").on("click" , function(){
+		self.location = "/channel/chcreate";
 	});
 	
 });
