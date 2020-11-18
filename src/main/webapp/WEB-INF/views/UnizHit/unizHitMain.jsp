@@ -12,16 +12,17 @@
 .navbar {
 	width: 100%;
 	height: 20%;
-	background-color: orange;
+	background-color: black;
 	position: absolute;
 	left: 0px;
 	top: 0px;
 	list-style: none;
 	display: inline-block;
 }
-.main{
+.mainlogo{
 	font-size : 100px;
 	font-weight: bold;
+	color : white;
 }
 
 .navbar ul {
@@ -36,9 +37,8 @@
 .navbar ul li a {
 	text-decoration: none;
 	padding: 12px 16px;
-	/* color: white; */
 	color: white;
-	font-size: 30px;
+	font-size: 20px;
 	
 	/* background-color: rosybrown; */
 }
@@ -55,6 +55,7 @@ span ul {
 .wrap {
 	width: 100%;
 	height: 100%;
+	
 }
 
 .inner-div-800 {
@@ -65,6 +66,8 @@ span ul {
 .inner-div-1200 {
 	width: 90%;
 	height: 100%;
+	
+	
 }
 
 .keyword-align-center {
@@ -101,14 +104,12 @@ span ul {
 </style>
 
 <body>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<div class="wrap">
-
 
 		<div class="navbar">
 			<ul>
-				<li class="main">UNIZ</li>
+				<li class="mainlogo">UNIZ</li>
 				<li><a href="#인기">인기</a></li>
 				<li><a href="#추천">추천</a></li>
 				<li><a href="#검색">검색</a></li>
@@ -116,48 +117,24 @@ span ul {
 
 				<span>
 					<ul>
-						<li><a href="#">icon</a></li>
+						<li><a href="/user/register">Register</a></li>
+						<li><a href="/user/loginForm">Login</a></li>
+						<li><a href="/user/logout">Logout</a></li>
 						<li><a href="#">icon2</a></li>
-
+						<li><a href="#">icon2</a></li>
 					</ul>
 				</span>
 			</ul>
 		</div>
 
-	</div>
+	
 
 	<div class="inner-div-800">
 
 		<div class="keyword-align-center">
 			<div class="keyword-content">
-				<input type="text" id="" name="" size="100">
-				<button>옵션</button>
-				<br>
-				<p>
-					<button>키워드1</button>
-					<button>X</button>
-				</p>
-				<p>
-					<button>키워드1</button>
-					<button>X</button>
-				</p>
-				<p>
-					<button>키워드1</button>
-					<button>X</button>
-				</p>
-				<p>
-					<button>키워드1</button>
-					<button>X</button>
-				</p>
-				<p>
-					<button>키워드1</button>
-					<button>X</button>
-				</p>
-				<p>
-					<button>키워드1</button>
-					<button>X</button>
-				</p>
-
+				<input type="text" id="keyword" placeholder="keyword" size ="100" readonly><br>
+				<div id="unitags"></div>
 			</div>
 
 
@@ -176,10 +153,9 @@ span ul {
 
 		</div>
 	</div>
-
-
-
-	<script src="/resources/unizHit.js"></script>
+</div>
+	<script src="/resources/js/unizHit.js"></script>
+	<script src="/resources/js/unizAjax.js"></script>
 
 	<script>
 		$(document).ready(function() {
@@ -187,7 +163,41 @@ span ul {
 
 		});
 	</script>
+	
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	let searchMenuNum = 5;
 
+	setUnitagsByPreset(searchMenuNum, 13);
+	
+	function setUnitagsByPreset(menu, limit) {
+		unizService.getPreset(
+				{menu : menu},
+				function(result) {
+					let keys = [];
 
+					let tagsHTML = ""; 
+
+					//tagsHTML += "<p><button id='tag' name='unitags' value='야구'>야구</button></p>"
+					for(let idx = 0 ; idx<limit ; idx++) {
+						let uniz = result[idx];
+						tagsHTML += "<p><button id='tag"+ idx +"' name='unitags' value='" + uniz.unizKeyword + "'>"  + uniz.unizKeyword + "</button></p>"
+						keys.push(uniz.unizKeyword);
+					}
+
+					$("#unitags").html(tagsHTML);
+
+					$("button[name='unitags']").each(function(i){
+						$(this).click(function(e){
+							e.preventDefault();
+							$("#keyword").val($(this).val());
+						})
+					});
+				}
+			);
+	}
+});
+</script>
 </body>
 </html>
