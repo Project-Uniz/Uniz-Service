@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.uniz.domain.ChannelBoardVO;
-import com.uniz.domain.Criteria;
+import com.uniz.domain.ChannelVO;
 import com.uniz.mapper.ChannelMapper;
 
 import lombok.AllArgsConstructor;
@@ -40,6 +40,10 @@ public class ChannelServiceImpl implements ChannelService {
 	public List<ChannelBoardVO> getPost(Long postSN){
 		log.info("게시글 출력 ");
 		return mapper.getPost(postSN);
+	}
+	
+	public void createChannel(ChannelVO vo) {
+		mapper.createChannel(vo);
 	}
 	
 	@Transactional

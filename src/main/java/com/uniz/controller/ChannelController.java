@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uniz.domain.ChannelBoardVO;
+import com.uniz.domain.ChannelVO;
 import com.uniz.service.ChannelService;
 
 import lombok.AllArgsConstructor;
@@ -34,6 +35,13 @@ public class ChannelController {
 		
 		return "channel/main";
 	}
+	
+	//채널 생성 페이지로 이동
+	@GetMapping("/chcreate")
+	public String getChCreate(Model model) {
+		return "channel/chcreate";
+	}
+	
 	
 	// postSN 을 가진채로 게시글 읽는 페이지로 이동
 	@GetMapping("/get/{postSN}")
@@ -59,6 +67,7 @@ public class ChannelController {
 		return "channel/register";
 	}
 	
+	// posSN 과 channelSN을 가지고 게시글 수정 페이지로 이동
 	@GetMapping("/modify/{postSN}/{channelSN}")
 	public String modify(@PathVariable("postSN") Long postSN,@PathVariable("channelSN") Long channelSN , Model model) {
 		return "channel/modify";
@@ -75,6 +84,12 @@ public class ChannelController {
 		return "redirect:/channel/board/" + vo.getChannelSN();
 	}
 	
+	@PostMapping("/chcreate")
+	public String createChannel (ChannelVO vo , RedirectAttributes rttr) {
+		service.createChannel(vo);
+		rttr.addFlashAttribute("reult", vo.getChannelTitle());
+		return "redirect:/channel/ch/";
+	}
 	
 	// 채널  목록 보여줌
 	@GetMapping(value= "/list" ,
@@ -145,6 +160,7 @@ public class ChannelController {
 		return "redirect:/channel/board/" + channelSN;
 		
 	}
+	
 	
 	
 }

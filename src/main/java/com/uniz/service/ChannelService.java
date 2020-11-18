@@ -3,7 +3,7 @@ package com.uniz.service;
 import java.util.List;
 
 import com.uniz.domain.ChannelBoardVO;
-import com.uniz.domain.Criteria;
+import com.uniz.domain.ChannelVO;
 
 public interface ChannelService {
 	
@@ -14,6 +14,8 @@ public interface ChannelService {
 	public List<ChannelBoardVO> getAllPost();
 	
 	public List<ChannelBoardVO> getPost(Long postSN);
+	
+	public void createChannel(ChannelVO vo);
 	
 	public void register(ChannelBoardVO vo);
 	
