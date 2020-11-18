@@ -2,66 +2,360 @@
     pageEncoding="UTF-8"%>
     
 
-    
-<%-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-<h1>register success? ${msg}</h1>
-<h1>id correct ? ${msg2}</h1>
-
-
-
-<a href="/user/register">회원가입폼으로 가기.</a>
-<a href="/user/loginForm">로그인으로 가기.</a>
-
-<a href="/user/logout">로그아웃하기.</a>
-
-</body>
-</html> --%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="grid-guide.css"> -->
     <title>Document</title>
     <link href='http://fonts.googleapis.com/css?family=Paytone+One' rel='stylesheet' type='text/css'>
     
+    
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <!-- 위에거 내가 폰트어썸사이트 가서 찾은 링크 렐인데 이거 써도 아이콘이 유지된다. 배치가 쪼오금 다른 것 같긴한데... 거의 같애 썅  -->
     <link rel="stylesheet" type="sample/css">
 
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet">
-
-    <link rel="stylesheet"  type="text/css" href="/resources/project/MainStyle.css"  />
-    <!-- css address -->
 </head>
-<style>
-</style>
+    <style>
+        
+        *{
+            font-family: '맑은 고딕', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+      video { max-width: 100%;  display: block; margin: 0px auto; }
+      
+      .videoContainer{
+          position:relative;
+          height: 400px;
+          overflow:hidden;
+      }
+      
+.box11 {
+  position: relative;
+  background-color: black;
+          width: auto;
+          height: 240px;
+          }
+
+/* Slides */
+.mySlides {
+  display: none;
+  padding: 0;
+  
+  /* text-align: center; */
+}
+.slideBox{
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+    
+    
+    
+
+}
+.slideBox  p{
+
+
+    width: 17%;
+    height: 100%;
+    /* display: inline-flex; */
+    display: inline-block;
+    margin-top: 50px;
+    margin-left: 13px;
+    margin-right: 13px;
+    opacity: 1;
+
+
+   
+}
+
+
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -30px;
+  padding: 16px;
+  color: #888;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  position: absolute;
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+}
+      .navbar{
+          width: 100%;
+          height: 50px;
+          /* background-color: skyblue; */
+          position: absolute;
+          left: 0px;
+          top: 0px;
+          list-style: none;
+          display: inline-block;
+
+      }
+      
+      .navbar ul{
+          display: flex;
+          
+          
+      }
+      .navbar ul li{
+          list-style: none;
+          padding: 15px;
+
+      }
+      .navbar ul li a{
+        text-decoration: none;
+          padding: 12px 16px;
+          color: white;
+          font-size: 20px;
+           /* background-color: rosybrown; */
+          
+      }
+      
+      span{
+          position: absolute;
+          right: 0;
+      }
+      span ul{
+          display: inline-block;
+      }
+      .text{
+          color: white;
+          font-size: 52px;
+          padding:  50px 0px 0px 30px;
+          margin: 0;
+          box-sizing: border-box;
+      }
+      .smText{
+          font-size: 26px;
+      }
+      
+.box2{
+    box-sizing: border-box;
+    width:100%;
+    height: 600px;
+    background-color: tan;
+    position:relative;
+}
+.box3{
+    background-color: tomato;
+    position: absolute;
+    width: 70%;
+    left: 0;
+    height: 60%;
+}
+.box4{
+    /* background-color: violet; */
+    background-color: white;
+    position:absolute;
+    top: 60%;
+    width: 70%;
+    left: 0;
+    height: 40%;
+    
+}
+.box5{
+    /* background-color: turquoise;
+     */
+     
+     background-color:rgb(15, 31, 32);
+     color: rgb(234, 236, 255);
+    position:absolute;
+    right: 0;
+    width: 30%;
+    height: 100%;
+}
+.imgbox{
+
+    width: 80%;
+    height: 80%;
+    /* background-color: chartreuse; */
+    margin: auto;
+    float:inline-end;
+    overflow: auto;
+}
+.imgbox ul{
+    
+    list-style-type: none;
+    
+    margin-top: 10px;
+
+}
+/* .imgbox ul li{
+    
+    position: absolute;
+    width: 100%;
+    height: auto;    
+   
+}  */
+ .imgbox p img{
+    width: 100%;
+    margin-bottom: 10px;
+    opacity: 0.6;
+
+
+} 
+.imgbox p img:hover{
+    opacity: 1;
+}
+.banner{
+    position:absolute;
+    top: 30px;
+    left: 20px;
+    font-size: 30px;
+    color:whitesmoke;
+
+    /* background-color: black; */
+}
+.box6{
+    /* background-color: yellowgreen; */
+    width: 100%;
+    height: 40%;
+    position:absolute;
+    top: 45%;
+}
+.box7{
+    display:flex;
+    justify-content: space-around;
+    margin: 30px 0 10px 0;
+    height: 60%;
+    overflow: auto;
+}
+.items{
+    background-color: rgb(19, 224, 243);
+    border-radius: 30px;
+    width: 15%;
+    height: 100%;
+}
+.items div{
+    text-align: center;
+    margin: 20px 0 20px 0;
+}
+.words p{
+    font-size: 35px;
+    z-index: 3;
+    text-align: center;
+    color: #000000;
+    font-weight: bold;
+    padding-top: 20px;
+}
+.community{
+    width: 100%;
+    height: 290px;
+    background-color: gold;
+    position: relative;
+}
+.cmBox{
+    position: relative;
+}
+.commu{
+    position: absolute;
+    
+    right: 450px;
+    
+}
+.commu li a{
+    text-decoration: none;
+    color: black;
+    margin: auto;
+}
+.commu li{
+
+    list-style-type: none;
+}
+.commu h1{
+    padding: 30px  0 30px 0;
+}
+.buttonBox{
+    position: absolute;
+    left: 40%;
+    top: 70%;
+}
+#button{
+    padding: 20px 35px;
+    background-color: orange;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    border: 0;
+    outline: 0;
+    
+}
+.footer{
+    background-color: black;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position:relative;
+}
+.f1{
+    background-color: indigo;
+    width:50%;
+    height: 100%;
+    position:absolute;
+    left:0;
+}
+        
+.f2{
+    background-color: lightblue;
+    width:50%;
+    height: 100%;
+    position: absolute;
+    right: 0;
+
+}
+#iframe iframe{
+    position:absolute;
+    top: 400px;
+}
+
+    </style>
   </head>
   <body>
+    
     <div class="videoContainer">
-          <video muted autoplay loop>
+        <video muted autoplay loop>
           <source src="/resources/project/Cute Cat - 3092.mp4" type="video/mp4">
           <strong>Your browser does not support the video tag.</strong>
         </video>
         
         <div class="navbar">
             <ul>
-                <li><a href="#">인기</a></li>
+                <li><a href="iframe" target ="trg" >Home</a></li>
+                <li><a href="#" >인기</a></li>
                 <li><a href="#">추천</a></li>
-                <li><a href="/search/index">검색</a></li>
-                <li><a href="#">커뮤니티</a></li>
+                <li><a href="/search/index" target="trg">검색</a></li>
+                <li><a href="#" >커뮤니티</a></li>
+
                 
                 <span>
                     <ul>
-                    	<li><a href="/user/register">Register</a></li>
+                        <li><a href="/user/register">Register</a></li>
                         <li><a href="/user/loginForm">Login</a></li>
-                        <li><a href="/user/logout">Logout</a></li>
+                        <li><a href="/user/loginForm">Logout</a></li>
                         <li><a href="#">icon</a></li>
                         <li><a href="#">icon2</a></li>
 
@@ -80,208 +374,21 @@
 
             </div>
             
+            
+            
         </div>
-		 </div>
+    </div>
+
+    <div id="iframe">
+
+        <iframe src="iframe" name="trg"  frameborder="0" style="width: 100%; height: 100%;"></iframe>
+    </div>
+
     
-    <div class="box11">
-        <div class="slideshow-container">
-
-            <div class="mySlides">
-                <div class="slideBox">
-                    
-                    <p><video  muted autoplay loop>
-                        <source src="/resources/project/Dance - 32936.mp4" type="video/mp4">
-                        <strong>Your browser does not support the video tag.</strong>
-                      </video></p>
-                      <p><video  muted autoplay loop>
-                        <source src="/resources/project/Food - 24999.mp4" type="video/mp4">
-                        <strong>Your browser does not support the video tag.</strong>
-                      </video></p>
-                      <p><video  muted autoplay loop>
-                        <source src="/resources/project/Light - 44008.mp4" type="video/mp4">
-                        <strong>Your browser does not support the video tag.</strong>
-                      </video></p>
-                      <p><video  muted autoplay loop>
-                        <source src="/resources/project/Lights - 32299.mp4" type="video/mp4">
-                        <strong>Your browser does not support the video tag.</strong>
-                      </video></p>
-                      <p><video  muted autoplay loop>
-                        <source src="/resources/project/Galaxy - 535.mp4" type="video/mp4">
-                        <strong>Your browser does not support the video tag.</strong>
-                      </video></p>
-
-                </div>
-            </div>
-            
-            <div class="mySlides">
-                <div class="slideBox">
-                    
-                    <p><video  muted autoplay loop>
-                        <source src="/resources/project/Woman Applying Makeup - 12004.mp4" type="video/mp4">
-                        <strong>Your browser does not support the video tag.</strong>
-                      </video></p>
-                      <p><video  muted autoplay loop>
-                        <source src="/resources/project/Music - 45450.mp4" type="video/mp4">
-                        <strong>Your browser does not support the video tag.</strong>
-                      </video></p>
-                      <p><video  muted autoplay loop>
-                        <source src="/resources/project/Beach - 997.mp4" type="video/mp4">
-                        <strong>Your browser does not support the video tag.</strong>
-                      </video></p>
-                      <p><video  muted autoplay loop>
-                        <source src="/resources/project/Light - 44008.mp4" type="video/mp4">
-                        <strong>Your browser does not support the video tag.</strong>
-                      </video></p>
-                      <p><video  muted autoplay loop>
-                        <source src="/resources/project/Lights - 32299.mp4" type="video/mp4">
-                        <strong>Your browser does not support the video tag.</strong>
-                      </video></p>
-                      
-
-                </div>
-            </div>
-            
-            <div class="mySlides">
-                <div class="slideBox">
-                    
-                    <p><video  muted autoplay loop>
-                        <source src="/resources/project/Beach - 997.mp4" type="video/mp4">
-                        <strong>Your browser does not support the video tag.</strong>
-                    </video></p>
-                    <p><video  muted autoplay loop>
-                        <source src="/resources/project/Food - 24999.mp4" type="video/mp4">
-                            <strong>Your browser does not support the video tag.</strong>
-                        </video></p>
-                        <p><video  muted autoplay loop>
-                                <source src="/resources/project/Woman Applying Makeup - 12004.mp4" type="video/mp4">
-                        <strong>Your browser does not support the video tag.</strong>
-                      </video></p>
-                      <p><video  muted autoplay loop>
-                        <source src="/resources/project/gold.mp4" type="video/mp4">
-                        <strong>Your browser does not support the video tag.</strong>
-                      </video></p>
-                      <p><video  muted autoplay loop>
-                        <source src="/resources/project/Dance - 32936.mp4" type="video/mp4">
-                        <strong>Your browser does not support the video tag.</strong>
-                      </video></p>
-                      
-                </div>
-            </div>
-            
-            <a class="prev" onclick="plusSlides(-1)">❮</a>
-            <a class="next" onclick="plusSlides(1)">❯</a>
-            
-            </div>
-
-    </div>
-
-    <div class="box2">
-        <div class="box3">
-                <div class="banner">
-                    <p>매일매일 신나게! 더 즐겁게! Uniz? Wniz!</p>
-                </div>
-                <video id="box4Video" muted autoplay loop>
-                    <source src="/resources/project/Dance - 32936.mp4" type="video/mp4">
-                    <strong>Your browser does not support the video tag.</strong>
-                  </video>
-        </div>
-        <div class="box4">
-            <div class="words">
-
-                <p>걱정마! 알아서 취향 띄워줄게!</p>
-                    <h3 style="text-align: center;">다양한, 새로운, 취향에 맞는 키워드를 쏙쏙!</h3>
-            </div>
-            
-            <div class="box6">
-                <div class="box7">
-                    <div class="items">
-                        <div>
-                            <p>예능</p>
-                        </div>
-                    </div>
-                    <div class="items">
-                        <div>
-                            <p>아기고양이</p>
-                        </div>
-                    </div>
-                    <div class="items">
-                        <div>
-                            <p>농구</p>
-                        </div>
-                    </div>
-                    <div class="items">
-                        <div>
-                            <p>팝송</p>
-                        </div>
-                    </div>
-                    <div class="items">
-                        <div>
-                            <p>브이로그</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="box5">
-         <p style="font-size: 20px; padding: 10px 0 0 10px;">한가득 쏟아지는 오늘의 인기영상!</p>    
-            
-         <div class="imgbox">
-             <ul>
-                 <li><p><img src="/resources/project/img1.png" alt=""></p>
-                 </li>
-                 <li><p><img src="/resources/project/img2.png" alt=""></p>
-                 </li>
-                 <li><p><img src="/resources/project/img3.png" alt=""></p>
-                 </li>
-                </ul>
-
-         </div>
-        </div>
-    </div>
-    <div class="community">
-        <div class="cmBox">
-        <aside class="commu">
-            <h1>영상만 보기에는 뭔가 아쉽다....</h1>
-            <ul>
-                <li><a href="#">
-                    <i class="fa fa-caret-right"></i>알기 쉬운 영상 찾기 방법
-                </a></li>
-                <li><a href="#">
-                    <i class="fa fa-caret-right"></i>내가 제일 좋아하는 영상 찾기
-                </a></li>
-                <li><a href="#">
-                    <i class="fa fa-caret-right"></i>인기 영상 파악으로 트렌드 세터되기
-                </a></li>
-                <li><a href="#">
-                    <i class="fa fa-caret-right"></i>커뮤니티를 통해 다른 유니즈유저들과 소통하기
-                </a></li>
-            </ul>
-        </aside>
-        </div>
-             <div class="buttonBox">
-
-                 <button id="button">지금 수다떨러 가기</button>
-
-             </div>
-
-             
-            </div>
-                 <div class="footer">
-                     <div class="f1">
-                            <div class="f3">
-
-                            </div>
-                            <div class="f5">
-
-                            </div>
-                            <div class="f4">
-
-                            </div>
-                     </div>
-                     <div class="f2">
-
-                     </div>
-                 </div> 
+   
+          
+  </body>
+</html>
  <script> 
     var slideIndex = 1; 
     showSlides(slideIndex); 

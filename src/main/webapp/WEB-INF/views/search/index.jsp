@@ -80,7 +80,7 @@
     width: 820px;
     padding-top: 40px;
     padding-right: 100px;
-    margin-top: 12%;
+   /* margin-top: 12%;  */
 }
 .inner-div-1200{
     width: 90%;
@@ -155,35 +155,10 @@
 }
 </style>
 <body>
-    <div class="navbar">
-            <ul>
-                <li class="mainlogo">UNIZ</li>
-                <li><a href="#">인기</a></li>
-                <li><a href="#">추천</a></li>
-                <li><a href="/search/index">검색</a></li>
-                <li><a href="#">커뮤니티</a></li>
-                
-                <span>
-                        <ul>
-
-                            <li><a href="/user/register">Register</a></li>
-                            <li><a href="/user/loginForm">Login</a></li>
-                            <li><a href="/user/logout">Logout</a></li>
-                            <li><a href="#">icon</a></li>
-                            <li><a href="#">icon2</a></li>
-            
-
-                        </ul>
-
-                </span>
-            </ul>
-
-           
-        </div>
+    
     
     <div class="wrap">
         <div class="">
-            <h1 style="text-align: center;">header</h1>
         </div>
     
         <div class="inner-div-800">
