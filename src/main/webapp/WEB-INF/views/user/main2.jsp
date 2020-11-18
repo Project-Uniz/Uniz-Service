@@ -381,7 +381,7 @@
 
     <div id="iframe">
 
-        <iframe src="iframe" name="trg"  frameborder="0" style="width: 100%; height: 100%;"></iframe>
+         <iframe src="/homecontent" name="fr1" width="800" height="800"></iframe>
     </div>
 
     

@@ -1,4 +1,4 @@
-package com.uniz.controller;
+  package com.uniz.controller;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +24,6 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/user/*")
 @AllArgsConstructor
 @SessionAttributes
-
 public class UserController {
 
 		private UserService service;

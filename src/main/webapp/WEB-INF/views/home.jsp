@@ -9,14 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="grid-guide.css"> -->
     <title>Document</title>
-    <link href='http://fonts.googleapis.com/css?family=Paytone+One' rel='stylesheet' type='text/css'>
+    <!-- <link href='http://fonts.googleapis.com/css?family=Paytone+One' rel='stylesheet' type='text/css'> -->
     
-    
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
     <!-- 위에거 내가 폰트어썸사이트 가서 찾은 링크 렐인데 이거 써도 아이콘이 유지된다. 배치가 쪼오금 다른 것 같긴한데... 거의 같애 썅  -->
-    <link rel="stylesheet" type="sample/css">
+    <!-- <link rel="stylesheet" type="sample/css"> -->
 
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet">
+    <!-- <link href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet"> -->
 </head>
     <style>
         
@@ -32,7 +31,7 @@
       
       .videoContainer{
           position:relative;
-          height: 400px;
+          height: 100px; 
           overflow:hidden;
       }
       
@@ -129,7 +128,7 @@
       .navbar ul li a{
         text-decoration: none;
           padding: 12px 16px;
-          color: white;
+          color: black;
           font-size: 20px;
            /* background-color: rosybrown; */
           
@@ -329,32 +328,28 @@
 }
 #iframe iframe{
     position:absolute;
-    top: 400px;
+    top: 80px;
 }
 
     </style>
   </head>
   <body>
     
-    <div class="videoContainer">
-        <video muted autoplay loop>
-          <source src="/resources/project/Cute Cat - 3092.mp4" type="video/mp4">
-          <strong>Your browser does not support the video tag.</strong>
-        </video>
-        
+	<div class="videoContainer">
+		
+	
         <div class="navbar">
             <ul>
                 <li><a href="iframe" target ="trg" >Home</a></li>
-                <li><a href="#" >인기</a></li>
+                <li><a href="/UnizHit/UnizHit" target="trg">인기</a></li>
                 <li><a href="#">추천</a></li>
                 <li><a href="/search/index" target="trg">검색</a></li>
-                <li><a href="#" >커뮤니티</a></li>
-
-                
+                <li><a href="/board/list" target="trg">커뮤니티</a></li>
+         
                 <span>
                     <ul>
-                        <li><a href="/user/register">Register</a></li>
-                        <li><a href="/user/loginForm">Login</a></li>
+                        <li><a href="/user/register" target="trg">Register</a></li>
+                        <li><a href="/user/loginForm" target="trg">Login</a></li>
                         <li><a href="/user/loginForm">Logout</a></li>
                         <li><a href="#">icon</a></li>
                         <li><a href="#">icon2</a></li>
@@ -362,53 +357,16 @@
                     </ul>
                 </span>
             </ul>
-
-            <div class="textContainer">
-
-                <div class="text">
-                    <div class="smText">
-                        <p>you need</p>
-                    </div>
-                    <h1>Uniz</h1>
-                </div>
-
-            </div>
+		
             
+         </div>   
             
             
         </div>
-    </div>
 
     <div id="iframe">
-
-        <iframe src="iframe" name="trg"  frameborder="0" style="width: 100%; height: 100%;"></iframe>
+        <iframe src="/maincontent" name="trg"  frameborder="0" style="width: 100%; height: 100%;"></iframe>
     </div>
 
-    
-   
-          
-  </body>
-</html>
- <script> 
-    var slideIndex = 1; 
-    showSlides(slideIndex); 
-     
-    function plusSlides(n) { 
-          showSlides(slideIndex += n);     } 
-     
-    function currentSlide(n) { 
-          showSlides(slideIndex = n);     } 
-     
-    function showSlides(n) { 
-          var i; 
-      var slides = document.getElementsByClassName("mySlides"); 
-     
-      if (n > slides.length) {slideIndex = 1}     
-      if (n < 1) {slideIndex = slides.length} 
-      for (i = 0; i < slides.length; i++) { 
-              slides[i].style.display = "none";         } 
-       
-      slides[slideIndex-1].style.display = "block";            } 
-</script>
   </body>
 </html>

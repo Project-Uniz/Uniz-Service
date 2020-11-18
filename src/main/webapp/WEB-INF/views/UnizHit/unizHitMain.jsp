@@ -59,7 +59,6 @@ span ul {
 
 .inner-div-800 {
 	width: 820px;
-	margin-top: 12%;
 }
 
 .inner-div-1200 {
@@ -70,7 +69,7 @@ span ul {
 .keyword-align-center {
 	position: relative;
 	height: 100px;
-	top: 50%;
+	top: 30px;
 	left: 50%;
 	border: 1px solid black;
 	padding-left: 20px;
@@ -103,28 +102,7 @@ span ul {
 <body>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	<div class="wrap">
-
-
-		<div class="navbar">
-			<ul>
-				<li class="main">UNIZ</li>
-				<li><a href="#인기">인기</a></li>
-				<li><a href="#추천">추천</a></li>
-				<li><a href="#검색">검색</a></li>
-				<li><a href="#커뮤니티">커뮤니티</a></li>
-
-				<span>
-					<ul>
-						<li><a href="#">icon</a></li>
-						<li><a href="#">icon2</a></li>
-
-					</ul>
-				</span>
-			</ul>
-		</div>
-
-	</div>
+	
 
 	<div class="inner-div-800">
 

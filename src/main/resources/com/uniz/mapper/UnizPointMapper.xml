@@ -68,7 +68,7 @@
 	</select>
 
 	<insert id="addHistory">
-	INSERT INTO unizpointhistory (userSN, unizSN, point, type)
+		INSERT INTO unizpointhistory (userSN, unizSN, point, type)
 		VALUES (#{userSN}, #{unizSN}, #{point}, #{type})
 	</insert>
 
