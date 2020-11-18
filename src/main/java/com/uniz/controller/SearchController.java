@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,7 +67,12 @@ public class SearchController {
 		List<UnizVO> searchUnizList = searchService.getSearchUnizList(userSN);
 
 		// 2. 서치 유니즈 리스트를 통해 비디오 데이터 검색
-		List<VideoDataListResult> resultVideos = searchService.getSearchResult(keyword, searchUnizList);
+		List<VideoDataListResult> resultVideos = searchService.getSearchResult(
+											keyword.stream()
+												.map(String::toUpperCase)
+												.collect(Collectors.toList()),
+											searchUnizList
+										);
 
 		SearchResult searchResult = new SearchResult(keyword, resultVideos);
 		// 3. 결과 반환
