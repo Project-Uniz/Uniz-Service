@@ -47,7 +47,7 @@ public class ChannelMapperTests {
 	
 	@Test
 	public void testGetList() {
-		log.info(mapper.getPostList(6L));
+		log.info(mapper.getPostList(5L));
 	}
 	
 }

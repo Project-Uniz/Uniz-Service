@@ -8,6 +8,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">게시판</h1>
+                    <button class='btn btn-default' id="channelBoard">채널 게시판으로 이동</button>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -139,7 +140,10 @@ $(document).ready(function(){
 	
 	var result = '<c:out value="${result}"/>';
 	history.replaceState( {}, null, null);
-		
+	
+	$("#channelBoard").on("click", function(){
+		self.location ="/channel/ch";
+	});
 			
 	$("#createBtn").on("click",function(){
 		self.location ="/board/register";

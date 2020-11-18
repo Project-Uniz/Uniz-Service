@@ -25,16 +25,16 @@ public class ChannelServiceTests {
 //		ChannelBoardVO vo = new ChannelBoardVO();
 //		
 //		vo.setChannelSN(6L);
-//		vo.setUserSN(7L);
-//		vo.setTitle("테스트");
-//		vo.setPostContent("테스트");
+//		vo.setUserSN(5L);
+//		vo.setTitle("멘붕");
+//		vo.setPostContent("멘붕이다");
 //		
-//		log.info("add count: " +service.register(vo));
+//		service.register(vo);
 //	}
 //	@Test
 //	public void testDelete() {
 //		
-//		service.delete(12L);
+//		service.delete(19L);
 //		log.info("삭제 완료");
 //	}
 	
@@ -43,9 +43,9 @@ public class ChannelServiceTests {
 		
 		ChannelBoardVO vo = new ChannelBoardVO();
 		
-		vo.setPostSN(14L);
-		vo.setTitle("왜 안돼");
-		vo.setPostContent("그러니까");
+		vo.setPostSN(22L);
+		vo.setTitle("컨트롤러가 문제인가");
+		vo.setPostContent("아니 내가 문제야");
 		
 		service.update(vo);
 		

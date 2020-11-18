@@ -33,21 +33,21 @@ public class BoardMapperTests {
 //	}
 	
 	
-	@Test
-	public void insert() {
-		
-		BoardVO board = new BoardVO();
-		
-		board.setUserSN(4L);
-		board.setTitle("44444444");
-		
-		board.setPostContent("ddddddd"); 
-		
-		log.info("postSN = "+board.getPostSN());
-		
-		service.register(board);
-		
-	}
+//	@Test
+//	public void insert() {
+//		
+//		BoardVO board = new BoardVO();
+//		
+//		board.setUserSN(4L);
+//		board.setTitle("44444444");
+//		
+//		board.setPostContent("ddddddd"); 
+//		
+//		log.info("postSN = "+board.getPostSN());
+//		
+//		service.register(board);
+//		
+//	}
 	
 //	@Test
 //	public void testRead() {
@@ -58,12 +58,12 @@ public class BoardMapperTests {
 //		
 //	}
 	
-	@Test
-	public void testDelete() {
-		
-		log.info("결과 : " + mapper.deleteReply(51L)) ;
-		
-	}
+//	@Test
+//	public void testDelete() {
+//		
+//		log.info("결과 : " + mapper.deleteReply(51L)) ;
+//		
+//	}
 //	
 //	@Test
 //	public void testUpdate() {
@@ -78,19 +78,19 @@ public class BoardMapperTests {
 //		
 //	}
 	
-//	@Test
-//	public void testPaging() {
-//		
-//		Criteria cri = new Criteria();
-//		
-//		cri.setPageNum(2);
-//		cri.setAmount(10);
-//		
-//		List<BoardVO> list = mapper.getListWithPaging(cri);
-//		
-//		list.forEach(board -> log.info(board));
-//		
-//	}
+	@Test
+	public void testPaging() {
+		
+		Criteria cri = new Criteria();
+		
+		cri.setPageNum(2);
+		cri.setAmount(10);
+		
+		List<BoardVO> list = mapper.getListWithPaging(cri);
+		
+		list.forEach(board -> log.info(board));
+		
+	}
 	
 //	@Test
 //	public void testSearch() {

@@ -25,6 +25,8 @@ public class BoardController {
 	
 	private BoardService service;
 	
+	
+	
 	@GetMapping("/list")
 	public void list(Criteria cri ,Model model) {
 		

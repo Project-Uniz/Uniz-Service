@@ -4,26 +4,66 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 	<mapper namespace="com.uniz.mapper.ChannelMapper">
+		
+		
+		<resultMap id="getAllPostList" type="HashMap">
+			<result property="channelTitle" column="channeltitle"></result>
+			<result property="postSN" column="postsn"></result>
+			<result property="userSN" column="usersn"></result>
+			<result property="channelSN" column="channelsn"></result>
+			<result property="title" column="title"></result>
+			<result property="postContent" column="postContent"></result>
+			<result property="createDateTime" column="createdatetime"></result>
+			<result property="nick" column="nick"></result>
+		</resultMap>
+		
+		
 		<!-- 채널 게시판 목록 보여주기 -->
-		<select id="getChannelList" resultType="com.uniz.domain.ChannelVO">
+		<select id="getChannelList" resultType="com.uniz.domain.ChannelVO" resultMap="getAllPostList">
 			select channelsn,  channeltitle, CHANNELCOMMENT ,createdatetime
 			from channel
 			
 		</select>
 		
 		<!-- 해당 게시판의 게시글 목록 보여주기 -->
-		<select id ="getPostList" resultType="com.uniz.domain.ChannelBoardVO">
-			select channelsn , title , createdatetime
-			from channelpost
-			where channelsn = #{channelSN}
+		<select id ="getPostList" resultType="com.uniz.domain.ChannelBoardVO" resultMap="getAllPostList">
+			select p.channelsn , p.title , p.createdatetime , c.channeltitle , u.nick ,p.postSN 
+			from channelpost p , channel c , userdata u
+			where p.channelsn = #{channelSN} and c.channelsn = p.channelsn and u.usersn = p.usersn
+			order by p.postsn desc
 		</select>
 		
-		<!-- 게시글 보여 주기 -->
-		<select id ="getPost" resultType="com.uniz.domain.ChannelBoardVO">
-			select p.channelsn , p.postsn, p.usersn, p.title , p.createdatetime , c.postContent
-			from channelpost p , channelpostcontent c
-			where p.postsn = #{postSN} and c.postSN = p.postSN
+		
+		<!-- 게시글 전체 목록 보여주기	 -->
+		<select id="getAllPost" resultType="com.uniz.domain.ChannelBoardVO" resultMap="getAllPostList">
+			<![CDATA[
+		 select *
+        	from(
+            	select rownum rn , a.*
+            	from
+                	(
+                	select
+                    	c.channelTitle , p.postsn , p.title , u.nick , p.createdatetime
+                    	from channel c , channelpost p , userdata u
+                    	where p.usersn = u.usersn and c.channelsn = p.channelsn
+                    	order by p.postsn desc
+               		)a
+			]]>
+			<![CDATA[
+				where rownum <= 10
+				)
+			where rn >= 1
+			]]>
 		</select>
+
+		<!-- 게시글 보여 주기 -->
+		<select id ="getPost" resultType="com.uniz.domain.ChannelBoardVO" resultMap="getAllPostList">
+			select  p.postsn, u.nick, p.title , c.postContent , p.createdatetime , p.channelSN
+			from channelpost p , channelpostcontent c , userdata u
+			where p.postsn = #{postSN} and c.postSN = p.postSN and u.usersn = p.usersn
+			
+		</select>
+		
 	
 		<insert id="createChannel">
 			insert into channel (channelsn, channeltitle, channelcomment, createdatetime, updatedatetime)

@@ -139,21 +139,10 @@ $(document).ready(function(){
 	showList(1);
 	
 	
-	channelService.update({
-		postSN : 14,
-		title : "파싱을 어떻게 해야 할까",
-		postContent : "그러게 말이야"
-	} , function(result){
-		alert("수정완료");
-	});
-
-	
 	function showList(page){
-		console.log("show list: " + page);
+		
 		replyService.getList({postSN:postValue, page: page || 1 }, function(replyCnt, list){
-			console.log("replyCnt: " + replyCnt);
-			console.log("list: " + list);
-			console.log(list);
+			
 			
 			if(page == -1 ){
 				pageNum = Math.ceil(replyCnt / 10.0);
@@ -217,15 +206,15 @@ $(document).ready(function(){
 	
 	$(".chat").on("click", "li" ,function(e){
 		var replysn = $(this).data("replysn")
-			console.log(replysn);
+			
 		replyService.get(replysn, function(reply){
 			modalInputReply.val(reply.replyContent);
-			console.log("reply.replyContent: "+ reply.replyContent )
+			
 			modalInputReplyer.val(reply.userSN);
-			console.log("reply.userSN: " + reply.userSN)
+		
 			modalInputReplyDate.val(replyService.displayTime(reply.createdatetime)).attr("readonly","readonly");
 			modal.data("replySN" , reply.replySN);
-			console.log("reply.replysn: " + reply.replySN)
+			
 			modal.find("button[id !='modalCloseBtn']").hide();
 			modalModBtn.show();
 			modalRemoveBtn.show();
@@ -244,7 +233,6 @@ $(document).ready(function(){
 		
 		modalRemoveBtn.on("click", function(e){
 			var replySN = modal.data("replySN");
-			console.log("replysn: " + replySN);
 			
 			replyService.remove(replySN , function(result){
 				alert(result);
@@ -280,18 +268,18 @@ $(document).ready(function(){
 				str += "<li class='page-item'><a class='page-link' href='"+ (endNum + 1) + "'>Next</a></li>";
 			}
 			str += "</ul></div>";
-			console.log(str);
+			
 			replyPageFooter.html(str);
 		}
 		replyPageFooter.on("click", "li a", function(e){
 			e.preventDefault();
-			console.log("page click");
+			
 			
 			var targetPageNum = $(this).attr("href");
-			console.log("targetPageNum: " + targetPageNum);
+			
 			pageNum = targetPageNum;
 			showList(pageNum);
-		})
+		});
 		
 });
 

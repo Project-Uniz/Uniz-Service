@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.uniz.domain.ChannelBoardVO;
+import com.uniz.domain.Criteria;
 import com.uniz.mapper.ChannelMapper;
 
 import lombok.AllArgsConstructor;
@@ -32,6 +33,10 @@ public class ChannelServiceImpl implements ChannelService {
 		return mapper.getPostList(channelSN);
 	}
 	
+	public List<ChannelBoardVO> getAllPost(){
+		return mapper.getAllPost();
+	}
+	
 	public List<ChannelBoardVO> getPost(Long postSN){
 		log.info("게시글 출력 ");
 		return mapper.getPost(postSN);
@@ -39,35 +44,33 @@ public class ChannelServiceImpl implements ChannelService {
 	
 	@Transactional
 	@Override
-	public int register(ChannelBoardVO vo) {
+	public void register(ChannelBoardVO vo) {
 		
-		if (mapper.insertPost(vo) == 1 && mapper.insertCont(vo) == 1) {
-			return 1;
-		}
-			return 0;
+		mapper.insertPost(vo);
+		mapper.insertCont(vo);
 	}
 	
 	@Transactional
 	@Override
-	public int delete(Long postSN) {
+	public boolean delete(Long postSN) {
 		
 		if(mapper.deletePost(postSN) == 1 && mapper.deleteCont(postSN) == 1) {
 			log.info("삭제중");
-			return 1;
+			return true;
 		}
 		
-		return 0;
+		return false;
 		
 	}
 	
 	@Transactional
 	@Override
-	public int update(ChannelBoardVO vo) {
+	public boolean update(ChannelBoardVO vo) {
 		
 		if(mapper.updatePost(vo) == 1 && mapper.updateCont(vo) == 1) {
-			return 1;
+			return true;
 		}
-			return 0;
+			return false;
 	}
 
 }
