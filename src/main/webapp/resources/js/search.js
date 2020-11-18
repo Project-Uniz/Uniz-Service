@@ -5,10 +5,21 @@ $(document).ready(function() {
 	const searchMenuNum	= 5;
 	const expireDay		= 3;
 	const maxUnitagSize	= 7;
-	
+
 	let tempHistory = getSearchHistories();
 
 	initUnitag(searchMenuNum, maxUnitagSize);
+
+	$("#keyword").keydown(function(key) {
+
+		// 엔터키 처리
+		if (key.keyCode == 13) {
+			const keyword = $(this).val();
+		if (keyword != null && keyword != undefined && keyword.trim().length > 0) {
+				$("#btnSearch").trigger("click");
+			}
+		}
+	});
 
 	$("#btnGetOpt").on("click", function(e) {
 		e.preventDefault();
@@ -19,9 +30,9 @@ $(document).ready(function() {
 				{userSN : userSN},
 				function(result) {
 					let keys = [];
-					
+
 					for(property in result) {
-						keys.push(property);	
+						keys.push(property);
 					}
 
 					$("#option").val(keys.join(','));
@@ -32,12 +43,12 @@ $(document).ready(function() {
 	$("#btnSetOpt").on("click", function(e) {
 		e.preventDefault();
 
-		let userSN = $('#userSN').val();
-		let optionStrs = $('#option').val().split(',');
-		let options = [];
+		const userSN = $('#userSN').val();
+		const optionStrs = $('#option').val().split(',');
+		const options = [];
 
-		for(idx in optionStrs) {
-			opt = parseInt(optionStrs[idx]);
+		for(const idx in optionStrs) {
+			const opt = parseInt(optionStrs[idx]);
 			if (opt != undefined && opt != null && !isNaN(opt)) {
 				options.push(opt);
 			}
@@ -56,21 +67,23 @@ $(document).ready(function() {
 	$("#btnSearch").on("click", function(e) {
 		e.preventDefault();
 
-		let keyword = $('#keyword').val();
-		let userSN = $('#userSN').val();
+		const keyword = $('#keyword').val();
+		const userSN = $('#userSN').val();
+
+		$("#keyword").blur();
 		
 		searchService.getSearchedList(
 				{keyword : keyword , userSN : userSN},
 				function(result) {
 
 					setSearchKeywordCookie(keyword, expireDay, maxUnitagSize);
-					
+
 					setUnitag(
 							makeUnitagKeywordList(),
 							maxUnitagSize
 							);
-					
-					let datas = result.result
+
+					const datas = result.result
 					let resultHtml = "";
 
 					for(idx in datas) {	// 배열이라 인덱스
@@ -86,16 +99,18 @@ $(document).ready(function() {
 	});
 
 	function initUnitag(menu, limit) {
+
+		$("#keyword").focus();
 		
 		unizService.getPreset(
 				{menu : menu},
 				function(result) {
-					
-					// 유니태그 프리셋 세팅					
+
+					// 유니태그 프리셋 세팅
 					for(let idx = 0 ; idx<limit ; idx++) {
 						presetUnitag.push(result[idx].unizKeyword);
 					}
-					
+
 					console.log("presetUnitag : " + JSON.stringify(presetUnitag));
 					
 					setUnitag(
@@ -105,34 +120,37 @@ $(document).ready(function() {
 				}
 			);
 	}
-	
+
 	function makeUnitagKeywordList() {
-		
+
 		let subPreset = [];
 		for(idx in presetUnitag) {
 			if(tempHistory.indexOf(presetUnitag[idx]) == -1) {
 				subPreset.push(presetUnitag[idx]);
 			}
 		}
-		
+
 		return tempHistory.concat(subPreset);
 	}
-	
+
 	function getSearchHistories() {
-		let cookieHistory = $.cookie("histories");
+		const cookieHistory = $.cookie("histories");
 		return cookieHistory == undefined ? [] : cookieHistory.split(',');
 	}
-	
+
 	function setUnitag(keywords, limit) {
 		let tagsHTML = "";
-		
+
 		//tagsHTML += "<p><button id='tag' name='unitags' value='야구'>야구</button></p>"
 		for(let idx = 0; idx < limit; idx++) {
-			tagsHTML += "<p><button id='tag"+ idx +"' name='unitags' value='" + keywords[idx] + "'>"  + keywords[idx] + "</button></p>"
+			tagsHTML += "<p><button id='tag"+ idx +"' name='unitags' value='" + keywords[idx] + "'" +
+					"style='{border: 2, outline: 2}'" +
+			
+					">"  + keywords[idx] + "</button></p>"
 		}
 
 		$("#unitags").html(tagsHTML);
-		
+
 		$("button[name='unitags']").each(function(i){
 			$(this).click(function(e){
 				e.preventDefault();
@@ -142,23 +160,23 @@ $(document).ready(function() {
 		});
 
 	}
-	
+
 	function setSearchKeywordCookie(keyword, size, exfireDays) {
-		
+
 		tempHistory = getSearchHistories();
 		console.log(tempHistory);
-		
-		let findIdx = tempHistory.indexOf(keyword)
+
+		const findIdx = tempHistory.indexOf(keyword)
 		if ( findIdx > -1) {
 			tempHistory.splice(findIdx, 1)
 		}
-		
+
 		if(tempHistory.length > size) {
 			tempHistory.pop();
 		}
-		
+
 		tempHistory.unshift(keyword);
-		
+
 		$.cookie("histories", tempHistory, {expires: exfireDays, path: '/'});
 	}
 
