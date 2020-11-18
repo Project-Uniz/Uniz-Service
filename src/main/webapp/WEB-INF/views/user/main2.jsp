@@ -54,7 +54,7 @@
             <ul>
                 <li><a href="#">인기</a></li>
                 <li><a href="#">추천</a></li>
-                <li><a href="#">검색</a></li>
+                <li><a href="/search/index">검색</a></li>
                 <li><a href="#">커뮤니티</a></li>
                 
                 <span>
