@@ -185,7 +185,7 @@ public class UnizController {
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@PostMapping(value = "/negaitiveFeed",
+	@PostMapping(value = "/negativeFeed",
 			produces = {
 					MediaType.APPLICATION_XML_VALUE,
 					MediaType.APPLICATION_JSON_UTF8_VALUE

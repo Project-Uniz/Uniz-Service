@@ -35,11 +35,22 @@ public class SearchServiceImpl implements SearchService {
 	@Setter(onMethod_ = @Autowired)
 	private VideoMapper videoMapper;
 
+	private Integer getOptionValues(Long userSN) {
+
+		Integer optionValue = userSN != null ? mapper.getOptions(userSN) : null;
+
+		if (optionValue == null) {
+			optionValue = (1<<UnizTypeEnum.SEARCHEND.getTypeSN()) - 1;
+		}
+
+		return optionValue;
+	}
+
 	@Override
 	public Integer getOptions(Long userSN) {
 		log.info("getOptions............ : " + userSN);
 
-		return mapper.getOptions(userSN);
+		return getOptionValues(userSN);
 	}
 	
 	@Override
@@ -78,7 +89,7 @@ public class SearchServiceImpl implements SearchService {
 	 *  
 	 */
 
-	public List<Long> makeSearchUnizSNList(List<Integer> optList) {
+	private List<Long> makeSearchUnizSNList(List<Integer> optList) {
 		List<Long> result = new ArrayList<>();
 
 		int optSize = optList.size();
@@ -119,7 +130,7 @@ public class SearchServiceImpl implements SearchService {
 
 		Map<Integer, String> map = new HashMap<>();
 
-		Integer optionValue = mapper.getOptions(userSN);
+		Integer optionValue = getOptionValues(userSN);
 
 		// TODO 스트림변환?
 		if (optionValue != null) {
@@ -143,11 +154,7 @@ public class SearchServiceImpl implements SearchService {
 
 		List<Integer> list = new ArrayList<>();
 
-		Integer optionValue = userSN != null ? mapper.getOptions(userSN) : null;
-
-		if (optionValue == null) {
-			optionValue = (1<<UnizTypeEnum.SEARCHEND.getTypeSN()) - 1;
-		}
+		Integer optionValue = getOptionValues(userSN);
 
 		// TODO 스트림변환?
 		// UnizTypeEnum 을 클래스로 변경하도록 고려

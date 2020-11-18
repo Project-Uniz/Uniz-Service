@@ -24,7 +24,7 @@ public class VideoServiceImpl implements VideoService{
 		log.info("getVideoInfo" + videoSn);
 		
 		VideoDataVO videoVO = mapper.getVideo(videoSn);
-		
+	
 		String changeURL = videoVO.getUrlPath();
 		
 		int idx = changeURL.indexOf("=");
