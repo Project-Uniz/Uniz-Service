@@ -57,7 +57,7 @@
 		</select>
 
 		<!-- 게시글 보여 주기 -->
-		<select id ="getPost" resultType="com.uniz.domain.ChannelBoardVO" resultMap="getAllPostList">
+		<select id ="getPost" resultType="com.uniz.domain.ChannelBoardVO">
 			select  p.postsn, u.nick, p.title , c.postContent , p.createdatetime , p.channelSN
 			from channelpost p , channelpostcontent c , userdata u
 			where p.postsn = #{postSN} and c.postSN = p.postSN and u.usersn = p.usersn

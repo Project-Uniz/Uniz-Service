@@ -60,7 +60,7 @@ span ul {
 
 .inner-div-800 {
 	width: 820px;
-	margin-top: 12%;
+	
 }
 
 .inner-div-1200 {
@@ -106,28 +106,6 @@ span ul {
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<div class="wrap">
-
-		<div class="navbar">
-			<ul>
-				<li class="mainlogo">UNIZ</li>
-				<li><a href="#인기">인기</a></li>
-				<li><a href="#추천">추천</a></li>
-				<li><a href="#검색">검색</a></li>
-				<li><a href="#커뮤니티">커뮤니티</a></li>
-
-				<span>
-					<ul>
-						<li><a href="/user/register">Register</a></li>
-						<li><a href="/user/loginForm">Login</a></li>
-						<li><a href="/user/logout">Logout</a></li>
-						<li><a href="#">icon2</a></li>
-						<li><a href="#">icon2</a></li>
-					</ul>
-				</span>
-			</ul>
-		</div>
-
-	
 
 	<div class="inner-div-800">
 

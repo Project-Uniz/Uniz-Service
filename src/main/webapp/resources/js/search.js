@@ -199,11 +199,11 @@ $(document).ready(function() {
 			console.log("- videoList [" + idx + "]");
 			vdata = videoList[idx];	// 단일 인덱스 개체는 인스턴스 객체
 
-			divVideo += "<div id='video_" + vdata.videoSN + "'>";
+			//divVideo += "<div id='video_" + vdata.videoSN + "'>"; //클래스로 바꿔야한다.
 			divVideo += "<a href='/video/"+ vdata.videoSN + "'>";
 			divVideo += "<img src='https://i.ytimg.com/vi/"+ vdata.utbVideoID +"/maxresdefault.jpg' alt='" + vdata.title +"'></img>";
 			divVideo += "</a>";
-			divVideo += '</div>';		// end video div
+			//divVideo += '</div>';		// end video div
 		}
 
 		return divVideo;

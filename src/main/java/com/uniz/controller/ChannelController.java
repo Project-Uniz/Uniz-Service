@@ -132,6 +132,10 @@ public class ChannelController {
 	// 게시글 조회
 	@GetMapping("/getPost")
 	public void getPost(@RequestParam("postSN") Long postSN , Model model) {
+		
+		log.info("getPost ..................: " + service.getPost(postSN));
+		
+		
 		model.addAttribute("board", service.getPost(postSN));
 	}
 	

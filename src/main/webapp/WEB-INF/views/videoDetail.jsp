@@ -42,11 +42,6 @@
 <body>
     <div class="">
 
-    <div class=""> 
-        <h1 style="text-align: center;">header</h1>
-    </div>
-
-
         <div class="inner-div">
             
             <div class="video-container">
@@ -56,7 +51,7 @@
                     <div class="video-text">
                         <p>${videoData.title}</p>
                         <p>게시자닉네임${videoData.authorNick}</p>
-                        <p>조회수 :${videoData.title}회</p> <p>좋아요 : ${videoData.likeCnt}개</p> 
+                        <p>조회수 :${videoData.viewCnt}회</p> <p>좋아요 : ${videoData.likeCnt}개</p> 
                         <p>업로드일:${videoData.createDateTime}</p>
                     </div>
 

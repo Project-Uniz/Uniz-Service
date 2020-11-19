@@ -222,6 +222,9 @@ public class SearchServiceImpl implements SearchService {
 	private List<ArrayList<VideoDataVO>> getVideoListByOptions(List<String> keywordList, List<Integer> options) {
 
 		// 1. 키워드, 옵션으로 유니즈 리스트 획득
+		
+		log.info("options..................... : " + options);
+		
 		List<UnizVO> uList = unizMapper.getUnizListByKeywordOptList(keywordList, options);
 
 		// 2. 유니즈 별 비디오리스트 획득
@@ -273,6 +276,8 @@ public class SearchServiceImpl implements SearchService {
 
 		// 1. 서치유니즈 별로 결과를 누적하자
 		for (UnizVO searchUniz : searchUnizList) {
+			
+			log.info("UnizSN ...........................: " + searchUniz.getUnizSN());
 
 			// 2. 서치유니즈 값으로 그 검색옵션 타입 리스트를 획득 
 			List<Integer> options = mapper.getUnizTypeFromUnizSN(searchUniz.getUnizSN());

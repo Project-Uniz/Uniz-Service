@@ -25,9 +25,7 @@ function getList( ){
 				}
 				
 				str += "<a href= '"+data[i].videoSN+"'><img src='"+data[i].thumbUrl+"'></a>";
-				
-				
-				
+			
 			}
 			
 			hitdiv.html(str);

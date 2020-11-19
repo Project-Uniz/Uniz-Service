@@ -179,7 +179,7 @@ background-color: ivory;
 
 #userSN, #option{
 
-	borer: none;
+	border: none;
 	outline: none;
 	padding: 12px 20px;
 
