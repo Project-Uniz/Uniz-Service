@@ -56,7 +56,7 @@
 
 	<select id="getUnizListByKeywordOptList" resultType = "com.uniz.domain.UnizVO">
 	SELECT * FROM uniz
-	WHERE unizKeyword IN
+	WHERE upper(unizKeyword) IN
 		<foreach item="keyword" index="index" collection="keywordList"
 			open="(" separator="," close=")">
 			#{keyword}

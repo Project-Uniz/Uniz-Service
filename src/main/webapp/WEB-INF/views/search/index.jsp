@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -15,8 +16,8 @@
 
         font-family: sans-serif;
        }
-
-
+    
+   
     .navbar{
      
       width: 100%;
@@ -29,17 +30,19 @@
       display: inline-block;
       
     }
-
+    
     .mainlogo{
         font-size: 100px;
         font-weight: bold;
         color: white;
     }
-
+    
     .navbar ul{
         display: flex;
-
-
+        
+    
+        
+        
     }
     .navbar ul li{
         list-style: none;
@@ -152,47 +155,11 @@
     top:0;
 }
 
-button {
-background-color: ivory;
-	outline: none;
-	order: none; 
-	padding:10px 14px;
-	border-radius: 10px;
-	color: black;
-	font-weight: bold;
-	font-family: sans-serif;
-	margin: 1px;
-}
-.keyword-align-center{
 
-	background-color:  rgb(220,241, 97);
-	background-color: #67E8C3;
-	background-color: rgb(70, 67, 67);
-	border: none;
-	padding: 25px 40px;
-	border-radius: 20px;
-}
-#keyword{
-	border: none;
-	outline: none;
-}
-
-#userSN, #option{
-
-	border: none;
-	outline: none;
-	padding: 12px 20px;
-
-}
-#btnGetOpt, #btnSetOpt{
-
-	position: absolute;
-	top:  330px;
-}
 </style>
 <body>
-
-
+    
+    
     <div class="wrap">
         <div class="">
         </div>
@@ -206,8 +173,8 @@ background-color: ivory;
                 </div>
             </div>
         </div>
-
-
+    
+    
         <div>
             <form id='searchForm'>
                 <input type='number' id='userSN' placeholder="userSN"/>
@@ -216,7 +183,7 @@ background-color: ivory;
                 <button id='btnSetOpt'>SetOpt</button><br>
             </form>
         </div>
-
+    
         <div class="inner-div-1200">
             <div class="video-align-center">
                 <div id='contents'>
@@ -224,11 +191,14 @@ background-color: ivory;
             </div>
         </div>
     </div>
-
+    
     <div>
     <text id='bodyText'>
     </div>
+    
 
+
+    
 
 
 
