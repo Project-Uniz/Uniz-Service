@@ -37,8 +37,30 @@ var searchService = (function(){
 	};
 
 	function getSearchedList(params, callback, error) {
-		getJson("/search/list", params, callback, error);
+		get("/search/list", params, true, "application/x-www-form-urlencoded; charset=UTF-8", callback, error);
 	};
+
+	function get(url, params, traditional, contentType, callback, error ) {
+		$.ajaxSettings.traditional = traditional;
+		$.ajax({
+			type : 'get',
+			url : url,
+			dataType : 'json',
+			data : params,
+			contentType : contentType,
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		})
+		
+	}
 
 	function getJson(url, params, callback, error) {
 		$.getJSON(url, params,
@@ -78,6 +100,7 @@ var searchService = (function(){
 
 	return {
 		post: post,
+		get: get,
 		getJson: getJson,
 		setOptions : setOptions,
 		getOptions : getOptions,

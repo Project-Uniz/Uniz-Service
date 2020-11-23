@@ -67,8 +67,10 @@ $(document).ready(function() {
 	$("#btnSearch").on("click", function(e) {
 		e.preventDefault();
 
-		const keyword = $('#keyword').val();
+		const keyword = $('#keyword').val().split(/\s*\s/);
 		const userSN = $('#userSN').val();
+
+		console.log(keyword);
 
 		$("#keyword").blur();
 		
@@ -76,7 +78,7 @@ $(document).ready(function() {
 				{keyword : keyword , userSN : userSN},
 				function(result) {
 
-					setSearchKeywordCookie(keyword, expireDay, maxUnitagSize);
+					setSearchKeywordCookie(keyword.join(" "), expireDay, maxUnitagSize);
 
 					setUnitag(
 							makeUnitagKeywordList(),

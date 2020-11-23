@@ -11,4 +11,6 @@ public interface UnizPointService {
 	public boolean incMyUnizPoint(Long userSN, List<Long> unizSNList, int point);
 
 	public boolean decMyUnizPoint(Long userSN, List<Long> unizSNList, int point);
+
+	public boolean recMyUnizPoint(Long userSN, List<Long> unizSNList, int point);
 }
