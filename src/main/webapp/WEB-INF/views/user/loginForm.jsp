@@ -183,7 +183,7 @@ request.setCharacterEncoding("utf-8"); //한글깨짐 방지 사전호출.
                 <label for="box" class="form3">remember Id</label>
               
                 
-                <button class="btn"type="submit">sign in</button>
+                <button class="btn"type="submit">log in</button>
 
 
 

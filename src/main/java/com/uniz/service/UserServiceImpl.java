@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
 				
 				System.out.println(temp);
 				// 3. userTemp의 SN을 userData의 SN과 조인.
-				Long result = mapper.getDataSN(temp.getUserSN());
+				Long userDataSN = mapper.getDataSN(temp.getUserSN());
 				
 				msg = "join success!";
 				
@@ -107,10 +107,10 @@ public class UserServiceImpl implements UserService {
 					cookie.setMaxAge(0); // 3. 쿠키의 유효시간을 0으로 변경(쿠키삭제)
 					response.addCookie(cookie);} // 4. 쿠키를 응답에 포함시킨다.
 				
-				if (result != null && result != 0) {
+				if (userDataSN != null && userDataSN != 0) {
 					
 					// 해당 userDataSN이 있으면 해당 userData정보를 전부 가져와 저장.
-					UserData data = mapper.getUserData(result);
+					UserData data = mapper.getUserData(userDataSN);
 					
 					HttpSession session = request.getSession();
 					
@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
 				}
 				
 			
-				msg = "/user/main2";
+				msg = "maincontent";
 				System.out.println("로그인에 성공하였으므로 메인으로 가겠습니다.");
 				return msg;
 				
