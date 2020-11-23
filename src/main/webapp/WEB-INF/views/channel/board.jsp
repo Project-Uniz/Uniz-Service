@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
+	
+	
 	<div class="board"></div>
 	<div></div>
 	<h3>게시글 목록</h3>
@@ -16,7 +20,9 @@
 	</div>
 	
 	<div>
+		<c:if test="${sessionScope.userId !=null }">
 		<button id="createBtn" type="button">게시글 작성</button>
+		</c:if>
 		<button id="listBtn" type="button">채널 게시판으로 이동</button>
 	</div>
 

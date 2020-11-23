@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
 				}
 				
 			
-				msg = "/user/main2";
+				msg = "home";
 				System.out.println("로그인에 성공하였으므로 메인으로 가겠습니다.");
 				return msg;
 				

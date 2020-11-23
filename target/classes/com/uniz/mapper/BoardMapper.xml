@@ -17,7 +17,7 @@
 							a.postcontent like '%' ||#{keyword}|| '%'
 						</when>
 						<when test="type == 'W'.toString()">
-							a.usersn like '%' ||#{keyword}|| '%'
+							a.nick like '%' ||#{keyword}|| '%'
 						</when>
 					</choose>
 				</trim>
@@ -73,7 +73,7 @@
 	
 	<select id="read" resultType="com.uniz.domain.BoardVO">
 		
-			select p.postSN, u.nick, p.title, c.postcontent, p.createdatetime
+			select p.postSN, u.nick, p.title, c.postcontent, p.createdatetime , p.userSN
 			from boardpost p , boardpostcontent c , userdata u
 			where p.postSN = #{postSN} and p.postsn = c.postsn and u.usersn = p.usersn
 			

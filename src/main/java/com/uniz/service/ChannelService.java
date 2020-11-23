@@ -13,7 +13,7 @@ public interface ChannelService {
 	
 	public List<ChannelBoardVO> getAllPost();
 	
-	public List<ChannelBoardVO> getPost(Long postSN);
+	public ChannelBoardVO getPost(Long postSN);
 	
 	public void createChannel(ChannelVO vo);
 	

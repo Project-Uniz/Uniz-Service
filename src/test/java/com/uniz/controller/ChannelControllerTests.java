@@ -64,7 +64,13 @@ public class ChannelControllerTests {
 //		
 //		log.info(resultPage);
 //	}
-	
+//	@Test
+//	public void testPost() throws Exception{
+//		log.info(mockMvc.perform(MockMvcRequestBuilders
+//				.get("/channel/get")
+//				.param("postSN", "82"))
+//				.andReturn().getModelAndView().getModelMap());
+//	}
 
 	
 }

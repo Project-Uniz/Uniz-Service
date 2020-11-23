@@ -8,13 +8,17 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
+	
 	<h1>게시글 보여주는 페이지</h1>
+	
 	
 	<div id="boardPost">
 	</div>
 	
-	
+	<c:if test="${userId.userSN == board.userSN}">
 	<button id='modify'>글 수정</button>
+	</c:if>
 	<button id='list'>목록으로</button>
 	
 
@@ -23,11 +27,13 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-
+	
 	
 	var postSN = '<c:out value="${postSN}"/>';
+	
 	console.log("게시글 번호 : " + postSN);
 	channelService.getPost({postSN:postSN});
+	
 	
 	
 });

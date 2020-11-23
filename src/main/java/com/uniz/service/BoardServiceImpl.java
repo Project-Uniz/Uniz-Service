@@ -47,7 +47,9 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public boolean delete(Long postSN) {
 		
-		if(mapper.deleteReply(postSN) == 1 &&mapper.deleteCont(postSN) == 1 && mapper.deletePost(postSN) == 1 ) {
+		 mapper.deleteReply(postSN);
+		
+		if(mapper.deleteCont(postSN) == 1 && mapper.deletePost(postSN) == 1 ) {
 			return true;
 		}
 			  

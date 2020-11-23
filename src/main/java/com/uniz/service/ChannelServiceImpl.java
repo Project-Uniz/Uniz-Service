@@ -37,7 +37,7 @@ public class ChannelServiceImpl implements ChannelService {
 		return mapper.getAllPost();
 	}
 	
-	public List<ChannelBoardVO> getPost(Long postSN){
+	public ChannelBoardVO getPost(Long postSN){
 		log.info("게시글 출력 ");
 		return mapper.getPost(postSN);
 	}

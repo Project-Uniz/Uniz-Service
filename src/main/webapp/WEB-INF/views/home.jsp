@@ -350,7 +350,7 @@
                     <ul>
                         <li><a href="/user/register" target="trg">Register</a></li>
                         <li><a href="/user/loginForm" target="trg">Login</a></li>
-                        <li><a href="/user/loginForm">Logout</a></li>
+                        <li><a href="/user/logout">Logout</a></li>
                         <li><a href="#">icon</a></li>
                         <li><a href="#">icon2</a></li>
 

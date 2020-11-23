@@ -18,10 +18,10 @@
 				<!-- /.panel-heading -->
 				<div class="panel-body">
 					
-					<form role="form" action="/channel/register" method="post">
+					<form role="form" action="/channel/register" method="post" onsubmit="return checkTitle()">
 						<div class="form-group">
 							<label>제목</label>
-							<input class="form-control" name='title'>
+							<input class="form-control" name='title' id='title'>
 						</div>
 						
 						<div class="form-group">
@@ -30,8 +30,8 @@
 						</div>
 						
 						<div class="form-group">
-							<label>작성자</label>
-							<input class="form-control" name='userSN'>
+							
+							<input  class="form-control" name='userSN' value='${userId.userSN}'  >
 						</div>
 						
 						<div class="form-group">
@@ -52,9 +52,17 @@
 <script type="text/javascript" src="/resources/js/channel.js"></script>
 <script>
 
-$(document).ready(function(){
-
-});
+function checkTitle(){
+	
+	var str = document.getElementById('title');
+	var blank_pattern = /^\s+|\s+$/g;
+	
+	if(str.value == '' || str.value == null || str.value.replace(blank_pattern, '').length == 0){
+		alert("제목을 입력하세요");
+		return false;
+	}
+	
+}
 
 </script>	
 </body>

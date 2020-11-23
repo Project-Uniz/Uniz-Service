@@ -45,9 +45,13 @@ public class ChannelMapperTests {
 //		
 //	}
 	
-	@Test
-	public void testGetList() {
-		log.info(mapper.getPostList(5L));
-	}
-	
+//	@Test
+//	public void testGetList() {
+//		log.info(" check Channel "+mapper.checkChannel(83L));
+//	}
+//	@Test
+//	public void testPost() {
+//		log.info("ttttttttt=" + mapper.checkPost(83L));
+//	}
+//	
 }

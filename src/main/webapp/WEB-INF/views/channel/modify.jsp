@@ -11,8 +11,8 @@
 
 
 게시글 수정 페이지
-<h1>수정 할 게시글 번호 = <c:out value="${postSN}"/></h1>
-<h2>dddd<c:out value="${channelSN}"/></h2>
+
+
 <form action='/channel/modify' method='post' id='boardPost'>
 
 </form>
