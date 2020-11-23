@@ -13,18 +13,18 @@
 	<select id="getHitList" resultType = "com.uniz.domain.VideoDataVO">
 	<![CDATA[
 	
-	SELECT
-		*
-	FROM
-		videoData
-	WHERE
-		videoSN > 0
+	SELECT *
+	
+	FROM videoData
+	
+	order by viewCnt+likeCnt desc
 		
 		
 	]]>
 	</select>	
 	
-		<select id="getVideo" resultType="com.uniz.domain.VideoDataVO">
+	
+	<select id="getVideo" resultType="com.uniz.domain.VideoDataVO">
 		SELECT * FROM videoData where videoSn = #{videoSN}
 	</select>
 	

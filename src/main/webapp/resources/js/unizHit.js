@@ -20,7 +20,7 @@ function getList( ){
 			
 				if(i == 0 || i % 5 == 0){
 				
-				str += "<h3>"+"주제별 영상"+i+"</h3>";
+				str += "<h3>주제별 영상</h3>";
 		
 				}
 				
@@ -34,9 +34,3 @@ function getList( ){
 	})
 		
 }
-
-
-
-
-	
-
