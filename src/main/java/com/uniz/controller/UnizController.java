@@ -218,7 +218,7 @@ public class UnizController {
 		int default_recover_point = 1;
 
 		List<Long> result = null;
-		if (upsvc.incMyUnizPoint(userSN, unizSNList, default_recover_point)) {
+		if (upsvc.recMyUnizPoint(userSN, unizSNList, default_recover_point)) {
 			result = unizSNList;
 		}
 
