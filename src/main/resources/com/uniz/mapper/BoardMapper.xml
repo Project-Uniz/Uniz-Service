@@ -5,6 +5,25 @@
 	
 	<mapper namespace="com.uniz.mapper.BoardMapper">
 	
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							a.title like '%' ||#{keyword}|| '%'
+						</when>
+						<when test="type == 'C'.toString()">
+							a.postcontent like '%' ||#{keyword}|| '%'
+						</when>
+						<when test="type == 'W'.toString()">
+							a.nick like '%' ||#{keyword}|| '%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>	
 	
 	<select id="getListWithPaging" resultType="com.uniz.domain.BoardVO">
 		<![CDATA[
@@ -14,34 +33,18 @@
             from
             	(
             	select
-           		p.postsn , p.title , p.createdatetime , u.usersn , u.nick
+           		p.postsn , p.title , p.createdatetime , u.usersn , u.nick , c.postcontent
             	from boardpost p , boardpostcontent c , userdata u
     			where u.usersn = p.usersn and p.postsn = c.postsn
     			order by postsn desc
     			)a
+			where 
 		]]>	
+			
+			<include refid="criteria"></include>			
 		
-		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
-			<foreach item='type' collection="typeArr">
-				<trim prefix="OR">
-					<choose>
-						<when test="type == 'T'.toString()">
-							title like '%' ||#{keyword}|| '%'
-						</when>
-						<when test="type == 'C'.toString()">
-							c.postcontent like '%' ||#{keyword}|| '%'
-						</when>
-						<when test="type == 'W'.toString()">
-							u.userSN like '%' ||#{keyword}|| '%'
-						</when>
-					</choose>
-				</trim>
-			</foreach>
-		</trim>
 		<![CDATA[
-			
-			where rownum <= #{pageNum} * #{amount} 
-			
+			 rownum <= #{pageNum} * #{amount} 
 			)
 		where rn > (#{pageNum} -1 ) * #{amount}
 		]]>
@@ -53,7 +56,6 @@
 		
 		select count(*) from boardpost 
 		where
-		
 		 postSN > 0
 		
 	</select>
@@ -71,7 +73,7 @@
 	
 	<select id="read" resultType="com.uniz.domain.BoardVO">
 		
-			select p.postSN, u.nick, p.title, c.postcontent, p.createdatetime
+			select p.postSN, u.nick, p.title, c.postcontent, p.createdatetime , p.userSN
 			from boardpost p , boardpostcontent c , userdata u
 			where p.postSN = #{postSN} and p.postsn = c.postsn and u.usersn = p.usersn
 			

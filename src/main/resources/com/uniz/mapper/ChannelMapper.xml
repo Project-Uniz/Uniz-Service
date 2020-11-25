@@ -17,6 +17,16 @@
 			<result property="nick" column="nick"></result>
 		</resultMap>
 		
+		<!--  채널 유무 판단 -->
+		<select id="checkChannel" resultType="INTEGER" >
+			select count(*) from channel where channelsn = #{channelSN}
+		</select>
+		
+		<!--  게시글 유무 판단 -->
+		<select id="checkPost" resultType="INTEGER">
+			select count(*) from channelpost where postSN = #{postSN}
+		</select>
+		
 		
 		<!-- 채널 게시판 목록 보여주기 -->
 		<select id="getChannelList" resultType="com.uniz.domain.ChannelVO" resultMap="getAllPostList">
@@ -58,7 +68,7 @@
 
 		<!-- 게시글 보여 주기 -->
 		<select id ="getPost" resultType="com.uniz.domain.ChannelBoardVO">
-			select  p.postsn, u.nick, p.title , c.postContent , p.createdatetime , p.channelSN
+			select  p.postsn, u.nick, p.title , c.postContent , p.createdatetime , p.channelSN, p.userSN
 			from channelpost p , channelpostcontent c , userdata u
 			where p.postsn = #{postSN} and c.postSN = p.postSN and u.usersn = p.usersn
 			

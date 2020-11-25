@@ -16,7 +16,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-heading">게시판 읽기</div>
+				<div class="panel-heading">게시판 읽기  </div>
 				<!-- /.panel-heading -->
 				<div class="panel-body">
 					
@@ -45,7 +45,10 @@
 							<input class="form-control" name="createDateTime" value='<fmt:formatDate pattern="yyyy-MM-dd" value="${board.createDateTime}"/>'  readonly="readonly">
 						</div>
 						
+						<c:if test="${userId.userSN == board.userSN}">
 						<button data-oper='modify' class="btn btn-default" onclick="location.href='/board/modify?postSN=<c:out value="${board.postSN}"/>'"> 게시글 수정</button>
+						</c:if>
+						
 						<button data-oper='list' class="btn btn-info" onclick="location.href='/board/list'"> 목록으로 </button>
 						
 						<form id='operForm' action="/board/modify" method="get">
@@ -67,7 +70,9 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<i class="fa fa-comments fa-fw"></i> 댓글
+					<c:if test="${sessionScope.userId !=null }">
 					<button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>댓글 작성</button>
+					</c:if>
 				</div>
 				
 				<div class="panel-body">
@@ -76,10 +81,10 @@
 						<li class="left clearfix" data-replySN='12'>
 						<div>
 							<div class="header">
-								<strong class="primary-font">user00</strong>
-								<small class="pull-right text-muted">2020-11-11 16:40</small>
+								<strong class="primary-font"></strong>
+								<small class="pull-right text-muted"></small>
 							</div>
-							<p>ㅎㅇㅎㅇ</p>
+							<p></p>
 						</div>
 					</ul>
 					<!-- /.panel .chat-panel 추가 -->
@@ -96,16 +101,18 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">댓글</h4>
+					<h4 class="modal-title" id="myModalLabel">댓글 ${userId.userSN}</h4>
 				</div>
 				<div class="modal-body">
+				<form onsubmit="return checkReply()">	
 					<div class="form-group">
 						<label>댓글</label>
-						<input class="form-control" name='replyContent'>
+						<input id='reply' class="form-control" name='replyContent'>
 					</div>
+       			</form>	
 					<div class="form-group">
 						<label>작성자</label>
-						<input class="form-control" name='userSN'>
+						<input class="form-control" name='userSN' value='${userId.userSN}'>
 					</div>
 					<div class="form-group">
 						<label>작성 시간</label>
@@ -113,10 +120,10 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button id='modalModBtn' type="button" class="btn btn-warning">수정</button>
-					<button id='modalRemoveBtn' type="button" class="btn btn-danger">삭제</button>
        				<button id='modalRegisterBtn' type="button" class="btn btn-primary">추가</button>
         			<button id='modalCloseBtn' type='button' class="btn btn-default">취소</button>
+					<button id='modalModBtn' type="button" class="btn btn-warning">수정</button>
+					<button id='modalRemoveBtn' type="button" class="btn btn-danger">삭제</button>
 				</div>
 			</div>
 		</div>
@@ -129,6 +136,20 @@
 <script type="text/javascript" src="/resources/js/channel.js"></script>
 
 <script type="text/javascript">
+
+function checkReply(){
+	
+	var checkReply = document.getElementById('reply');
+	var blank_pattern = /^\s+|\s+$/g;
+	
+	if(checkReply.value == '' || checkReply.value == null || checkReply.value.replace(blank_pattern, '').length == 0){
+		alert("댓글 내용을 입력하세요");
+		return false;
+	}
+	
+	}
+	
+
 $(document).ready(function(){
 	
 	console.log("=============");
@@ -169,15 +190,14 @@ $(document).ready(function(){
 	var modalInputReply = modal.find("input[name='replyContent']");
 	var modalInputReplyer = modal.find("input[name='userSN']");
 	var modalInputReplyDate = modal.find("input[name='createdatetime']");
+	var reply = $("#reply").val();
 	
 	var modalModBtn = $("#modalModBtn");
 	var modalRemoveBtn = $("#modalRemoveBtn");
 	var modalRegisterBtn = $("#modalRegisterBtn");
 	var modalCloseBtn = $("#modalCloseBtn");
 	
-	$("#modalCloseBtn").on("click", function(e){
-		$(".modal").modal("hide");
-	});
+	
 	
 	$("#addReplyBtn").on("click", function(e){
 		modal.find("input").val("");
@@ -190,11 +210,17 @@ $(document).ready(function(){
 	});
 	
 	modalRegisterBtn.on("click",function(e){
+		var str = /^\s+|\s+$/g;
 		var reply = {
 				replyContent : modalInputReply.val(),
 				userSN : modalInputReplyer.val(),
 				postSN : postValue
 		};
+		if(reply.replyContent == '' || reply.replyContent.replace(str, '').length == 0 ){
+			console.log("test======" + reply.replyContent);
+			alert("댓글 내용을 입력해주세요");
+			return false;
+		}
 		replyService.add(reply, function(result){
 			alert(result);
 			modal.find("input").val("");

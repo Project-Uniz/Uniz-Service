@@ -14,7 +14,11 @@ public interface ChannelMapper {
 	
 	public List<ChannelBoardVO> getAllPost();
 	
-	public List<ChannelBoardVO> getPost(Long postSN);
+	public ChannelBoardVO getPost(Long postSN);
+	
+	public int checkChannel(Long channelSN);
+	
+	public int checkPost(Long postSN);
 	
 	public void createChannel(ChannelVO vo);    // 채널 create
 	

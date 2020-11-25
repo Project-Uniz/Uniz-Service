@@ -77,7 +77,9 @@
 
 
 		<div>
+			<c:if test="${sessionScope.userId !=null }">
 			<button id="createBtn" type="button" class="btn btn-xs pull-right">게시글 작성</button>
+			</c:if>
 		</div>
         
         <div class='pull-right'>

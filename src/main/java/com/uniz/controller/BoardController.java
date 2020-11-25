@@ -1,5 +1,7 @@
 package com.uniz.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +36,6 @@ public class BoardController {
 		
 		model.addAttribute("list", service.getList(cri));
 
-
 		int total = service.getTotal(cri);
 		
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
@@ -47,7 +48,8 @@ public class BoardController {
 	}
 	
 	@PostMapping("/register")
-	public String register(BoardVO board, RedirectAttributes rttr) {
+	public String register(BoardVO board, RedirectAttributes rttr, HttpSession session) {
+		
 		
 		service.register(board);
 		
@@ -57,13 +59,37 @@ public class BoardController {
 		
 	}
 	
-	@GetMapping( {"/get" , "/modify"})
-	public void get(@RequestParam("postSN") Long postSN , @ModelAttribute("cri") Criteria cri
+	@GetMapping( "/modify")
+	public void getModify(@RequestParam("postSN") Long postSN , @ModelAttribute("cri") Criteria cri
 	, Model model) {
 		
-		log.info("/get or modify");
+		log.info(" modify");
 		model.addAttribute("board", service.get(postSN));
 		
+	}
+	
+	@GetMapping("/get")
+	public String get(@RequestParam("postSN") Long postSN , @ModelAttribute("cri") Criteria cri
+	, Model model) {
+		
+		BoardVO vo = service.get(postSN);
+		log.info("/get or modify");
+		if(vo != null) {
+		
+			model.addAttribute("board", vo);
+		
+			return "board/get";
+		
+		}else {
+			
+			model.addAttribute("list", service.getList(cri));
+
+			int total = service.getTotal(cri);
+			
+			model.addAttribute("pageMaker", new PageDTO(cri, total));
+			
+			return "board/list";
+		}
 	}
 	
 	@PostMapping("/modify")
@@ -81,11 +107,12 @@ public class BoardController {
 	
 	@PostMapping("/remove")
 	public String remove(@RequestParam("postSN") Long postSN , Criteria cri , RedirectAttributes rttr) {
-		
+		log.info("삭제 전" + postSN);
 		if(service.delete(postSN)) {
 			rttr.addFlashAttribute("result", "success");
+			log.info("삭제 후 1");
 		}
-		
+			log.info("삭제 후 2");
 		return "redirect:/board/list"+ cri.getListLink();
 		
 	}
