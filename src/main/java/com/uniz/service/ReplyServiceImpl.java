@@ -23,32 +23,32 @@ public class ReplyServiceImpl implements ReplyService {
 	
 	@Override
 	public int register(ReplyVO vo) {
-		log.info("댓글 작성" + vo);
+		log.info("댓글 작성= " + vo);
 		return mapper.insert(vo);
 	}
 
 	@Override
 	public ReplyVO get(Long replySN) {
-		log.info("댓글 읽기" + replySN);
-		log.info("매퍼 : ---------"+mapper);
+		log.info("댓글 읽기= " + replySN);
+	
 		return mapper.read(replySN);
 	}
 
 	@Override
 	public int modify(ReplyVO vo) {
-		log.info("댓글 수정" + vo);
+		log.info("댓글 수정= " + vo);
 		return mapper.update(vo);
 	}
 
 	@Override
 	public int remove(Long replySN) {
-		log.info("댓글 삭제" + replySN);
+		log.info("댓글 삭제= " + replySN);
 		return mapper.deleteReply(replySN);
 	}
 
 	@Override
 	public List<ReplyVO> getReplyListWithPaging(Criteria cri, Long postSN) {
-		log.info("댓글 전체 읽기" + postSN);
+		log.info("댓글 전체 읽기= " + postSN);
 		return mapper.getReplyListWithPaging(cri, postSN);
 	}
 	

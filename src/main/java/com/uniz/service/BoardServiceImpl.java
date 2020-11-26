@@ -23,12 +23,20 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper mapper;
 	
 	@Override
+	public List<BoardVO> getListWithPaging(Criteria cri){
+		
+		return mapper.getListWithPaging(cri);
+		
+	}
+	
+	@Override
 	public List<BoardVO> getList(Criteria cri){
 		
 		log.info("get List with criteria: " + cri);
 		
 		log.info("board매퍼 ======="+ mapper);
-		return mapper.getListWithPaging(cri);
+		
+		return mapper.getList();
 		
 	}
 	
@@ -37,10 +45,10 @@ public class BoardServiceImpl implements BoardService {
 	public void register(BoardVO board) {
 		
 		mapper.insertPost(board);
-		
+		log.info("BoardPost 데이터 추가");
 		
 		mapper.insertCont(board);
-		
+		log.info("BoardPostContent 데이터 추가");
 	}
 	
 	@Transactional
@@ -48,7 +56,7 @@ public class BoardServiceImpl implements BoardService {
 	public boolean delete(Long postSN) {
 		
 		 mapper.deleteReply(postSN);
-		
+		 log.info("해당 글의 댓글 삭제");
 		if(mapper.deleteCont(postSN) == 1 && mapper.deletePost(postSN) == 1 ) {
 			return true;
 		}

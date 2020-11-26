@@ -11,7 +11,6 @@ public class ChannelReplyVO {
 	private Long userSN;
 	private Long postSN;
 	private String replyContent;
-	private String nick;
-	private Date createdatetime;
-	
+	private Date createDateTime;
+	private Date updateDateTime;
 }

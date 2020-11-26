@@ -27,7 +27,7 @@
 			select count(*) from channelpost where postSN = #{postSN}
 		</select>
 		
-		
+		<!--review 채널 상태 테이블 구상 -->
 		<!-- 채널 게시판 목록 보여주기 -->
 		<select id="getChannelList" resultType="com.uniz.domain.ChannelVO" resultMap="getAllPostList">
 			select channelsn,  channeltitle, CHANNELCOMMENT ,createdatetime
@@ -39,10 +39,16 @@
 		<select id ="getPostList" resultType="com.uniz.domain.ChannelBoardVO" resultMap="getAllPostList">
 			select p.channelsn , p.title , p.createdatetime , c.channeltitle , u.nick ,p.postSN 
 			from channelpost p , channel c , userdata u
-			where p.channelsn = #{channelSN} and c.channelsn = p.channelsn and u.usersn = p.usersn
+			where p.channelsn = #{channelSN} 
+			and c.channelsn = p.channelsn 
+			and u.usersn = p.usersn
 			order by p.postsn desc
 		</select>
 		
+		<select id="getTotal" resultType="int">
+			select count(*) from channelpost
+			where postsn > 0
+		</select>
 		
 		<!-- 게시글 전체 목록 보여주기	 -->
 		<select id="getAllPost" resultType="com.uniz.domain.ChannelBoardVO" resultMap="getAllPostList">
@@ -60,24 +66,32 @@
                		)a
 			]]>
 			<![CDATA[
-				where rownum <= 10
+				where rownum <= #{cri.pageNum} * #{cri.amount}
 				)
-			where rn >= 1
+			where rn >= (#{cri.pageNum} -1 ) * #{cri.amount}
 			]]>
 		</select>
 
+		<select id="getCountByPost" resultType="int">
+			select count(*) from channelpost
+		</select>
+		
 		<!-- 게시글 보여 주기 -->
 		<select id ="getPost" resultType="com.uniz.domain.ChannelBoardVO" >
 			select  p.postsn, u.nick, p.title , c.postContent , p.createdatetime , p.channelSN, p.userSN
 			from channelpost p , channelpostcontent c , userdata u
-			where p.postsn = #{postSN} and c.postSN = p.postSN and u.usersn = p.usersn
+			where p.postsn = #{postSN} 
+			and c.postSN = p.postSN 
+			and u.usersn = p.usersn
 			
 		</select>
 		
 	
 		<insert id="createChannel">
-			insert into channel (channelsn, channeltitle, channelcomment, createdatetime, updatedatetime)
-			values(channel_seq.nextval, #{channelTitle} , #{channelComment} , sysdate , sysdate)
+			insert into channel 
+			(channelsn, channeltitle, channelcomment, createdatetime, updatedatetime)
+			values
+			(channel_seq.nextval, #{channelTitle} , #{channelComment} , sysdate , sysdate)
 		</insert>
 		
 		<insert id="insertPost">

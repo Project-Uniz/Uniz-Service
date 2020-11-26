@@ -1,6 +1,5 @@
 package com.uniz.controller;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,16 +27,12 @@ public class BoardController {
 	private BoardService service;
 	
 	
-	
 	@GetMapping("/list")
-	public void list(Criteria cri ,Model model) {
+	public void showList(Criteria cri ,Model model) {
 		
 		log.info("list: " + cri);
-		
-		model.addAttribute("list", service.getList(cri));
-
+		model.addAttribute("list", service.getListWithPaging(cri));
 		int total = service.getTotal(cri);
-		
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 
 	}
@@ -48,13 +43,10 @@ public class BoardController {
 	}
 	
 	@PostMapping("/register")
-	public String register(BoardVO board, RedirectAttributes rttr, HttpSession session) {
-		
-		
+	public String register(BoardVO board, RedirectAttributes rttr ) {
+		//유효성 검사 서버에서 체크 할 수 있게
 		service.register(board);
-		
 		rttr.addFlashAttribute("result", board.getPostSN());
-		
 		return "redirect:/board/list";
 		
 	}
@@ -73,30 +65,28 @@ public class BoardController {
 	, Model model) {
 		
 		BoardVO vo = service.get(postSN);
-		log.info("/get or modify");
+		
 		if(vo != null) {
-		
+
 			model.addAttribute("board", vo);
-		
 			return "board/get";
 		
 		}else {
 			
-			model.addAttribute("list", service.getList(cri));
-
+			model.addAttribute("list", service.getListWithPaging(cri));
 			int total = service.getTotal(cri);
-			
 			model.addAttribute("pageMaker", new PageDTO(cri, total));
-			
 			return "board/list";
+
 		}
 	}
 	
 	@PostMapping("/modify")
 	public String modify(BoardVO board, Criteria cri  ,RedirectAttributes rttr) {
-		log.info("modify before");
 		
-		if(service.update(board)) {
+		boolean updatePost = service.update(board);
+		
+		if(updatePost) {
 			log.info("modify after");
 			rttr.addFlashAttribute("result", "success");
 		}
@@ -107,8 +97,10 @@ public class BoardController {
 	
 	@PostMapping("/remove")
 	public String remove(@RequestParam("postSN") Long postSN , Criteria cri , RedirectAttributes rttr) {
-		log.info("삭제 전" + postSN);
-		if(service.delete(postSN)) {
+		
+		boolean deletePost = service.delete(postSN);
+		
+		if(deletePost) {
 			rttr.addFlashAttribute("result", "success");
 			log.info("삭제 후 1");
 		}

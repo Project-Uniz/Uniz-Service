@@ -56,31 +56,20 @@ var channelService = (function(){
 	
 	
 	// 게시글 전체 목록 보여줌
-	function getAllPost(){
-		
-		var str = "";
-		var allPostList = $("#allPostList");
-		$.ajax({
-			type : 'get',
-			url : "/channel/list/all",
-			dataType : 'json',
-			contentType : "application/json;  charset=utf-8",
-			success : function(list){
-				
-				str += "<thead><tr><th>채널명</th><th>글 제목</th><th>작성자</th><th>작성 일</th></tr></thead>"
-				
-					for (var i = 0, len = list.length || 0; i < len; i++){
-					
-					str += "<thead><tr><th>"+list[i].channelTitle + "</th>";
-					str += "<th><a  href='/channel/get/"+list[i].postSN+"'>"+list[i].title+"</a></th>";
-					str += "<th>"+list[i].nick + "</th>";
-					str += "<th>"+displayTime(list[i].createDateTime) +"</th></tr></thead>";
-					
-				}
-				allPostList.html(str);
-			}
-		});
-		
+	function getAllPost(param, callback , error){
+		var page = param.page || 1;
+		console.log(".............= " + page);
+		 
+		 $.getJSON("/channel/list/all/" + page + ".json",
+		 function(data){
+			 if(callback){
+				 callback(data.postCnt, data.list);
+			 }
+		 }).fail(function(xhr, status, err){
+			 if(error){
+				 error();
+			 }
+		 });
 	}
 	
 	
