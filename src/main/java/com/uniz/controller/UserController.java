@@ -30,18 +30,6 @@ public class UserController {
 		
 		HttpSession session;
 		
-//		@GetMapping("/main")
-//		public String goMain() {
-//			System.out.println("I'm main...");
-//			
-//			return "/user/main";
-//		}
-		@GetMapping("/main")
-		public String goMain2() {
-			System.out.println("I'm main...");
-			
-			return "home";
-		}
 		
 		@GetMapping("/register")
 		public String goRegister() {
@@ -61,7 +49,7 @@ public class UserController {
 		public String get4() {
 			System.out.println("Logout! succeeded.");
 			
-			return "home";
+			return "maincontent";
 		}
 		
 		@PostMapping("/register")
@@ -82,7 +70,7 @@ public class UserController {
 
 				model.addAttribute("msg", result2);
 
-				return "home";
+				return "maincontent";
 				// 메인으로 가! 성공했으면 success가 뜰것임.
 
 			} else {
@@ -125,7 +113,7 @@ public class UserController {
 			
 		   System.out.println("로그아웃되었습니다.");
 			
-			return "home";
+			return "maincontent";
 		}
 		
 

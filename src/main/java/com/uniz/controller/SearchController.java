@@ -2,8 +2,8 @@ package com.uniz.controller;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -118,10 +118,11 @@ public class SearchController {
 				})
 	public ResponseEntity<Map<Integer, String>> setOptions( @RequestParam("options") ArrayList<Integer> options, @RequestParam("userSN") Long userSN) {
 		log.info("options: " + options);
-
-		Map<Integer, String> map = searchService.setOptions(userSN, options);
-
-		System.out.println(map);
+		Map<Integer, String> map = new HashMap<>();
+		if (userSN != null) {
+			map = searchService.setOptions(userSN, options);
+			log.info("setOptions map............. : " + map);
+		}
 
 		return map.size() > 0
 				? new ResponseEntity<>(map, HttpStatus.OK)

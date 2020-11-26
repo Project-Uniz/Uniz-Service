@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -6,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body>a
 
 <!DOCTYPE html>
 <html lang="en">
@@ -71,6 +72,7 @@
         
 
     }
+   
     .btn{
 
         position: absolute;
@@ -103,6 +105,15 @@
         left: 110px;
 
     }
+    .form4{
+
+        font-family: inherit;
+        color: green;
+        position: absolute;
+        top: 290px;
+        left: 110px;
+
+    }
     .check{
         position: absolute;
         top: 255px;
@@ -119,7 +130,9 @@
         border : 2px solid inherit;
         
     }
-
+    
+    
+   
 </style>
 <body>
 
@@ -129,7 +142,6 @@ private String getIdFromCookie(HttpServletRequest request){
 	//쿠키 이름이 id라면 값을 받아서 저장한다.
 
 	String userId = "";
-
 	Cookie[] cookies = request.getCookies();
 
 	for (int i = 0; i < cookies.length; i++) {
@@ -161,13 +173,17 @@ request.setCharacterEncoding("utf-8"); //한글깨짐 방지 사전호출.
             
             <div><p class="p">WelCome!!!</p></div>
             <form action="/user/loginForm" method="post" onsubmit="return checkForm();">
-                <input class="form" type="text" placeholder="userId" id="userId" name="userId" value=<%=userId%>><br>
-                <input class="form form2"type="password" placeholder="password" id="password" name="password"><br>
+                <input class="form" type="text" placeholder="userId" id="userId" name="userId" value="<%=userId%>" required><br>
+                <input class="form form2"type="password" placeholder="password" id="password" name="password"
+                
+                 required><br>
+                
                 
                 <input type="checkbox" <%=checked%> class="check" id="box" name="chk">
                 <label for="box" class="form3">remember Id</label>
+              
                 
-                <button class="btn"type="submit">sign in</button>
+                <button class="btn"type="submit">log in</button>
 
 
 
@@ -176,30 +192,33 @@ request.setCharacterEncoding("utf-8"); //한글깨짐 방지 사전호출.
 
 
     </div>
+    
+   
+    
 
 </body>
 </html>
 
 
 
- <!-- <script>
-function checkForm(){
-	//아이디에 대한 참조를 얻어온다. 
-    let id = document.getElementById("id");
-    let pwd = document.getElementById("pwd");
-    
-   //value가 ""빈 문자열이면 다음 페이지로 넘어가지 않는다. 
-    if(id.value == ""){ 
-        alert("아이디를 입력해주세요. ");
-        return false;
-    }
-    if(pwd.value== ""){ 
-        alert("비밀번호를 입력해주세요.");
-        return false;
-    }
-    return true;
-} 
+  <script>
+  function checkForm(){
+		//아이디에 대한 참조를 얻어온다. 
+	    let id = document.getElementById("userId");
+	    let pwd = document.getElementById("password");
+	    
+	   //value가 ""빈 문자열이면 다음 페이지로 넘어가지 않는다. 
+	    if(id.value == ""){ 
+	        alert("아이디를 입력해주세요. ");
+	        return false;
+	    }
+	    if(pwd.value == ""){ 
+	        alert("비밀번호를 입력해주세요.");
+	        return false;
+	    }
+	    return true;
+	} 
 
-</script>  -->
+</script>  
 </body>
 </html>

@@ -23,6 +23,10 @@ var unizService = (function(){
 		})
 	}
 
+	function register(params, callback, error) {
+		post("/uniz/register", params, callback, error);
+	};
+
 	function registLike(params, callback, error) {
 		post("/uniz/mylike", params, callback, error);
 	};
@@ -89,6 +93,7 @@ var unizService = (function(){
 
 	return {
 		post: post,
+		register: register,
 		registLike: registLike,
 		registDislike: registDislike,
 		feedPositive: feedPositive,

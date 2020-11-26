@@ -56,7 +56,7 @@ public class UnizHitController {
 		
 		model.addAttribute("videoData", videoVO);
 		
-		return "UnizHit/videoDetail";
+		return "videoDetail";
 	}
 		
 	

@@ -92,4 +92,21 @@ public class UnizPointServiceImpl implements UnizPointService {
 		}
 		return result;
 	}
+
+	@Transactional
+	@Override
+	public boolean recMyUnizPoint(Long userSN, List<Long> unizSNList, int point) {
+
+		boolean result = false;
+		if ( mapper.incMyUnizPoint(userSN, unizSNList, point) == unizSNList.size() ) {
+			result = true;
+			for (Long unizSN : unizSNList) {
+				result = mapper.addHistory(userSN, unizSN, point, 5) == 1;
+				if (result == false) {
+					break;
+				}
+			}
+		}
+		return result;
+	}
 }

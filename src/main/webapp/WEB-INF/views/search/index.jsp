@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -179,7 +180,7 @@ background-color: ivory;
 
 #userSN, #option{
 
-	borer: none;
+	border: none;
 	outline: none;
 	padding: 12px 20px;
 

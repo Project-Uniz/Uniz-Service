@@ -15,6 +15,7 @@ import com.uniz.domain.VideoDataListResult;
 import com.uniz.domain.VideoDataVO;
 import com.uniz.mapper.SearchMapper;
 import com.uniz.mapper.UnizMapper;
+import com.uniz.mapper.UserMapper;
 import com.uniz.mapper.VideoMapper;
 
 import lombok.AllArgsConstructor;
@@ -30,14 +31,17 @@ public class SearchServiceImpl implements SearchService {
 	private UnizMapper unizMapper;
 
 	@Setter(onMethod_ = @Autowired)
-	private SearchMapper mapper;
+	private UserMapper userMapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private SearchMapper SearchMapper;
 
 	@Setter(onMethod_ = @Autowired)
 	private VideoMapper videoMapper;
 
 	private Integer getOptionValues(Long userSN) {
 
-		Integer optionValue = userSN != null ? mapper.getOptions(userSN) : null;
+		Integer optionValue = userSN != null ? SearchMapper.getOptions(userSN) : null;
 
 		if (optionValue == null) {
 			optionValue = (1<<UnizTypeEnum.SEARCHEND.getTypeSN()) - 1;
@@ -66,7 +70,7 @@ public class SearchServiceImpl implements SearchService {
 
 		log.info("searchUnizSNList........... : " + searchUnizSNList);
 
-		List<UnizVO> searchUnizList = mapper.getSearchUnizListBySNList(searchUnizSNList);
+		List<UnizVO> searchUnizList = SearchMapper.getSearchUnizListBySNList(searchUnizSNList);
 
 		return searchUnizList;
 	};
@@ -181,29 +185,31 @@ public class SearchServiceImpl implements SearchService {
 
 		Map<Integer, String> map = new HashMap<>();
 
-		int optionValue = 0;
+		if (userMapper.getUserData(userSN) != null) {
+			int optionValue = 0;
 
-		for (Integer optNum : options) {
-			if (optNum == null) {
-				continue;
+			for (Integer optNum : options) {
+				if (optNum == null) {
+					continue;
+				}
+				UnizTypeEnum opt = UnizTypeEnum.valueOf(optNum);
+				if (opt != null) {
+					map.put(opt.getTypeSN(), opt.getTypeNameKR());
+					optionValue += ( 1 << (opt.getTypeSN()-1) );
+				}
 			}
-			UnizTypeEnum opt = UnizTypeEnum.valueOf(optNum);
-			if (opt != null) {
-				map.put(opt.getTypeSN(), opt.getTypeNameKR());
-				optionValue += ( 1 << (opt.getTypeSN()-1) );
-			}
-		}
 
-		boolean result = false;
-		
-		if(map.size() > 0) {
-			if ( mapper.getOptions(userSN) == null ) {
-				result = mapper.makeOptions(userSN, optionValue) > 0;
-			} else {
-				result = mapper.setOptions(userSN, optionValue) > 0;
-			}
-			if(result == false) {
-				map.clear();
+			boolean result = false;
+
+			if(map.size() > 0) {
+				if ( SearchMapper.getOptions(userSN) == null ) {
+					result = SearchMapper.makeOptions(userSN, optionValue) > 0;
+				} else {
+					result = SearchMapper.setOptions(userSN, optionValue) > 0;
+				}
+				if(result == false) {
+					map.clear();
+				}
 			}
 		}
 
@@ -222,6 +228,9 @@ public class SearchServiceImpl implements SearchService {
 	private List<ArrayList<VideoDataVO>> getVideoListByOptions(List<String> keywordList, List<Integer> options) {
 
 		// 1. 키워드, 옵션으로 유니즈 리스트 획득
+		
+		log.info("options..................... : " + options);
+		
 		List<UnizVO> uList = unizMapper.getUnizListByKeywordOptList(keywordList, options);
 
 		// 2. 유니즈 별 비디오리스트 획득
@@ -273,9 +282,11 @@ public class SearchServiceImpl implements SearchService {
 
 		// 1. 서치유니즈 별로 결과를 누적하자
 		for (UnizVO searchUniz : searchUnizList) {
+			
+			log.info("UnizSN ...........................: " + searchUniz.getUnizSN());
 
 			// 2. 서치유니즈 값으로 그 검색옵션 타입 리스트를 획득 
-			List<Integer> options = mapper.getUnizTypeFromUnizSN(searchUniz.getUnizSN());
+			List<Integer> options = SearchMapper.getUnizTypeFromUnizSN(searchUniz.getUnizSN());
 
 			// 2. 서치유니즈 키워드와 옵션으로 검색
 			// 2-a안 : DB에서 옵션 교집합 유니즈만 가져옴
