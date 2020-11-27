@@ -45,9 +45,10 @@
         <div class="inner-div">
             
             <div class="video-container">
-                <iframe width="560" height="315" src="//www.youtube.com/embed/${videoData.urlPath}" frameborder="0" allowfullscreen></iframe>
+                <iframe width="600" height="315" src="//www.youtube.com/embed/${videoData.urlPath}" frameborder="0" allowfullscreen></iframe>
                 
             </div>
+
                     <div class="video-text">
                         <p>${videoData.title}</p>
                         <p>게시자닉네임${videoData.authorNick}</p>
@@ -55,7 +56,7 @@
                         <p>업로드일:${videoData.createDateTime}</p>
                     </div>
 
-        </div>
+       		 </div>
     
 </div>
 </body>

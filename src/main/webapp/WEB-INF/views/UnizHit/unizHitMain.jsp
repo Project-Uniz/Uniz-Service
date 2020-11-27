@@ -9,39 +9,6 @@
 </head>
 <style>
 
-.navbar {
-	width: 100%;
-	height: 20%;
-	background-color: black;
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	list-style: none;
-	display: inline-block;
-}
-.mainlogo{
-	font-size : 100px;
-	font-weight: bold;
-	color : white;
-}
-
-.navbar ul {
-	display: flex;
-}
-
-.navbar ul li {
-	list-style: none;
-	padding: 15px;
-}
-
-.navbar ul li a {
-	text-decoration: none;
-	padding: 12px 16px;
-	color: white;
-	font-size: 20px;
-	
-	/* background-color: rosybrown; */
-}
 
 span {
 	position: absolute;
@@ -100,6 +67,7 @@ span ul {
 
 .video-align-center img {
 	width: 250px;
+	height: 140px;
 }
 </style>
 
@@ -145,9 +113,9 @@ span ul {
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	let searchMenuNum = 5;
+	let UnizHitMenuNum = 5;
 
-	setUnitagsByPreset(searchMenuNum, 13);
+	setUnitagsByPreset(UnizHitMenuNum, 13);
 	
 	function setUnitagsByPreset(menu, limit) {
 		unizService.getPreset(

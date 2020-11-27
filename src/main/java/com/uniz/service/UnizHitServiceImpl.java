@@ -32,7 +32,7 @@ public class UnizHitServiceImpl implements UnizHitService {
 	@Override
 	public VideoDataVO getVideo(long videoSn) {
 		
-log.info("getVideoInfo" + videoSn);
+		log.info("getVideoInfo" + videoSn);
 		
 		VideoDataVO videoVO = mapper.getVideo(videoSn);
 		

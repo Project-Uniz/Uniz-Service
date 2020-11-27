@@ -3,29 +3,32 @@
 <mapper namespace="com.uniz.mapper.UnizHitMapper">
 
 	<select id="read" resultType = "com.uniz.domain.VideoDataVO">
+	
 	<![CDATA[
-	
 	select* from videodata where videoSN = #{vodeoSN}
-	
 	]]>
+	
 	</select>	
 	
 	<select id="getHitList" resultType = "com.uniz.domain.VideoDataVO">
 	<![CDATA[
 	
-	SELECT *
+	SELECT videoSN,thumbUrl,yuploaddatetime
 	
-	FROM videoData
+	FROM videoData2
+	
+	where yuploaddatetime >= (select SYSDATE - 60
+                          from dual
+                         )
 	
 	order by viewCnt+likeCnt desc
-		
-		
+			
 	]]>
 	</select>	
 	
 	
 	<select id="getVideo" resultType="com.uniz.domain.VideoDataVO">
-		SELECT * FROM videoData where videoSn = #{videoSN}
+		SELECT * FROM videoData2 where videoSn = #{videoSN}
 	</select>
 	
 </mapper>

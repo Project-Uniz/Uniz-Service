@@ -21,12 +21,12 @@ public class UnizHitMapperTest {
 	@Setter(onMethod_ = @Autowired)
 	private UnizHitMapper mapper;
 
-	@Test
-	public void testRead() {
-		VideoDataVO uniz = mapper.read(1L);
-		log.info("result :" + uniz);
-	}
-	
+//	@Test
+//	public void testRead() {
+//		VideoDataVO uniz = mapper.read(1L);
+//		log.info("result :" + uniz);
+//	}
+//	
 
 	@Test
 	public void testReadList() {

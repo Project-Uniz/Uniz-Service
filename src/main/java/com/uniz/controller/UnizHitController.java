@@ -27,21 +27,18 @@ public class UnizHitController {
 	private UnizHitService service;
 	//private UserService userService;
 	
-	
 	@GetMapping(value = "/Hitlist",
 				produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}
 						   )
-	
 	//video 리스트 가져오기.(JSON형식)
 	public ResponseEntity<List<VideoDataVO>>getHitList() {
-		
-		log.info("너가왜나와?");
+		log.info("JSON확인");
 		return new ResponseEntity<List<VideoDataVO>>(service.getHitList(),HttpStatus.OK);
 		
 	}
 	
 	@GetMapping("/UnizHit")
-	public String getList(Model model) {
+	public String unizHitView(Model model) {
 		
 		return "UnizHit/unizHitMain";
 	}
@@ -63,8 +60,6 @@ public class UnizHitController {
 		//0.로그인 여부는 당장 상관없음.(추후고려)
 
 		//1.상단 태그를 가져와서 카테고리 별로 보여줘야한다.
-		
-		
 		
 		//2.키워드별로 세부 카테고리를 정한다. 
 		//2-1.uniTag 14개 사용 하여 관련된 영상을 분류 ex)스포츠, 영화 , 드라마, 동물.. 등 
