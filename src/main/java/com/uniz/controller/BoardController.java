@@ -1,5 +1,6 @@
 package com.uniz.controller;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,17 +27,12 @@ public class BoardController {
 	private BoardService service;
 	
 	
-	
 	@GetMapping("/list")
-	public void list(Criteria cri ,Model model) {
+	public void showList(Criteria cri ,Model model) {
 		
 		log.info("list: " + cri);
-		
-		model.addAttribute("list", service.getList(cri));
-
-
+		model.addAttribute("list", service.getListWithPaging(cri));
 		int total = service.getTotal(cri);
-		
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 
 	}
@@ -47,30 +43,50 @@ public class BoardController {
 	}
 	
 	@PostMapping("/register")
-	public String register(BoardVO board, RedirectAttributes rttr) {
-		
+	public String register(BoardVO board, RedirectAttributes rttr ) {
+		//유효성 검사 서버에서 체크 할 수 있게
 		service.register(board);
-		
 		rttr.addFlashAttribute("result", board.getPostSN());
-		
 		return "redirect:/board/list";
 		
 	}
 	
-	@GetMapping( {"/get" , "/modify"})
-	public void get(@RequestParam("postSN") Long postSN , @ModelAttribute("cri") Criteria cri
+	@GetMapping( "/modify")
+	public void getModify(@RequestParam("postSN") Long postSN , @ModelAttribute("cri") Criteria cri
 	, Model model) {
 		
-		log.info("/get or modify");
+		log.info(" modify");
 		model.addAttribute("board", service.get(postSN));
 		
 	}
 	
+	@GetMapping("/get")
+	public String get(@RequestParam("postSN") Long postSN , @ModelAttribute("cri") Criteria cri
+	, Model model) {
+		
+		BoardVO vo = service.get(postSN);
+		
+		if(vo != null) {
+
+			model.addAttribute("board", vo);
+			return "board/get";
+		
+		}else {
+			
+			model.addAttribute("list", service.getListWithPaging(cri));
+			int total = service.getTotal(cri);
+			model.addAttribute("pageMaker", new PageDTO(cri, total));
+			return "board/list";
+
+		}
+	}
+	
 	@PostMapping("/modify")
 	public String modify(BoardVO board, Criteria cri  ,RedirectAttributes rttr) {
-		log.info("modify before");
 		
-		if(service.update(board)) {
+		boolean updatePost = service.update(board);
+		
+		if(updatePost) {
 			log.info("modify after");
 			rttr.addFlashAttribute("result", "success");
 		}
@@ -82,10 +98,13 @@ public class BoardController {
 	@PostMapping("/remove")
 	public String remove(@RequestParam("postSN") Long postSN , Criteria cri , RedirectAttributes rttr) {
 		
-		if(service.delete(postSN)) {
-			rttr.addFlashAttribute("result", "success");
-		}
+		boolean deletePost = service.delete(postSN);
 		
+		if(deletePost) {
+			rttr.addFlashAttribute("result", "success");
+			log.info("삭제 후 1");
+		}
+			log.info("삭제 후 2");
 		return "redirect:/board/list"+ cri.getListLink();
 		
 	}

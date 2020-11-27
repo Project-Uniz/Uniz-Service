@@ -21,30 +21,15 @@
 	
 	<h3>전체 게시글 목록</h3>
 	<div></div>
-	<table id="allPostList">
+	<table class="allPostList">
 	</table>
 	
-
+	<div class="postFooter"></div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/channel.js"></script>
-<script>
+<script type="text/javascript" src="/resources/js/channelPaging.js"></script>
 
-$(document).ready(function(){
-	
-	channelService.getChannelList();
-	channelService.getAllPost();
-	
-	$("#boardPost").on("click",function(){
-		self.location = "/board/list";
-	});
-	$("#createChannel").on("click" , function(){
-		self.location = "/channel/chcreate";
-	});
-	
-});
-
-</script>
 </body>
 </html>

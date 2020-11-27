@@ -7,7 +7,7 @@ import com.uniz.domain.Criteria;
 
 public interface BoardService {
 	
-	//public List<BoardVO> getList();
+	public List<BoardVO> getListWithPaging(Criteria cri);
 	
 	public List<BoardVO> getList(Criteria cri);
 	

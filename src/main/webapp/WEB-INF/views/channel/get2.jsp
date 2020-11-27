@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,9 +39,6 @@ input{
 	<button id='list'>목록으로</button>
 	<div></div>
 	
-	
-				
-
 		
 	<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
 		
@@ -59,9 +55,9 @@ input{
 		
 		<div>
 			
-			<ul class="reply">
+			<table class="reply">
 			
-			</ul>
+			</table>
 		
 		</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -76,7 +72,6 @@ $(document).ready(function(){
 	var newReply = $('.newReply');
 	var inputReply = newReply.find("input[name='replyContent']");
 	var inputUserSN = newReply.find("input[name='userSN']");
-	var inputReplySN = newReply.find("input[name='replySN']");
 	
 	var reply = $(".reply");
 	var replyUserSN = reply.find("input[name='userSN']");
@@ -98,55 +93,45 @@ $(document).ready(function(){
 		
 		var userSN = "";
 		
-		var replySN = [];
 		
-		var rlist = [];
 		
 		if(list == null || list.length == 0){
 			reply.html("등록된 댓글이 없습니다");
 			return;
 		}
 		
-
-		str += "<thead><tr><th>작성자</th><th>댓글 내용</th><th>작성 시간</th></tr></thead>";
-			for(var i = 0 , len = list.length || 0; i < len; i++){
-				str += "<tr><td><input type='text' id='replySN' name='replySN' size='20'  value="+ list[i].replySN +" readonly='readonly'><input type='text' name='userSN' size='20'  value="+ list[i].userSN +" readonly='readonly'></td>";
-				str += "<td><input class='replyContent' value ='" + list[i].replyContent + "' readonly='readonly' />" +
-				'<button class="modifyBtn" type="submit"> 수정 </button>' +
-				'<button class="deleteBtn" >   삭제      </button>'
-				 + "</td>";
-				str += "<td>" + chReplyService.displayTime(list[i].createDateTime) + "</td></tr>";
-				
-				rlist[i] = list[i].replySN;
-				console.log("replySN = " + rlist[i] );
-			}
-						
-		
-			reply.html(str);
-				
+			str += "<thead><tr><th>작성자</th><th>댓글 내용</th><th>작성 시간</th></tr></thead>";
+		for(var i = 0 , len = list.length || 0; i < len; i++){
+			str += "<tr><td><input type='text' name='text' size='20'  value="+ list[i].nick +" readonly='readonly'><input type='text' name='userSN' size='20'  value="+ list[i].userSN +" readonly='readonly'></td>";
+			str += "<td><input class='replyContent' value ='" + list[i].replyContent + "' readonly='readonly' />" +
+			'<button class="modifyBtn" type="submit"> 수정 </button>' +
+			'<button class="deleteBtn" >   삭제      </button>'
+			 + "</td>";
+			str += "<td>" + chReplyService.displayTime(list[i].createDateTime) + "</td></tr>";
 			
-				
+			replySN = list[i].replySN;
+			//console.log("replySN = " + replySN);
+		}
+		
+		reply.html(str);
 				
 				$(".modifyBtn").on("click", function(e){
-						
-						alert("..... " + rlist[0] );
-						
+					var replySN = $(this).data("replySN");
+					console.log(replySN);
+					chReplyService.get(replySN, function(reply){
+						alert("..... " + reply.replySN );
+					});
 				});		
 				
-				$(".deleteBtn").on("click", "li", function(e){
-					
-						alert("..... " + rlist[1] );
-					
-				});		
-					
+				$(".deleteBtn").on("click", function(e){
+					alert("deleteBtn " + replySN);
+				});	
 		});
 	}
 	
-
+	
 	
 	registerReplyBtn.on("click" , function(e){
-		
-		var str = "";
 		
 		var reply ={
 				replyContent : inputReply.val(),

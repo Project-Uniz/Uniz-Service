@@ -51,11 +51,11 @@ public class ChannelServiceTests {
 //		
 //	}
 	
-//	@Test
-//	public void testGetList() {
-//		log.info("채널 리스트 게시글 불러오기");
-//		service.getPostList(5L);
-//	}
+	@Test
+	public void testGetList() {
+		log.info("채널 리스트 게시글 불러오기");
+		service.getPost(78L);
+	}
 	
 //	@Test
 //	public void testCreateChannel() {

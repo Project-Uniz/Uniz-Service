@@ -23,7 +23,7 @@ var channelService = (function(){
 					error(er);
 				}
 			}
-		})
+		});
 	}
 	
 	// 채널 목록 보여줌
@@ -56,31 +56,20 @@ var channelService = (function(){
 	
 	
 	// 게시글 전체 목록 보여줌
-	function getAllPost(){
-		
-		var str = "";
-		var allPostList = $("#allPostList");
-		$.ajax({
-			type : 'get',
-			url : "/channel/list/all",
-			dataType : 'json',
-			contentType : "application/json;  charset=utf-8",
-			success : function(list){
-				
-				str += "<thead><tr><th>채널명</th><th>글 제목</th><th>작성자</th><th>작성 일</th></tr></thead>"
-				
-					for (var i = 0, len = list.length || 0; i < len; i++){
-					
-					str += "<thead><tr><th>"+list[i].channelTitle + "</th>";
-					str += "<th><a  href='/channel/get/"+list[i].postSN+"'>"+list[i].title+"</a></th>";
-					str += "<th>"+list[i].nick + "</th>";
-					str += "<th>"+displayTime(list[i].createDateTime) +"</th></tr></thead>";
-					
-				}
-				allPostList.html(str);
-			}
-		});
-		
+	function getAllPost(param, callback , error){
+		var page = param.page || 1;
+		console.log(".............= " + page);
+		 
+		 $.getJSON("/channel/list/all/" + page + ".json",
+		 function(data){
+			 if(callback){
+				 callback(data.postCnt, data.list);
+			 }
+		 }).fail(function(xhr, status, err){
+			 if(error){
+				 error();
+			 }
+		 });
 	}
 	
 	
@@ -104,23 +93,27 @@ var channelService = (function(){
 		var str = "";
 		var boardPost = $("#boardPost");
 		var postSN = param.postSN;
+		var userSN = param.userSN;
+		var title = param.title;
+		
+		
 		$.ajax({
 			type : 'get',
 			url : "/channel/" + postSN,
 			dataType : 'json',
 			contentType : "application/json; charset=utf-8",
 			success : function(post){
-				var channelSN = "";
-					
-				for ( var i = 0, len = post.length || 0; i < len; i++){
-					str += "<div><label>글 제목</label><input name='postSN' value='"+post[i].title+"' readonly='readonly' /></div>";
-					str += "<div><label>글 번호</label><input name='postSN' value='"+post[i].postSN+"' readonly='readonly' /></div>";
-					str += "<div><label>작성자 </label><input name='postSN' value='"+post[i].nick+"' readonly='readonly' /></div>";
-					str += "<div><label>글 내용</label><textarea row='3' name='postContent' readonly='readonly'>" + post[i].postContent +"</textarea>";
-					
-					channelSN = post[i].channelSN;
-				}
+				var channelSN = post.channelSN;
 				
+					
+					str += "<div><label>글 제목</label><input name='postSN' value='"+post.title+"' readonly='readonly' /></div>";
+					str += "<div><label>글 번호</label><input name='postSN' value='"+post.postSN+"' readonly='readonly' /></div>";
+					str += "<div><label>작성자 </label><input name='postSN' value='"+post.userSN+"' readonly='readonly' /></div>";
+					str += "<div><label>글 내용</label><textarea row='3' name='postContent' readonly='readonly'>" + post.postContent +"</textarea>";
+					console.log("======"+post.postSN);
+					
+					
+					
 				$("#modify").on("click", function(){
 					self.location = "/channel/modify/" + postSN + "/"+ channelSN;
 				});
@@ -147,34 +140,20 @@ var channelService = (function(){
 			success : function(post){
 					
 					
-				for ( var i = 0, len = post.length || 0; i < len; i++){
-					str += "<div><label>글 제목</label><input name='title' value='"+post[i].title+"'  /></div>";
-					str += "<div><label>글 번호</label><input name='postSN' value='"+post[i].postSN+"' readonly='readonly' /></div>";
-					str += "<div><label>작성자 </label><input name='nick' value='"+post[i].nick+"' readonly='readonly' /></div>";
-					str += "<div><input type='hidden' name='channelSN' value='"+post[i].channelSN+"' readonly='readonly' /></div>";
-					str += "<div><label>글 내용</label><textarea row='3' name='postContent' >" + post[i].postContent +"</textarea>";
-					channelSN = post[i].channelSN;
-				}
+				
+					str += "<div><label>글 제목</label><input name='title' value='"+post.title+"'  /></div>";
+					str += "<div><label>글 번호</label><input name='postSN' value='"+post.postSN+"' readonly='readonly' /></div>";
+					str += "<div><label>작성자 </label><input name='nick' value='"+post.nick+"' readonly='readonly' /></div>";
+					str += "<div><input type='hidden' name='channelSN' value='"+post.channelSN+"' readonly='readonly' /></div>";
+					str += "<div><label>글 내용</label><textarea row='3' name='postContent' >" + post.postContent +"</textarea>";
+					channelSN = post.channelSN;
+				
 					
 					
 					
-					boardPost.html(str);
+				boardPost.html(str);
 
-					//var formObj = $("form");
-					//console.log("channelSN: " + channelSN);
-					//$('button').on("click", function(e){
-					//	e.preventDefault();
-					//	var channel = param.channelSN;
-					//	var operation = $(this).data("oper");
-					//	
-					//	if(operation === 'remove'){
-					//		formObj.attr("action" , "/channel/remove");
-					//	}else if (operation === 'list'){
-					//		self.location="/channel/board/" + channelSN;
-					//		return;
-					//	}
-					//	formObj.submit();
-					//});
+					
 			}
 		});
 	}

@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.uniz.domain.ChannelBoardVO;
+import com.uniz.domain.ChannelPageDTO;
 import com.uniz.domain.ChannelVO;
+import com.uniz.domain.Criteria;
 import com.uniz.mapper.ChannelMapper;
 
 import lombok.AllArgsConstructor;
@@ -33,11 +35,17 @@ public class ChannelServiceImpl implements ChannelService {
 		return mapper.getPostList(channelSN);
 	}
 	
-	public List<ChannelBoardVO> getAllPost(){
-		return mapper.getAllPost();
+	public List<ChannelBoardVO> getAllPost(Criteria cri){
+		return mapper.getAllPost(cri);
 	}
 	
-	public List<ChannelBoardVO> getPost(Long postSN){
+	public ChannelPageDTO getListPage(Criteria cri) {
+		return new ChannelPageDTO( mapper.getCountByPost() , mapper.getAllPost(cri));
+	}
+	
+	
+	
+	public ChannelBoardVO getPost(Long postSN){
 		log.info("게시글 출력 ");
 		
 		return mapper.getPost(postSN);

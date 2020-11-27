@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.uniz.mapper.ChannelReplyMapper">
+
+	<select id="getList" resultType="com.uniz.domain.ChannelReplyVO">
+		select r.postSN , r.replySN , r.replyContent, u.nick , r.createdatetime , u.usersn
+		from channelReply r , userdata u
+		where postSN = #{postSN}
+		and u.usersn = r.usersn
+		order by replySN asc
+	</select>
+
+	<select id="read" resultType="com.uniz.domain.ChannelReplyVO">
+		select *
+		from channelreply
+		where replySN = #{replySN}
+	</select>
+
+	<insert id="insert">
+		insert into channelreply (replysn , usersn , replycontent , postsn, createdatetime, updatedatetime)
+		values (CHANNELREPLY_SEQ.nextval , #{userSN} , #{replyContent} , #{postSN} , sysdate, sysdate)
+	</insert>
+	
+	<update id="update">
+		update channelreply
+		set replyContent = #{replyContent}
+		where replySN = #{replySN}	
+	</update>
+	
+	<delete id="deleteReply">
+		delete from channelReply
+		where replySN = #{replySN}
+	</delete>
+	
+	
+	
+
+
+</mapper>

@@ -20,7 +20,7 @@ import lombok.extern.log4j.Log4j;
 @ContextConfiguration({ "file:src/main/webapp/WEB-INF/spring/root-context.xml",
 "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
 @Log4j
-public class ChannelControllerTests {
+public class ChannelReplyControllertests {
 	
 	@Setter(onMethod_ = {@Autowired})
 	private WebApplicationContext ctx;
@@ -34,43 +34,35 @@ public class ChannelControllerTests {
 	
 //	@Test
 //	public void testRegister() throws Exception{
+//	
+//	String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/chreplies/add")
+//			.param("userSN", "9")
+//			.param("replyContent" , "제발")
+//			.param("postSN", "78")).andReturn().getModelAndView().getViewName();
+//	log.info("resultPage=======" + resultPage);
+//}
+	
+//	@Test
+//	public void testRemove() throws Exception{
+//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/chreplies/remove")
+//				.param("postSN", "78")
+//				.param("replySN", "10")).andReturn().getModelAndView().getViewName();
 //		
-//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/channel/register")
-//				.param("title", "컨트롤러 테스트")
-//				.param("userSN", "7")
-//				.param("postContent" , "제발")
-//				.param("channelSN", "6")).andReturn().getModelAndView().getViewName();
-//		log.info("resultPage=======" + resultPage);
+//		log.info(resultPage);
 //	}
 	
 //	@Test
 //	public void testUpdate() throws Exception{
 //		
-//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/channel/modify")
-//				.param("postSN", "40")
-//				.param("title", "수정")
-//				.param("channelSN", "6")
-//				.param("postContent", "수정")).andReturn().getModelAndView().getViewName();
+//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/chreplies/modify")
+//				.param("postSN", "74")
+//				.param("replySN", "11")
+//				.param("replyContent", "수정ggggg")).andReturn().getModelAndView().getViewName();
 //		
 //		log.info("update: " +resultPage);
 //				
 //	}
 	
-//	@Test
-//	public void testRemove() throws Exception{
-//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/channel/remove")
-//				.param("postSN", "39")
-//				.param("channelSN", "6")).andReturn().getModelAndView().getViewName();
-//		
-//		log.info(resultPage);
-//	}
-//	@Test
-//	public void testPost() throws Exception{
-//		log.info(mockMvc.perform(MockMvcRequestBuilders
-//				.get("/channel/get")
-//				.param("postSN", "82"))
-//				.andReturn().getModelAndView().getModelMap());
-//	}
-
+	
 	
 }

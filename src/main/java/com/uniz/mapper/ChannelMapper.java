@@ -2,6 +2,8 @@ package com.uniz.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.uniz.domain.ChannelBoardVO;
 import com.uniz.domain.ChannelVO;
 import com.uniz.domain.Criteria;
@@ -12,9 +14,15 @@ public interface ChannelMapper {
 	
 	public List<ChannelBoardVO> getPostList(Long channelSN); // 해당 채널의 게시글 목록을 보여줌
 	
-	public List<ChannelBoardVO> getAllPost();
+	public List<ChannelBoardVO> getAllPost(@Param("cri") Criteria cri);
 	
-	public List<ChannelBoardVO> getPost(Long postSN);
+	public int getCountByPost(); // 게시글 전체 수
+	
+	public ChannelBoardVO getPost(Long postSN);
+	
+	public int checkChannel(Long channelSN);
+	
+	public int checkPost(Long postSN);
 	
 	public void createChannel(ChannelVO vo);    // 채널 create
 	
