@@ -1,6 +1,28 @@
 console.log("ChReply Module.........");
 
 var chReplyService = (function(){
+	
+	function add(reply, callback, error){
+		
+		$.ajax({
+			type : 'post',
+			url : '/chreplies/add' ,
+			data : JSON.stringify(reply),
+			contentType : "application/json; charset=utf-8",
+			success : function(result, status, xhr){
+				if(callback){
+					
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er){
+				if(error){
+					error(er);
+				}
+			}
+		});
+		
+	}
 
 	
 	function get(replySN, callback, error){
@@ -42,7 +64,9 @@ var chReplyService = (function(){
 		$.getJSON("/chreplies/page/" + postSN + "/" + page + ".json",
 				function(data){
 			if(callback){
-				callback(data.replyCnt, data.list);
+				console.log("aaaaaaa= " + data);
+				callback(data);
+				
 			}
 		}).fail(function(xhr, status,err){
 			if(error){
@@ -52,6 +76,7 @@ var chReplyService = (function(){
 	}
 	
 	return {
+		add : add,
 		getList : getList,
 		get : get,
 		displayTime : displayTime

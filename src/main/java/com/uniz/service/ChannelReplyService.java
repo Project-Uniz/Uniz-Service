@@ -11,9 +11,9 @@ public interface ChannelReplyService {
 	
 	public ChannelReplyVO get(Long replySN);
 	
-	public boolean modify(ChannelReplyVO vo);
+	public int modify(ChannelReplyVO vo);
 	
-	public boolean delete(Long replySN);
+	public int delete(Long replySN);
 	
 	public List<ChannelReplyVO> getList(Criteria cri , Long postSN);
 	

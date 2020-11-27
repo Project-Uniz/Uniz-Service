@@ -77,8 +77,6 @@ $(document).ready(function(){
 		}
 		str += "</ul></div>";
 		
-		console.log(str);
-		
 		postFooter.html(str);
 	}
 	

@@ -6,10 +6,11 @@
 <mapper namespace="com.uniz.mapper.ChannelReplyMapper">
 
 	<select id="getList" resultType="com.uniz.domain.ChannelReplyVO">
-		select *
-		from channelReply
+		select r.postSN , r.replySN , r.replyContent, u.nick , r.createdatetime , u.usersn
+		from channelReply r , userdata u
 		where postSN = #{postSN}
-		order by postSN asc
+		and u.usersn = r.usersn
+		order by replySN asc
 	</select>
 
 	<select id="read" resultType="com.uniz.domain.ChannelReplyVO">

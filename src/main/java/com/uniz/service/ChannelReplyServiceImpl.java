@@ -32,15 +32,15 @@ public class ChannelReplyServiceImpl implements ChannelReplyService {
 	}
 
 	@Override
-	public boolean modify(ChannelReplyVO vo) {
+	public int modify(ChannelReplyVO vo) {
 		// 수정할 댓글 번호와 수정 댓글 내용을 객체로 받아와 댓글 수정
-		return mapper.update(vo) == 1;
+		return mapper.update(vo) ;
 	}
 
 	@Override
-	public boolean delete(Long replySN) {
+	public int delete(Long replySN) {
 		// 댓글 삭제
-		return mapper.deleteReply(replySN) == 1;
+		return mapper.deleteReply(replySN) ;
 	}
 	
 	@Override

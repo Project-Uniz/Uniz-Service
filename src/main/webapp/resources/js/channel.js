@@ -95,7 +95,7 @@ var channelService = (function(){
 		var postSN = param.postSN;
 		var userSN = param.userSN;
 		var title = param.title;
-		console.log("1111111= " + title);
+		
 		
 		$.ajax({
 			type : 'get',
