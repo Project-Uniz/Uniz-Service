@@ -6,171 +6,160 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
-import com.uniz.domain.UserData;
-import com.uniz.domain.UserTemp;
+import com.uniz.domain.UserDTO;
 import com.uniz.mapper.UserMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 
+
 @Log4j
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements UserService {
-	
+public class UserServiceImpl implements UserService{
+
 	private UserMapper mapper;
-
+	
 	@Override
-	public String register(UserTemp temp) {
-		//회원정보를 넣는 메서드. 
+	public boolean insertUserData(UserDTO dto) {  //데이터 insert  true.
+		log.info("insert into userData................."+ dto);
+        return mapper.insertUserData(dto)==1;		
+	}
+	@Override
+	public boolean getExistingUserId( String userId) { //아이디와 닉네임 중복체크 true.
+		log.info("findExistingUserId.................");
+		return mapper.findExistingUserId(userId)==0;
+	}
+	@Override
+	public boolean getExistingNick(String nick) {
+		log.info("findExistingNick.......!!!!!");
+		return mapper.findExistingNick(nick)==0;
+	}
+	@Override
+	public boolean modifyUserInfo(UserDTO dto) {
 		
 		
-		String msg = "failed";
-
-		int result = mapper.chkId(temp.getUserId());
-		// 아이디 중복체크. 
-
-		if (result ==0) {
-			// 중복아님. 
-
-			UserData data = UserData.builder().provider("T").nick(temp.getUserId()).state(1)
-					.imgUrl("").userType(1)
-					.build();
-
-			if (mapper.insert(data) == 1) {
-				// userData에  insert
-				msg = "userData inserted.......";
-
-				temp.setUserSN(data.getUserSN());
-
-			if (mapper.insertTemp(temp) == 1) {
-				//userTemp에 insert
-
-				msg = "success";
-				}
-			}
-			return msg;
+		log.info("modify........."+ dto);
+		return mapper.updateUserInfo(dto)==1;
+	}
+	@Override
+	public boolean validateForm(UserDTO dto) { //유효성 검사. 
+		if(dto.getNick()=="" ||dto.getUserId()=="" || dto.getPassword()=="") {
+			return false;
 		}
+		log.info("is not null............");
+		return true;
+	}
+	@Override
+	public int register(UserDTO dto, Model model) {
+		boolean SUCCESS = true;
+		
+		if(validateForm(dto)!=SUCCESS) {
+			model.addAttribute("msg", "유효하지 않은 정보입니다. ");
+			return 0;
+		}
+		if(getExistingNick(dto.getNick())!=SUCCESS) {
+			model.addAttribute("msg", "중복된 닉네임입니다.");
+			return 0;
+		}
+		if(getExistingUserId( dto.getUserId())!=SUCCESS) {
+			model.addAttribute("msg", "중복된 아이디입니다. ");
+			return 0;
+		}
+		if(insertUserData(dto)!=SUCCESS) {
+			model.addAttribute("msg", "회원정보 저장에 실패했습니다. ");
+			return 0;
+		}
+		return 1;
+	}
+	
+	@Override
+	public boolean isIdPwdValid(UserDTO dto) {
+		return mapper.isIdPwdValid(dto.getUserId(), dto.getPassword())==1;
+	}
+	
+	
+	
+	@Override
+	public int login(UserDTO dto, Model model, HttpServletRequest request, HttpServletResponse response) {
 
-		System.out.println("회원가입에 실패했습니다.");
-		return msg;
-		//failed  떠야함. 
+		boolean SUCCESS = true;
+		
+		if(validateForm(dto)!=SUCCESS) {
+			model.addAttribute("msg", "유효하지 않은 정보입니다. ");
+			return 0;
+		}
+		if(isIdPwdValid(dto)==SUCCESS) {
+			//세션을 생성한다. 
+			validateSession(request, dto.getUserId());
+		}else {	
+			model.addAttribute("msg", "아이디 또는 패스워드가 일치하지 않습니다. ");
+			return 0;
+	}
+		if(isIdRememberChecked(request)==SUCCESS) {  //체크박스에 체크되어야만 쿠키를 생성. 
+			//1. 쿠키 생성.
+			makeCookie(response, dto.getUserId());
+			
+		}
+		
+		if(stateCheck(dto.getUserId())!=SUCCESS) { //상태 체크 . 탈퇴했나 . 
+			model.addAttribute("msg", "이미 탈퇴한 계정이라서 로그인이 불가능합니다. ");
+			return 0;
+		}
+		return 1;
 	}
 
 	@Override
-	public boolean isNotNull(UserTemp vo) {
+	public boolean stateCheck(String userId) {
+		log.info("getUserState..............");
+		
+		if(mapper.selectState(userId)==null ) {
+			return false;}
+		
+		return mapper.selectState(userId)==1; //1이 아니라면 탈퇴한 계정이다. 
+	}
+	
+	@Override
+	public void validateSession(HttpServletRequest request, String userId) {
+		 HttpSession session = request.getSession();
+		 session.setAttribute("userId", userId );
+		 
+		 System.out.println("Session................."+userId);
+	}
+	
+	@Override
+	public void deleteCookie(HttpServletRequest request, HttpServletResponse response) {
+		Cookie[] cookies = request.getCookies(); // cookies가 null 수 있음에 주의
+		
+		if(cookies!=null) {//쿠키가 널이 아니라면
+		for(int i=0;i<cookies.length;i++) {
+		if(cookies[i].getName().equals("userId")) {
 
-		if(vo.getUserId()=="" || vo.getPassword() =="") {
+		Cookie cookie = new Cookie("userId", ""); // 2. 쿠키를 생성
+		cookie.setMaxAge(0); // 3. 쿠키의 유효시간을 0으로 변경(쿠키삭제)
+		response.addCookie(cookie); // 4. 쿠키를 응답에 포함시킨다. 
+				} // end if
+			} // end for.
+		} // end null if
+	}
+	@Override
+	public void makeCookie(HttpServletResponse response, String userId) {
+		Cookie cookie = new Cookie("userId", userId);
+		response.addCookie(cookie);
+	}
+	@Override
+	public boolean isIdRememberChecked(HttpServletRequest request) {
+		
+		String chkValue = request.getParameter("chk");
+		
+		if(chkValue == "" || chkValue == null) {
 			return false;
 		}
 		return true;
 	}
 	
-	
-	@Override 
-	public boolean isChecked(String chk) {
-		
-		if(chk==null) {
-			return false;
-			
-		}else
-			return true;
-	}
-	@Override
-	public String login(UserTemp vo, HttpServletRequest request, HttpServletResponse response
-					) {
 
-		String msg = "Failed";
-		String chk = request.getParameter("chk");
-		Cookie cookie = new Cookie("userId", vo.getUserId());
-
-		// 1.아이디와 패스워드 일치확인.
-		int count = mapper.isIdPwdValid(vo);
-
-		if (count == 1) {
-
-				// 2. userTemp로부터 해당 정보를 전부 가져와서 저장.
-				UserTemp temp = mapper.selectUserTemp(vo.getUserId());
-				
-				System.out.println(temp);
-				// 3. userTemp의 SN을 userData의 SN과 조인.
-				Long userDataSN = mapper.getDataSN(temp.getUserSN());
-				
-				msg = "join success!";
-				
-				if(chk!=null) {
-					response.addCookie(cookie);
-				}else {
-					
-					cookie.setMaxAge(0); // 3. 쿠키의 유효시간을 0으로 변경(쿠키삭제)
-					response.addCookie(cookie);} // 4. 쿠키를 응답에 포함시킨다.
-				
-				if (userDataSN != null && userDataSN != 0) {
-					
-					// 해당 userDataSN이 있으면 해당 userData정보를 전부 가져와 저장.
-					UserData data = mapper.getUserData(userDataSN);
-					
-					HttpSession session = request.getSession();
-					
-					//userData 정보를 세션에 저장.  
-					session.setAttribute("userId", data);
-					
-					System.out.println("이것은 세션의 주소입니다 : "+session);
-					
-					System.out.println("session success!!!!");
-				}
-				
-			
-				msg = "maincontent";
-				System.out.println("로그인에 성공하였으므로 메인으로 가겠습니다.");
-				return msg;
-				
-			}else {//아이디와 패스워드 불일치. 
-				//쿠키를 삭제한다. 
-				
-				cookie.setMaxAge(0); // 3. 쿠키의 유효시간을 0으로 변경(쿠키삭제)
-
-				response.addCookie(cookie);} // 4. 쿠키를 응답에 포함시킨다.
-				 
-				
-				
-				msg = "/user/loginForm";
-				System.out.println("로그인에 실패했습니다.");
-				return msg;
-			}
-			
-			
-		
-	
-@Override
-public void deleteCookie(UserTemp temp, HttpServletRequest request, HttpServletResponse response) {
-
-	
-	Cookie[] cookies = request.getCookies(); // cookies가 null 수 있음에 주의
-
-	if(cookies!=null) {//쿠키가 널이 아니라면
-
-	for(int i=0;i<cookies.length;i++) {
-
-	if(cookies[i].getName().equals("userId")) {
-
-	Cookie cookie = new Cookie("userId", ""); // 2. 쿠키를 생성
-
-
-	cookie.setMaxAge(0); // 3. 쿠키의 유효시간을 0으로 변경(쿠키삭제)
-
-	response.addCookie(cookie); // 4. 쿠키를 응답에 포함시킨다. 
-
-	} // end if
-
-	} // end for.
-
-	} // end null if
-
-	}// end method
 }
-	
-	
-
