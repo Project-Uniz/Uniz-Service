@@ -29,7 +29,7 @@ public class UserController {
 		private UserService service;
 		
 		HttpSession session;
-		
+		// 
 		
 		@GetMapping("/register")
 		public String goRegister() {
