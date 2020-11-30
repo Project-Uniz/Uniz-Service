@@ -1,30 +1,21 @@
 package com.uniz.mapper;
 
-import com.uniz.domain.UserData;
-import com.uniz.domain.UserTemp;
+import org.apache.ibatis.annotations.Param;
+
+import com.uniz.domain.UserDTO;
 
 public interface UserMapper {
 	
-
+	public UserDTO getUserData(Long userSN); //서치쪽이니 건드리지 않기!
 	
-	public int insert(UserData data);
+	public int insertUserData(UserDTO dto);
 	
-	public int insertTemp(UserTemp temp);
-	//회원가입메서드. 
+	public int findExistingUserId(String userId);
+	public int findExistingNick(String nick);
 	
-	public int chkId(String userId);
-	//아이디 중복체크 메서드. (아이디만 체크한다.)
+	public Integer selectState(String userId);
 	
-	public int isIdPwdValid(UserTemp vo);
-//	로그인 할때 아이디와 패스워드가 일치하는지.
+	public int isIdPwdValid(@Param("userId")String userId, @Param("password")String password);
 	
-	
-	
-	
-	public UserTemp selectUserTemp(String userId);
-	
-	public Long getDataSN(Long userSN);
-	
-	public UserData getUserData(Long userSN);
-
+	public int updateUserInfo(UserDTO dto);
 }
