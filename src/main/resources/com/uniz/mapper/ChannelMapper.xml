@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.uniz.mapper.ChannelMapper">
+		
+		
+		<resultMap id="getAllPostList" type="HashMap">
+			<result property="channelTitle" column="channeltitle"></result>
+			<result property="postSN" column="postsn"></result>
+			<result property="userSN" column="usersn"></result>
+			<result property="channelSN" column="channelsn"></result>
+			<result property="title" column="title"></result>
+			<result property="postContent" column="postContent"></result>
+			<result property="createDateTime" column="createdatetime"></result>
+			<result property="nick" column="nick"></result>
+		</resultMap>
+		
+		<!--  채널 유무 판단 -->
+		<select id="checkChannel" resultType="INTEGER" >
+			select count(*) from channel where channelsn = #{channelSN}
+		</select>
+		
+		<!--  게시글 유무 판단 -->
+		<select id="checkPost" resultType="INTEGER">
+			select count(*) from channelpost where postSN = #{postSN}
+		</select>
+		
+		<!--review 채널 상태 테이블 구상 -->
+		<!-- 채널 게시판 목록 보여주기 -->
+		<select id="getChannelList" resultType="com.uniz.domain.ChannelVO" resultMap="getAllPostList">
+			select channelsn,  channeltitle, CHANNELCOMMENT ,createdatetime
+			from channel
+			
+		</select>
+		
+		<!-- 해당 게시판의 게시글 목록 보여주기 -->
+		<select id ="getPostList" resultType="com.uniz.domain.ChannelBoardVO" resultMap="getAllPostList">
+			select p.channelsn , p.title , p.createdatetime , c.channeltitle , u.nick ,p.postSN 
+			from channelpost p , channel c , userdata u
+			where p.channelsn = #{channelSN} 
+			and c.channelsn = p.channelsn 
+			and u.usersn = p.usersn
+			order by p.postsn desc
+		</select>
+		
+		<select id="getTotal" resultType="int">
+			select count(*) from channelpost
+			where postsn > 0
+		</select>
+		
+		<!-- 게시글 전체 목록 보여주기	 -->
+		<select id="getAllPost" resultType="com.uniz.domain.ChannelBoardVO" resultMap="getAllPostList">
+			<![CDATA[
+		 select *
+        	from(
+            	select rownum rn , a.*
+            	from
+                	(
+                	select
+                    	c.channelTitle , p.postsn , p.title , u.nick , p.createdatetime
+                    	from channel c , channelpost p , userdata u
+                    	where p.usersn = u.usersn and c.channelsn = p.channelsn
+                    	order by p.postsn desc
+               		)a
+			]]>
+			<![CDATA[
+				where rownum <= #{cri.pageNum} * #{cri.amount}
+				)
+			where rn >= (#{cri.pageNum} -1 ) * #{cri.amount}
+			]]>
+		</select>
+
+		<select id="getCountByPost" resultType="int">
+			select count(*) from channelpost
+		</select>
+		
+		<!-- 게시글 보여 주기 -->
+		<select id ="getPost" resultType="com.uniz.domain.ChannelBoardVO">
+			select  p.postsn, u.nick, p.title , c.postContent , p.createdatetime , p.channelSN, p.userSN
+			from channelpost p , channelpostcontent c , userdata u
+			where p.postsn = #{postSN} 
+			and c.postSN = p.postSN 
+			and u.usersn = p.usersn
+			
+		</select>
+		
+	
+		<insert id="createChannel">
+			insert into channel 
+			(channelsn, channeltitle, channelcomment, createdatetime, updatedatetime)
+			values
+			(channel_seq.nextval, #{channelTitle} , #{channelComment} , sysdate , sysdate)
+		</insert>
+		
+		<insert id="insertPost">
+			<selectKey keyProperty="postSN" order="BEFORE" resultType="long">
+				select channelpost_seq.nextval from dual
+			</selectKey>
+				insert into channelpost(postsn, channelsn, usersn, title , createdatetime, updatedatetime )
+				values(#{postSN} , #{channelSN} , #{userSN} , #{title}, sysdate, sysdate)
+		</insert>	
+		
+		<insert id="insertCont">
+		
+		insert into channelpostcontent (postSN , postcontent)
+		values (#{postSN} , #{postContent} )
+	
+		</insert>
+		
+		<delete id="deletePost">
+			delete from ChannelPost where postSN = #{postSN}
+		</delete>
+		
+		<delete id="deleteCont">
+			delete from ChannelPostContent where postSN = #{postSN}
+		</delete>
+		
+		<update id="updatePost" parameterType="com.uniz.domain.ChannelBoardVO">
+			update ChannelPost
+			set title = #{title},
+			updatedatetime = sysdate
+			where postSN = #{postSN}
+		</update>
+		
+		<update id="updateCont" parameterType="com.uniz.domain.ChannelBoardVO">
+			update ChannelPostContent
+			set postContent = #{postContent}
+			where postSN = #{postSN}
+		</update>
+		
+	</mapper>

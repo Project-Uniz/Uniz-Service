@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <title>Document</title>
+
+    
+</head>
+<style>
+
+*{
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+font-family: sans-serif;
+
+}
+body{
+    background-color: rgb(59, 55, 55);
+    height: 1500px; 
+    /* 길이 지정 */
+}
+
+.sidenav{
+position: relative;
+background-color: #171233;
+float: left;
+width: 15%;
+height : 100%;
+/* 길이 지정.  */
+list-style-type: none;
+text-align: center;
+overflow:hidden;
+
+
+
+}
+#videocontainer{
+background-color:#6659a5;
+float: right;
+width: 85%;
+height: 100%;
+
+
+
+}
+.videos{
+width: 100%;
+height: 10%;
+background-color: #6659a5;
+
+border: 10px solid #6659a5;
+display: flex;
+justify-content: space-around;
+position: relative;
+
+
+
+}
+
+
+
+#aiaTxt{
+    float: right;
+    font-size : 50px;
+    margin-right: 50px;
+    margin-top: 5px;
+    
+}
+.sidenav li{
+    padding: 20px 16px;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid black;
+    color: #f1f1f1;
+
+   
+}
+#closebtn{
+font-size: 20px;
+float: right;
+left: 50Px;
+margin-right: 10px;
+}
+#profile{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+
+.text{
+
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+
+}
+#img{
+
+    /* background-color: rgb(219, 99, 99); */
+    background-color: #f0e9e9;
+    width: 15%;
+    height: 100%;
+   margin: 0px 5px;
+   justify-content: center;
+    
+}
+#bell{
+
+    background-color: white;
+    padding: 10px;
+    font-size: 50px;
+    border-radius: 50%;
+
+
+
+    
+}
+
+#procontainer{
+
+    
+   
+    padding: 40px;  
+    /* padding을 주면 종의 위치가 달라진다.  */ 
+}
+
+/* #logo{
+ 
+    background-color: rgb(92, 86, 83);
+    padding: 50px 90px;
+       
+
+    /* line-height: 200px;
+    padding-top: 80px;
+    padding-left: 90px; */
+    /* 줄맞춤인데 세로값만큼을 주면 정가운데로 온다. 근데 두 세개면 그냥 padding을 사용.  */
+    /* margin-bottom: 50px;
+    margin-top: 22px; */
+
+
+#lgcontainer{
+  margin: 20px;
+/* logo사이즈를 가운데에 두고 싶으며 그 부모인 얘한테 margin: auto를 줘야 한다.  */
+
+}
+#profilebox{
+    width: 180px;
+    height: 120px;
+    margin: auto;
+    margin-bottom: 40px;
+
+}
+#footer{
+    width: 100%;
+    height: 200px;
+    background-color: beige;
+}
+
+#searchbox{
+
+    width: 80%;
+    height: 50px;
+    background-color: chocolate;
+    margin: auto;
+}
+
+#box
+{
+    width: 80%;
+    /* 이게 searchbox니까 실제로는 width를 좀 줄여서 그 돋보기 아이콘 넣을 공간을 만들자.  */
+    height: 100%;
+    float: left;
+}
+
+#spanbox{
+    width: 100%;
+    height: 20px;
+
+}
+
+#searchicon{
+
+    font-size: 25px;
+    color: black;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+#sebox{
+    background-color: #bea9d7;
+    width: 20%;
+    height: 100%;
+    float: right;
+}
+    </style>
+<body>
+    
+    <!--  -->
+    <!-- 유저관리버튼  -->
+    
+    <div id="top">
+        <!-- 알림버튼 붙이기.  -->
+        
+    </div>
+    <div class="sidenav">
+       <div id="spanbox">
+
+           <div id="closebtn" style=" color: white;">&times;</div>
+
+       </div>
+        
+        <div id="lgcontainer">
+            <!-- 바로 부모에게 overflow:hidden을 줘야한다. -->
+            <div id="logo"></div>
+            
+        </div>
+        <div id="profilebox">
+
+            <div id="procontainer">
+             
+            </div>
+            <div>
+
+                <i class="fas fa-bell" id="bell" ></i>
+
+            </div>
+            
+        </div>
+        <div id="searchbox">
+            <input id="box" type="text" name="searchbox" placeholder="search" >
+            <div id="sebox">
+
+                <i class="fas fa-search" id="searchicon"></i>
+
+            </div>
+
+        </div>
+            <li>추천</li>
+            <li>인기동영상</li>
+            <li>검색</li>
+            <li>커뮤니티</li>
+    </div>
+    <div id="videocontainer">
+        <p class="text">어린이가 좋아하는 영상</p>
+        <div class="videos" >
+        
+            <div id="img"></div>
+            <div id="img"></div>
+            <div id="img"></div>
+            <div id="img"></div>
+            <div id="img"></div>
+            <div id="img"></div>
+        
+        </div>
+        <p class="text">자기계발,동기부여</p>
+        <div class="videos" >
+            <div id="img"></div>
+            <div id="img"></div>
+            <div id="img"></div>
+            <div id="img"></div>
+            <div id="img"></div>
+            <div id="img"></div>
+        </div>
+        <p class="text">클래식 고전 드라마</p>
+        <div class="videos" >
+        
+            <div id="img"></div>
+            <div id="img"></div>
+            <div id="img"></div>
+            <div id="img"></div>
+            <div id="img"></div>
+            <div id="img"></div></div>
+        <p class="text">어린이가 좋아하는 영상</p>
+        <div class="videos" >
+            <div id="img"></div>
+            <div id="img"></div>
+            <div id="img"></div>
+            <div id="img"></div>
+            <div id="img"></div>
+            <div id="img"></div>
+        </div>
+        
+    </div>
+    <div id="footer">
+
+
+    </div>
+
+    
+</body>
+</html>

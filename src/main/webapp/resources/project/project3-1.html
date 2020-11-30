@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <title>Document</title>
+</head>
+<style>
+    *{
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        border: 0;
+    }
+.navbar{
+    width: 100%;
+    height: 45px;
+    background-color: rosybrown;
+    overflow: hidden;
+
+}
+.navbar li{
+    padding: 10px 16px;
+    display: inline-block;
+    margin-top: 5px;
+}
+.wrapper{
+display: grid;
+grid-column-gap: 30px;
+grid-row-gap: 20px;
+grid-template-columns:  300px 300px 300px 300px;
+grid-template-columns: 1fr 1fr 1fr;
+grid-template-rows: 150px 150px;
+}
+.items{
+    background-color: orange;
+}
+.wrapper1{
+    display :flex;
+    justify-content: center;
+    /* align-items: stretch; */
+}
+
+
+.items1{
+    background-color:peru;
+    padding: 100px;
+    width: 150px;
+    margin: 10px 15px 10px 15px;
+    
+}
+</style>
+<body>
+    <div class="navbar">
+        <div>
+            <img src="" alt="" style="width:30px;height:30px; background-color: royalblue;">
+        </div>
+    <div>
+        <ul>
+            <li>추천</li>
+            <li>인기</li>
+            <li>검색</li>
+            <li>커뮤니티</li>
+            <i class="far fa-bell" style="font-size: 25px; padding-top: 2px; "></i>
+            <i class="fas fa-users" style="font-size: 25px; padding-top: 2px;"></i>
+        </ul>
+    </div>
+
+
+
+    </div>
+    <div class="wrapper1">
+        <div class="items1"></div>
+        <div class="items1"></div>
+        <div class="items1"></div>
+    </div>
+<div class="wrapper">
+    <div class="items">this is video 1</div>
+    <div class="items">this is video 2</div>
+    <div class="items">this is video 3</div>
+    <div class="items">this is video 4</div>
+    <div class="items">this is video 5</div>
+    <div class="items">this is video 6</div>
+</div>
+<div class="footer">
+    <div></div>
+
+</div>
+
+
+</body>
+</html>

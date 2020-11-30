@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.uniz.mapper.BoardMapper">
+	
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							a.title like '%' ||#{keyword}|| '%'
+						</when>
+						<when test="type == 'C'.toString()">
+							a.postcontent like '%' ||#{keyword}|| '%'
+						</when>
+						<when test="type == 'W'.toString()">
+							a.nick like '%' ||#{keyword}|| '%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>	
+	
+	<select id="getListWithPaging" resultType="com.uniz.domain.BoardVO">
+		<![CDATA[
+	select  *
+    	from(
+            select rownum rn , a.*
+            from
+            	(
+            	select
+           		p.postsn , p.title , p.createdatetime , u.usersn , u.nick 
+            	from boardpost p ,  userdata u
+    			where u.usersn = p.usersn 
+    			order by postsn desc
+    			)a
+			where 
+		]]>	
+			<include refid="criteria"></include>			
+		
+		<![CDATA[
+			 rownum <= #{pageNum} * #{amount} 
+			)
+		where rn > (#{pageNum} -1 ) * #{amount}
+		]]>
+	</select>
+			
+	
+	
+	<select id="getTotalCount" resultType="int">
+		
+		select count(*) from boardpost 
+		where
+		postSN > 0
+		
+	</select>
+	
+	<select id="getList"  resultType="com.uniz.domain.BoardVO">
+		
+		<![CDATA[
+			select p.postsn, p.title, c.postcontent, p.createDateTime , u.nick
+			from boardpost p , boardpostcontent c , userdata u
+			where p.postsn = c.postsn and u.usersn = p.usersn
+			order by p.postsn desc
+		]]>
+		
+	</select>
+	
+	<select id="read" resultType="com.uniz.domain.BoardVO">
+		
+			select p.postSN, u.nick, p.title, c.postcontent, p.createdatetime , p.userSN
+			from boardpost p , boardpostcontent c , userdata u
+			where p.postSN = #{postSN} and p.postsn = c.postsn and u.usersn = p.usersn
+			
+	</select>
+	
+	<insert id="insertPost">
+		<selectKey keyProperty="postSN" order="BEFORE" resultType="long">
+			select boardpost_seq.nextval from dual
+		</selectKey>
+		insert into boardpost
+		(postSN, userSN, title)
+		values 
+		(#{postSN}, #{userSN} , #{title} )
+	</insert>
+	
+	<insert id="insertCont">
+	
+		insert into boardpostcontent 
+		(postSN , postcontent)
+		values
+		(#{postSN} , #{postContent} )
+	
+	</insert>
+	
+	<delete id="deletePost">
+		delete from boardpost where postSN = #{postSN}
+	</delete>
+	
+	<delete id="deleteCont">
+		delete from boardpostcontent where postSN = #{postSN}
+	</delete>
+	
+	<delete id="deleteReply">
+		delete from boardpostreply where postSN = #{postSN}
+	</delete>
+	
+	<update id="updatePost" parameterType="com.uniz.domain.BoardVO">
+		update boardpost
+		set title = #{title},
+		updatedatetime = sysdate
+		where postSN = #{postSN}
+	</update>
+	
+	<update id="updateCont" parameterType="com.uniz.domain.BoardVO">
+		update boardpostcontent
+		set postContent = #{postContent}
+		where postSN = #{postSN}		
+	</update>
+	
+</mapper>

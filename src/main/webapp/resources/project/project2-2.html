@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
+    <title>Document</title>
+</head>
+<style>
+*{
+ box-sizing: border-box;
+ margin: 0;
+ padding: 0;
+ font-family:Verdana;
+
+    }
+body{
+    width: 100%;
+    height: 1500px;
+    overflow:scroll;
+}
+
+
+#main{
+    width: 100%;
+    height: 100%;
+    float: right;
+    background-color: black;
+}
+#banner{
+    width:100%;
+    height: 100px;
+    background-color: rgb(179, 71, 0);
+
+}
+#searchcontainer{
+    width: 100%;
+    height: 350px;
+    background-color: rgb(124, 88, 54);
+    background: url(banner.png);
+    background-position: center;
+    display:flex;
+    justify-content: center;
+}
+
+#searchbox{
+    width: 100%;
+    height: 20%;
+    /* background-color: powderblue; */
+    margin:  auto;
+    margin-left:  620px;
+    margin-right: 20px;   
+    
+}
+#search{
+    width: 40%;
+    height: 100%;
+    background-color: white; 
+    font-size: 35px;
+    opacity: 0.5;
+    border-radius: 10px;
+    
+
+
+}
+#menubar{
+    width: 10%;
+    height: 60%;
+    background-color: rgb(179, 71, 0);
+    /* border: 1px solid black; */
+    float: left;
+    margin: 12px;
+    margin-top: 20px;
+    font-size: 25px;
+    line-height: 60px;
+    color: white;
+    overflow: hidden;
+
+}
+
+
+#searchicon{
+   float:right; 
+   font-size: 45px; 
+   margin-top: 10px;
+   margin-right: 5px;
+}
+#videocontainer{
+    background-color: salmon;
+    width: 100%;
+    height: 700px;
+    overflow: hidden;
+}
+.video{
+    /* background-color: slateblue; */
+    background-color: black;
+    width: 100%;
+    height: 28%;
+    border: 10px solid black;
+    
+    display: flex;
+    justify-content: space-around;
+    
+
+}
+
+p{
+    font-size: 30px;
+    border-left: 10px solid black;
+}
+
+.img{
+    width: 15%;
+    height: 100%;
+    background-color: burlywood;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+
+}
+#footer{
+    background-color: rgb(98, 39, 0);
+    width: 100%;
+    height: 350px;
+}
+#keywords{
+    width: 50%;
+    height: 80px;
+    /* background-color: darkturquoise; */
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    bottom: 55%;
+}
+.key{
+
+    border-radius: 30px;
+    width: 15%;
+    height: 100%;
+    background-color: blanchedalmond;
+    text-align: center;
+    font-size: 30px;
+    margin-top: -90px;
+   
+    /* line-height로도 중간에 잘 배치할 수 있다. 중요한건 값이다.  */
+    line-height:75px;
+
+    
+    
+}
+#profile{
+    width: 80%;
+    margin: auto;
+    margin-top: 40px;
+    height: 200px;
+    border-radius: 40%;
+    background-color: black;
+    background: url(logo.png);
+}
+#name{
+    font-size: 40px;
+   margin-left: 90px;
+    
+
+
+    
+}
+
+</style>
+<body>
+
+<div id="main">
+    <div id="banner">
+        <!-- 핑크.  -->
+        <div id="menubar" style="text-align: center;">추천</div>
+        <div id="menubar" style="text-align: center;">인기</div>
+        <div id="menubar" style="text-align: center;">검색</div>
+        <div id="menubar" style="text-align: center;">커뮤니티</div>
+      
+        <div id="menubar" style="float: right; width: 10%; font-size: 30px; text-align: center;">
+        <img src="logo.png" alt="uniz" width="160px" height="60px" style="border-radius: 40px;">
+        <!-- 이미지 잘려서 걱정했었는데 성현님 도움으로 width, height 설정하니까 하드하게 조절하니까 됨!!!만세  -->
+        </div>
+
+    </div>
+    
+    <div id="videocontainer">
+        <p style="color: white; background-color: black; ">#추천 TOP 10</p>
+        <div class="video" style="border-top: 20px solid black;">
+            
+            <div class="img">
+                <img src="img2.png"alt="ninenine">
+            </div>
+            <div class="img">
+                
+                <img src="img2.png"alt="ninenine">
+            </div>
+            <div class="img">
+                <img src="img2.png"alt="ninenine">
+
+            </div>
+            <div class="img">
+                
+                <img src="img2.png"alt="ninenine">
+            </div>
+            <div class="img">
+                
+                <img src="img2.png"alt="ninenine">
+            </div>
+            <div class="img">
+                <img src="img2.png"alt="ninenine">
+
+            </div>
+        </div>
+        <p style="color: white; background-color: black;">#코믹 드라마</p>
+        <div class="video">
+            <div class="img">
+                <img src="img3.png"alt="ninenine">
+                
+            </div>
+            <div class="img">
+                
+                <img src="img3.png"alt="ninenine">
+            </div>
+            <div class="img">
+                <img src="img3.png"alt="ninenine">
+                
+            </div>
+            <div class="img">
+                
+                <img src="img3.png"alt="ninenine">
+            </div>
+            <div class="img">
+                
+                <img src="img3.png"alt="ninenine">
+            </div>
+            <div class="img">
+                <img src="img3.png"alt="ninenine">
+
+            </div>
+        </div>
+        <p style="color: white; background-color: black;">#수사물</p>
+        <div class="video" style="border-bottom: 20px solid black">  
+            <!-- video가 이미지 담는 긴 박스야.  -->
+
+            
+            <div class="img">
+                <img src="img1.png"alt="ninenine">
+
+
+            </div>
+            <div class="img">
+                <img src="img1.png"alt="ninenine">
+            </div>
+            <div class="img">
+                <img src="img1.png"alt="ninenine">
+
+            </div>
+            <div class="img">
+                <img src="img1.png"alt="ninenine">
+            </div>
+            <div class="img">
+                <img src="img1.png"alt="ninenine">
+
+            </div>
+            <div class="img">
+                <img src="img1.png"alt="ninenine">
+
+            </div>
+        </div>
+        
+    </div>
+    
+    <div id="footer"></div>
+
+</div>
+</body>
+</html>
