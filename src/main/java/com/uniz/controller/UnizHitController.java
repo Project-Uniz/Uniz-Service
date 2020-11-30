@@ -23,7 +23,8 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/UnizHit/*")
 @AllArgsConstructor
 public class UnizHitController {
-
+	//2차테스트 
+	
 	private UnizHitService service;
 	//private UserService userService;
 	
