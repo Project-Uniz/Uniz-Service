@@ -40,28 +40,32 @@ input{
 	<button id='list'>목록으로</button>
 	<div></div>
 	
-	
+
 				
+		
+	<div class="container">
+        <label for="content">comment</label>
+        <form name="commentInsertForm" action="/chreplies/add" method="post">
+            <div class="input-group">
+               <input class='postSN' type="text" name="postSN" value="${postSN}"/>
+               <input class='userSN' type="text" name="userSN" value=""/>
+               <input class='registerReply' type="text" class="form-control" id="replyContent" name="replyContent" placeholder="내용을 입력하세요.">
+               <span class="input-group-btn">
+                    <button id='registerBtn' type="submit" >등록</button>
+               </span>
+              </div>
+        </form>
+    </div>
+
 
 		
-	<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
-		
-		<div class='newReply'>
-			<h4>댓글 작성</h4>
-			<input class='registerReply' value="댓글 내용" name="replyContent" id="replyContent">
-			<input class='userSN' value="작성자 SN" name="userSN">
-			<input class='postSN' value="${postSN}" name="postSN">
-			<button id='registerBtn' type="submit" >댓글 작성</button>
-		</div>
-		
-		
-	</div>
 		
 		<div>
 			
-			<ul class="reply">
+			<div class="reply">
 			
-			</ul>
+			</div>
+
 		
 		</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -69,115 +73,111 @@ input{
 <script type="text/javascript" src="/resources/js/chreply.js"></script>	
 <script type="text/javascript">
 
-$(document).ready(function(){
-	
+
+$(document).ready(function(){	
 	
 	var postSN = '<c:out value="${postSN}"/>';
-	var newReply = $('.newReply');
+	
+	console.log("게시글 번호 : " + postSN);
+	channelService.getPost({postSN:postSN});
+	showList(1);
+	
+});	
+
+
+function showList(page){
+	
+	var postSN = '<c:out value="${postSN}"/>';
+	chReplyService.commentList({postSN : postSN, page : page || 1});
+
+}
+
+$("#registerBtn").on("click" , function(e){
+	
+	var str = "";
+	var postSN = '<c:out value="${postSN}"/>';
+	var newReply = $(".container");
+
 	var inputReply = newReply.find("input[name='replyContent']");
 	var inputUserSN = newReply.find("input[name='userSN']");
 	var inputReplySN = newReply.find("input[name='replySN']");
 	
-	var reply = $(".reply");
-	var replyUserSN = reply.find("input[name='userSN']");
-	
-	var registerReplyBtn = $("#registerBtn");
-	
-	
-	console.log("게시글 번호 : " + postSN);
-	channelService.getPost({postSN:postSN});
-	
-	showList(1);
-	
-	function showList(page){
-	
-	chReplyService.getList({postSN:postSN , page:1}, function(list){
-		var reply = $(".reply");
-		
-		var str = "";
-		
-		var userSN = "";
-		
-		var replySN = [];
-		
-		var rlist = [];
-		
-		if(list == null || list.length == 0){
-			reply.html("등록된 댓글이 없습니다");
-			return;
-		}
-		
 
-		str += "<thead><tr><th>작성자</th><th>댓글 내용</th><th>작성 시간</th></tr></thead>";
-			for(var i = 0 , len = list.length || 0; i < len; i++){
-				str += "<tr><td><input type='text' id='replySN' name='replySN' size='20'  value="+ list[i].replySN +" readonly='readonly'><input type='text' name='userSN' size='20'  value="+ list[i].userSN +" readonly='readonly'></td>";
-				str += "<td><input class='replyContent' value ='" + list[i].replyContent + "' readonly='readonly' />" +
-				'<button class="modifyBtn" type="submit"> 수정 </button>' +
-				'<button class="deleteBtn" >   삭제      </button>'
-				 + "</td>";
-				str += "<td>" + chReplyService.displayTime(list[i].createDateTime) + "</td></tr>";
-				
-				rlist[i] = list[i].replySN;
-				console.log("replySN = " + rlist[i] );
-			}
-						
-		
-			reply.html(str);
-				
-			
-				
-				
-				$(".modifyBtn").on("click", function(e){
-						
-						alert("..... " + rlist[0] );
-						
-				});		
-				
-				$(".deleteBtn").on("click", "li", function(e){
-					
-						alert("..... " + rlist[1] );
-					
-				});		
-					
-		});
+	
+	var reply ={
+			replyContent : inputReply.val(),
+			userSN : inputUserSN.val(),
+			postSN : postSN
+	};
+	if(reply.replyContent == '' || reply.replyContent.replace(str, '').length == 0 ){
+		console.log("test======" + reply.replyContent);
+		alert("댓글 내용을 입력해주세요");
+		return false;
 	}
 	
-
-	
-	registerReplyBtn.on("click" , function(e){
-		
-		var str = "";
-		
-		var reply ={
-				replyContent : inputReply.val(),
-				userSN : inputUserSN.val(),
-				postSN : postSN
-		};
-		if(reply.replyContent == '' || reply.replyContent.replace(str, '').length == 0 ){
-			console.log("test======" + reply.replyContent);
-			alert("댓글 내용을 입력해주세요");
-			return false;
-		}
-		chReplyService.add(reply, function(result){
-			alert(result);
-			showList(1);
-		});
-		
-	});
-
+	chReplyService.add(reply);
 	
 });
 
 
 
-function checkTitle(){
 	
-	var str = document.getElementById('replyContent');
-	var blank_pattern = /^\s+|\s+$/g;
+function commentUpdate(replySN, replyContent){
+    var a ='';
+    console.log("test = " + replySN);
+    a += '<div class="input-group">';
+    a += '<input type="text" class="form-control" name="content_'+replySN+'" value="'+replyContent+'"/>';
+    a += '<input type="text" class="form-control" name="replySN_'+replySN+'" value="'+replySN+'"/>';
+    a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+replySN+');">수정</button> </span>';
+    a += '</div>';
+    
+    $('.commentContent'+replySN).html(a);
+    
+}
+function commentUpdateProc(replySN){
+    var updateContent = $('[name=content_'+replySN+']').val();
+   	var updateReplySN = $('[name=replySN_'+replySN+']').val();
+var modify = {'replyContent' : updateContent, 'replySN' : updateReplySN};
+    
+    $.ajax({
+        url : '/chreplies/update/'+updateReplySN,
+        type : 'put',
+        data : JSON.stringify(modify),
+		contentType : "application/json; charset=utf-8",
+        success : function(data){
+            if(data == 1)
+            	commentList(replySN);
+            	showList(1); //댓글 수정후 목록 출력 
+            
+        }
+    });
+}
+
+function commentDelete(replySN){
 	
-	if(str.value == '' || str.value == null || str.value.replace(blank_pattern, '').length == 0){
-		alert("댓글 내용을 입력하세요");
-		return false;
+	if(confirm("삭제하시겠습니까?")){
+    $.ajax({
+        url : '/chreplies/delete/'+replySN,
+        type : 'post',
+        success : function(data){
+            if(data == 1) commentList(replySN); //댓글 삭제후 목록 출력 
+            
+            showList(1);
+        	}
+    	});
+	}
+}
+
+
+	function checkTitle(){
+		
+		var str = document.getElementById('replyContent');
+		var blank_pattern = /^\s+|\s+$/g;
+		
+		if(str.value == '' || str.value == null || str.value.replace(blank_pattern, '').length == 0){
+			alert("댓글 내용을 입력하세요");
+			return false;
+
 	}
 	
 
