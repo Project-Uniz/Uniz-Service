@@ -11,7 +11,11 @@
 </head>
 <body>
 
-Welcome!!!
+<h1> 정말 갈거야?ㅜㅜㅜㅜㅜㅜㅜ비밀번호 누르고 가. </h1>
 
+
+
+<button >탈퇴 취소하기. </button>
+<button >정말로 회원 탈퇴하기.  </button>
 </body>
 </html>
