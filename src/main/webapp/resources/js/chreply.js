@@ -7,6 +7,7 @@ var chReplyService = (function(){
 		$.ajax({
 			type : 'post',
 			url : '/chreplies/add' ,
+
 			data : reply,
 			//contentType : "application/json; charset=utf-8",
 			success : function(data){
@@ -46,6 +47,7 @@ var chReplyService = (function(){
 	}   
 
 		
+
 	function displayTime(timeValue){
 		var today = new Date();
 		var gap = today.getTime() - timeValue;
@@ -67,6 +69,7 @@ var chReplyService = (function(){
 		}
 	};
 	
+
 //	function getList(param, callback, error){
 //		var postSN = param.postSN;
 //		var page = param.page || 1;
@@ -87,6 +90,7 @@ var chReplyService = (function(){
 	return {
 		add : add,
 		commentList : commentList,
+
 		displayTime : displayTime
 	};
 })();

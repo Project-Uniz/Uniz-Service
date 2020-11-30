@@ -40,6 +40,7 @@ input{
 	<button id='list'>목록으로</button>
 	<div></div>
 	
+
 				
 		
 	<div class="container">
@@ -64,12 +65,14 @@ input{
 			<div class="reply">
 			
 			</div>
+
 		
 		</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/channel.js"></script>	
 <script type="text/javascript" src="/resources/js/chreply.js"></script>	
 <script type="text/javascript">
+
 
 $(document).ready(function(){	
 	
@@ -94,10 +97,12 @@ $("#registerBtn").on("click" , function(e){
 	var str = "";
 	var postSN = '<c:out value="${postSN}"/>';
 	var newReply = $(".container");
+
 	var inputReply = newReply.find("input[name='replyContent']");
 	var inputUserSN = newReply.find("input[name='userSN']");
 	var inputReplySN = newReply.find("input[name='replySN']");
 	
+
 	
 	var reply ={
 			replyContent : inputReply.val(),
@@ -172,6 +177,7 @@ function commentDelete(replySN){
 		if(str.value == '' || str.value == null || str.value.replace(blank_pattern, '').length == 0){
 			alert("댓글 내용을 입력하세요");
 			return false;
+
 	}
 	
 
