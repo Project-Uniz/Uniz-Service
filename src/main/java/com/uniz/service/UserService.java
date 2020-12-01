@@ -1,5 +1,7 @@
 package com.uniz.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,7 +20,7 @@ public interface UserService {
 	public int register(UserDTO dto, Model model);
 	
 
-	public boolean stateCheck(String userId);
+	public boolean stateCheck(String userId, String password);
 	
 	public boolean isIdPwdValid(UserDTO dto);
 	
@@ -30,5 +32,12 @@ public interface UserService {
 
 	public boolean isIdRememberChecked(HttpServletRequest request); 
 	
-	public boolean modifyUserInfo(UserDTO dto);
+	public boolean modifyUserInfo(UserDTO dto, Model model);
+	
+	public UserDTO getUserDTO(String userId);
+	
+	public boolean updateState(UserDTO dto, Model model);
+	
+	public List<UserDTO> getUserDTOList(); //아이디 중복체크에 쓸 DB에서 유저정보 전부 가져오기. 
+
 }

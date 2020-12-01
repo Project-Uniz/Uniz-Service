@@ -1,5 +1,7 @@
 package com.uniz.service;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +26,34 @@ public class UserServiceImpl implements UserService{
 	private UserMapper mapper;
 	
 	@Override
+	public List<UserDTO> getUserDTOList(){
+		//아이디 중복체크에 쓸 DB에서 유저정보 전부 가져오기. 
+		log.info("getUserDTOList............");
+		return mapper.getUserDTOList();
+	}
+	
+	@Override
+	public boolean updateState(UserDTO dto, Model model) {
+		
+		if(validateForm(dto)==false) { //기본 유효성 검사. 
+			model.addAttribute("msg", "유효하지 않은 정보입니다. ");
+			return false;
+		}
+		//입력받은 아이디와 패스워드가 일치해야 회원상태를 바꾼다. 
+		if(mapper.isIdPwdValid(dto.getUserId(), dto.getPassword())==0) {
+			model.addAttribute("msg", "아이디와 패스워드가 일치하지 않습니다. ");
+			return false;
+		}
+	    return mapper.updateState(dto)==1;
+	}
+	
+	@Override
+	public UserDTO getUserDTO(String userId) {
+		UserDTO dto = mapper.getUserDTO(userId);
+		return dto;
+	}
+	
+	@Override
 	public boolean insertUserData(UserDTO dto) {  //데이터 insert  true.
 		log.info("insert into userData................."+ dto);
         return mapper.insertUserData(dto)==1;		
@@ -39,10 +69,12 @@ public class UserServiceImpl implements UserService{
 		return mapper.findExistingNick(nick)==0;
 	}
 	@Override
-	public boolean modifyUserInfo(UserDTO dto) {
-		
-		
+	public boolean modifyUserInfo(UserDTO dto, Model model) {
 		log.info("modify........."+ dto);
+		
+		if(validateForm(dto)==false) {
+			model.addAttribute("msg", "유효하지 않은 정보입니다. ");
+		}
 		return mapper.updateUserInfo(dto)==1;
 	}
 	@Override
@@ -62,11 +94,15 @@ public class UserServiceImpl implements UserService{
 			return 0;
 		}
 		if(getExistingNick(dto.getNick())!=SUCCESS) {
-			model.addAttribute("msg", "중복된 닉네임입니다.");
+//			model.addAttribute("msg", "중복된 닉네임입니다.");
+			model.addAttribute("nickMsg", mapper.findExistingNick(dto.getNick()));
+		System.out.println("test............"+mapper.findExistingNick(dto.getNick()));
 			return 0;
 		}
 		if(getExistingUserId( dto.getUserId())!=SUCCESS) {
-			model.addAttribute("msg", "중복된 아이디입니다. ");
+//			model.addAttribute("msg", "중복된 아이디입니다. ");
+			model.addAttribute("userIdMsg", mapper.findExistingUserId(dto.getUserId()));
+
 			return 0;
 		}
 		if(insertUserData(dto)!=SUCCESS) {
@@ -99,13 +135,14 @@ public class UserServiceImpl implements UserService{
 			model.addAttribute("msg", "아이디 또는 패스워드가 일치하지 않습니다. ");
 			return 0;
 	}
+		
 		if(isIdRememberChecked(request)==SUCCESS) {  //체크박스에 체크되어야만 쿠키를 생성. 
 			//1. 쿠키 생성.
 			makeCookie(response, dto.getUserId());
 			
 		}
 		
-		if(stateCheck(dto.getUserId())!=SUCCESS) { //상태 체크 . 탈퇴했나 . 
+		if(stateCheck(dto.getUserId(), dto.getPassword())!=SUCCESS) { //상태 체크 . 탈퇴했나 . 
 			model.addAttribute("msg", "이미 탈퇴한 계정이라서 로그인이 불가능합니다. ");
 			return 0;
 		}
@@ -113,13 +150,13 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public boolean stateCheck(String userId) {
+	public boolean stateCheck(String userId, String password) {
 		log.info("getUserState..............");
 		
-		if(mapper.selectState(userId)==null ) {
+		if(mapper.selectState(userId, password)==null) {
 			return false;}
 		
-		return mapper.selectState(userId)==1; //1이 아니라면 탈퇴한 계정이다. 
+		return mapper.selectState(userId, password)==1; //1이 아니라면 탈퇴한 계정이다. 
 	}
 	
 	@Override
@@ -154,12 +191,13 @@ public class UserServiceImpl implements UserService{
 	public boolean isIdRememberChecked(HttpServletRequest request) {
 		
 		String chkValue = request.getParameter("chk");
-		
 		if(chkValue == "" || chkValue == null) {
 			return false;
 		}
 		return true;
 	}
+	
+	
 	
 
 }

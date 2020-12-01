@@ -37,11 +37,26 @@ select state from userData where userId = #{userId} and password = #{password}
 <update id="updateUserInfo">
 update userData
 set nick = #{nick}, 
- password = #{password}
-
+password = #{password}
 
 where userId = #{userId}
 </update>
+
+<select id="getUserDTO" resultType="com.uniz.domain.UserDTO">
+select * from userData where userId = #{userId}
+</select>
+
+<update id="updateState">
+update userData
+set state = 0
+where password = #{password}
+</update>
+
+<select id="getUserDTOList" resultType="com.uniz.domain.UserDTO">
+<![CDATA[
+select * from userData where userSN > 0
+]]>
+</select>
 
 
 </mapper>

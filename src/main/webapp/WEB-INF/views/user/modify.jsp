@@ -12,14 +12,14 @@
  
  
  <p>닉네임</p>
-<input type="text" value='<c:out value="${userDTO.nick}"  />' >
+<input type="text" value='<c:out value="${UserDTO.nick}"  />' >
  <p>유저아이디. </p>
-<input type="text" value='<c:out value="${userDTO.userId}"  />'  readonly="readonly">
+<input type="text" value='<c:out value="${UserDTO.userId}"  />'  readonly="readonly">
  <p>패스워드. </p>
-<input type="text" value='<c:out value="${userDTO.password}"  />' ><br>
+<input type="text" value='<c:out value="${UserDTO.password}"  />' ><br>
 
-<button data-oper='modify' onclick="location.href='/user/register'" >확인버튼 </button>
-<button data-oper='remove' onclick="location.href='/user/read'" > 수정 취소하기 .</button>
+<a href="/user/modifySuccess">수정완료하고 페이지 이동.  </a>
+<a href="/user/read">수정취소 하고 읽기페이지로 가기.  </a>
  </form>
 
 </body>

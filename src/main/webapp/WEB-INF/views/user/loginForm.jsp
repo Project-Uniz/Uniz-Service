@@ -36,7 +36,9 @@ request.setCharacterEncoding("utf-8"); //한글깨짐 방지 사전호출.
 		<p><b>여기는 로그인 페이지 입니다.</b></p>
 		<form action="/user/loginForm" method="post" onsubmit="return checkForm();">
 <!-- 			<input type="text" placeholder="nick" id="nick" name="nick" ><br>
- -->			<input type="text" placeholder="userId" id="userId" name="userId" value="<%=userId%>" ><br> 
+
+ -->			
+ 			<input type="text" placeholder="userId" id="userId" name="userId" value="<%=userId%>" ><br> 
 			<input type="password" placeholder="password" id="password" name="password" ><br> 
 			<input type="checkbox" <%=checked%> id="chk" name="chk"> 
 			<label for="box">remember Id</label><br> 

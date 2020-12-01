@@ -17,7 +17,9 @@ public class UserDTO {
 	private String password;
 	private String imgUrl;
 	private int userType;
+	
 	private int state;
+	
 	private Date lastLoginDateTime;
 	private Date createDateTime;
 	private Date updateDateTime;
