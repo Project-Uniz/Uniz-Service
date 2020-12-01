@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script></head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
+    /* Nunito 폰트 써보고 싶어성.  */
+
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: 'Nunito', sans-serif;
+    width: 100%;
+    height: 2100px;
+    background-color: rgb(251, 251, 249);
+}
+.title{
+    /* background-color: rgb(245, 255, 252); */
+    width: 100%;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    font-size: 3.6rem;
+    font-weight: 200;
+    font-family: 'Nunito', sans-serif;
+    color:rgb(78, 80, 76);
+    justify-content: center;
+}
+.Btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 19px;
+    margin: 10px;
+    position: absolute;
+    right: 30px;
+}
+.regBtn{
+    background-color: rgb(123, 221, 224);
+    color: white;
+    border: 3px solid rgb(123, 221, 224);
+    padding: 9px 21px ;
+    margin-right: 10px;
+    border-radius: 4px;
+    font-weight: 700;
+}
+.loginBtn{
+    padding: 9px 20px;
+    border: 3px solid rgb(90, 199, 190);
+    color: rgb(90, 199, 190);
+    border-radius: 4px;
+    font-weight: 700;
+}
+.line{
+    background: rgb(209,255,69);
+background: linear-gradient(90deg, rgba(209,255,69,1) 0%, rgba(172,233,200,1) 46%, rgba(14,215,222,1) 100%);
+    width: 80%;
+    height : 2px;
+    margin: 0 auto;
+    margin-top: 14px;
+}
+.cardContainer{
+    background-color: rgb(220, 238, 248);
+    width: 80%;
+    height: 30%;
+    margin: 0 auto;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    
+}
+.card{
+    background-color: rgb(236, 255, 214);
+    width: 28%;
+    height: 35rem;
+    margin-top: 30px;
+}
+.sidebar{
+    background-color: deepskyblue;
+    width: 80px;
+    height: 270px;
+    display : inline-block;
+    position: fixed;
+    top: 23%;
+}
+.footer{
+    background-color: dimgray;
+    width: 80%;
+    height: 10%;
+    margin: 0 auto;
+}
+.halfCir{
+    background-color: red;
+    width: 90px;
+    height: 50px;
+    position: absolute;
+    left: 46%;
+    z-index: 9999;
+}
+.grid{
+    background-color: goldenrod;
+    
+}
+
+
+</style>
+<body>
+    <div class="sidebar">
+        <i class="fas fa-crown" style="font-size: 45px; position: absolute; left: 14%; top: 30px;"></i><br>
+        <i class="far fa-thumbs-up" style="font-size: 45px; position: absolute; left: 18%; top: 112px;" ></i>
+        <i class="far fa-comment" style="font-size: 45px; position: absolute; left: 14%; top: 190px;"></i>
+
+
+
+    </div>
+    <div class="title">
+            <div class="logo">uniz</div>
+            
+            <div class="Btns">
+                <div class="regBtn">Register</div>
+                <div class="loginBtn">Login</div>
+            </div>
+    </div>
+    
+
+    <div class="line"></div>
+    <div class="cardContainer">
+        
+        <div class="card card1"></div>
+        <div class="card card2"></div>
+        <div class="card card3"></div>
+    </div>
+
+    <div class="grid">
+
+    </div>
+    <div class="footer">
+        <div class="halfCir">
+            <i class="fas fa-angle-up"></i>
+
+
+        </div>
+    </div>
+    
+</body>
+
+<!-- 로그인 가입 버튼 글자 크기 15px  -->
+</html>
