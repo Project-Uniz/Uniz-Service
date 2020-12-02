@@ -8,15 +8,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
+import com.uniz.domain.MyUnizPoint;
 import com.uniz.domain.UserDTO;
 import com.uniz.mapper.UserMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
-
-
 
 @Log4j
 @Service
@@ -25,12 +25,89 @@ public class UserServiceImpl implements UserService{
 
 	private UserMapper mapper;
 	
+	@Transactional
+	@Override
+	public int userRegister(UserDTO dto,List<Long> unizSN) {
+		final int SUCCESS = 1;
+		final int NO_DUPLICATION = 0;
+		final int FAIL = -1;
+		
+		if(dto.getImgUrl()==null) {
+			dto.setImgUrl("default.img");
+		}
+		//회원가입 전 NotNull 데이터 널 체크
+		if(isNotUserDTO(dto)==true) {
+			//데이터 중복체크
+			if((mapper.userDuplicationCheck(dto) == NO_DUPLICATION)) {
+				try {
+					mapper.userDataInsert(dto);	
+					
+					mapper.userSelectUnizInsert(unizSN);
+					return SUCCESS;
+				}catch(Exception e){
+					e.printStackTrace();
+					return FAIL;
+				}
+			}
+		}
+		return FAIL;
+	}
+	
+	@Transactional
+	public boolean isNotUserDTO(UserDTO dto) {
+		
+		return dto.getUserId() != null &&  dto.getPassword() != null && dto.getNick() != null ? true : false;
+		
+	}
+	//Ajax용 닉네임 중복검사
+	public String userNickDuplicationCheck(String nick) {
+		final String NO_DUPLICATION = "SUCCESS";
+		final String YES_DUPLICATION = "DUPLICATION";
+		final String DB_ERROR = "DB ERROR";
+		//1. null체크
+		if(nick != null) {
+			//해당 닉네임이 중복인지 확인
+			try {
+				// DB에서 COUNT한 값이 0보다 작다 = 중복되는값이 없다
+				if(mapper.userNickDuplicationCheck(nick) <=0) {
+					return NO_DUPLICATION;
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+				return DB_ERROR;
+			}
+		}
+		return YES_DUPLICATION;
+	}
+	
+	//Ajax용 닉네임 아이디검사
+	public String userIdDuplicationCheck(String userId) {
+		final String NO_DUPLICATION = "SUCCESS";
+		final String YES_DUPLICATION = "DUPLICATION";
+		final String DB_ERROR = "DB ERROR";
+		//1. null체크
+		if(userId != null) {
+			//해당 닉네임이 중복인지 확인
+			try {
+				// DB에서 COUNT한 값이 0보다 작다 = 중복되는값이 없다
+				if(mapper.userIdkDuplicationCheck(userId) <=0) {
+					return NO_DUPLICATION;
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+				return DB_ERROR;
+			}
+		}
+		return YES_DUPLICATION;
+	}
+
+	//--------진---
 	@Override
 	public List<UserDTO> getUserDTOList(){
 		//아이디 중복체크에 쓸 DB에서 유저정보 전부 가져오기. 
 		log.info("getUserDTOList............");
 		return mapper.getUserDTOList();
-	}
+	}	
 	
 	@Override
 	public boolean updateState(UserDTO dto, Model model) {
@@ -86,26 +163,26 @@ public class UserServiceImpl implements UserService{
 		return true;
 	}
 	@Override
-	public int register(UserDTO dto, Model model) {
+	public int register(UserDTO userDto, Model model) {
 		boolean SUCCESS = true;
 		
-		if(validateForm(dto)!=SUCCESS) {
+		if(validateForm(userDto)!=SUCCESS) {
 			model.addAttribute("msg", "유효하지 않은 정보입니다. ");
 			return 0;
 		}
-		if(getExistingNick(dto.getNick())!=SUCCESS) {
+		if(getExistingNick(userDto.getNick())!=SUCCESS) {
 //			model.addAttribute("msg", "중복된 닉네임입니다.");
-			model.addAttribute("nickMsg", mapper.findExistingNick(dto.getNick()));
-		System.out.println("test............"+mapper.findExistingNick(dto.getNick()));
+			model.addAttribute("nickMsg", mapper.findExistingNick(userDto.getNick()));
+		System.out.println("test............"+mapper.findExistingNick(userDto.getNick()));
 			return 0;
 		}
-		if(getExistingUserId( dto.getUserId())!=SUCCESS) {
+		if(getExistingUserId( userDto.getUserId())!=SUCCESS) {
 //			model.addAttribute("msg", "중복된 아이디입니다. ");
-			model.addAttribute("userIdMsg", mapper.findExistingUserId(dto.getUserId()));
+			model.addAttribute("userIdMsg", mapper.findExistingUserId(userDto.getUserId()));
 
 			return 0;
 		}
-		if(insertUserData(dto)!=SUCCESS) {
+		if(insertUserData(userDto)!=SUCCESS) {
 			model.addAttribute("msg", "회원정보 저장에 실패했습니다. ");
 			return 0;
 		}

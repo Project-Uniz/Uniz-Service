@@ -2,6 +2,8 @@ package com.uniz.domain;
 
 import java.util.Date;
 
+import javax.xml.ws.BindingType;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
@@ -10,9 +12,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class MyUnizPoint {
 
 	private Long userSN;

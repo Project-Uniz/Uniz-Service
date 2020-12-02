@@ -1,10 +1,7 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" import="java.util.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,93 +11,87 @@
 
 </head>
 <body>
-<b>${msg}</b>
-<b>${Nickmsg}</b>
 
-<div><p>어서 가입하세요!!!!</p></div>
-	<form action="/user/register" method="post"
-		onsubmit="">
-		nick<input type="text" id="nick" name="nick">
-		<span id="nickMsg"></span> 
-		<span id="nickMsg2"></span>
-		<span id="nickMsg3"></span>
-		
-		<a href="#" id="nickBtn">닉네임 중복버튼.</a>
-		
-		<br>  userId<input type="text"
-			 id="userId" name="userId">
-		<a href="#" id="userIdBtn">아이디 중복버튼.</a>
-		<br>
-		 <span id="userIdMsg"></span>
-		 <span id="userIdMsg2"></span>
-		 <span id="userIdMsg3"></span>
-		  
+<h1>회원가입 페이지</h1>
+	<form action="/user/register" method="post">
+		userId<input type="text" id="userId" name="userId"> <input type="button" id="userIdCheckBtn">중복체크 <br>
 		password<input type="password" id="password" name="password"><br>
-		<span id="pwdMsg"></span> 
-		<span id="pwdMsg2"></span> 
-		<span id="pwdMsg3"></span> 
-		비밀번호 확인.<input type="password" id="password2" name="password2"><br>
-		<span id="pwdMsgChk"></span> 
+		비밀번호 확인.<input type="password" id="password2" name="password2"><br>		 
+		nick<input type="text" id="nick" name="nick"><input type="button" id="userNickCheckBtn">중복체크 <br>
 		
-		 userType<input type="text" id="userType" name="userType" value="1"><br>
-		imgUrl<input type="text" placeholder="imgUrl" id="imgUrl"
-			name="imgUrl" value="jin.jpg"><br> state<input
-			type="text" placeholder="state" id="state" name="state" value="1"><br>
-
-		<button class="btn" type="submit" onclick="return chkPW();">register</button>
+		<c:forEach items="${PresetList}" var="preset">
+			<input type="checkbox" name="unizSN" value="${preset.unizSN}">${preset.unizKeyword}<br>
+		</c:forEach>
+		
+		<button class="btn" type="submit">register</button>
 	</form>
-	</div>
 	
-	<script type="text/javascript">
- 
-	 $("#nickBtn").click(function(){
-		 var nick = $("#nick").val();
-		 if(nick==""){
-			 $("#nickMsg").text("닉네임을 입력해주쇼");
-			 $("#nick").focus();
-/*			 return;  */
-		 }else{
-			 $("#nickMsg").text("");
-		 }
-	 });
-	 $("#userIdBtn").click(function(){
-		 var nick = $("#userId").val();
-		 if(nick==""){
-			 $("#userIdMsg").text("아이디를 입력해주쇼");
-			 $("#userId").focus();
-			 return;
-		 }else{
-			 $("#userIdMsg").text("");
-		 }
-	 });
-	 /* $(function(){
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	
+	<script>
+ 	
+	$(document).ready(function(){
+	
+			$('#userIdCheckBtn').click(function(){
+			
+				if($("#userId").val()==""){
+				alert("중복체크할 아이디를 입력해 주세요");
+				return ;
+				}
+			
+			$.ajax({
+				type : "POST",
+				url : "/user/userIdCheck",
+				data : $("#userId").val(),		
+				contentType : "application/json; charset=UTF-8",
+				dataType: "json",
+				success : function(data){
+					
+					const SUCCESS = "SUCCESS";
+					const DUPLICATION = "DUPLICATION";
+					if(data.data == SUCCESS){
+						alert("사용할 수 있는 아이디 입니다.")
+						$("#userId").attr("disabled", "true");
+						$("#userIdCheckBtn").attr("disabled", "true");
+					}else if(data.data == DUPLICATION){
+						alert("이미 존재하는 아이디 입니다.")	
+					}else{
+						alert("데이터 입력 중 오류가 발생하였습니다.\n입력한 정보를 다시 확인해 주세요.");
+					}			
+				}
+			});
+		});
 		
-		 $('#userIdBtn').click(function(){
-			 $.ajax({
-				 type: "GET",
-				 url : "nickCheck",
-				 data:{
-					 "nick":$("#nick").val()
-				 },
-				 success:function(data){
-					 if($.trim(data)=="YES"){
-			               if($('#nick').val()!=''){ 
-			               	alert("사용가능한 아이디입니다.");
-			               }
-			           	}else{
-			               if($('#nick').val()!=''){
-			                  alert("중복된 아이디입니다.");
-			                  $('#nick').val('');
-			                  $('#nick').focus();
-			               }
-			            }
-			         }
-			 })
-		 })
-	 }); */
+		$('#userNickCheckBtn').click(function(){
+			
+			if($("#nick").val()==""){
+				alert("중복체크할 닉네임를 입력해 주세요");
+				return ;
+			}
+			console.log("중복확인버튼클릭");
+
+			$.ajax({
+				type : "POST",
+				url : "/user/userNickCheck",
+				data : $("#nick").val(),		
+				contentType : "application/json; charset=UTF-8",
+				dataType: "json",
+				success : function(data){
+					
+					const SUCCESS = "SUCCESS";
+					const DUPLICATION = "DUPLICATION";
+					if(data.data == SUCCESS){
+						alert("사용할 수 있는 닉네임 입니다.")
+					}else if(data.data == DUPLICATION){
+						alert("이미 존재하는 닉네임 입니다.")	
+					}else{
+						alert("데이터 입력 중 오류가 발생하였습니다.\n입력한 정보를 다시 확인해 주세요.");
+					}			
+				}
+			});
+		});
+		
 </script>
-
-
 
 </body>
 </html>

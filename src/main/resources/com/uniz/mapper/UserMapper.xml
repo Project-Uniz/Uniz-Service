@@ -2,6 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.uniz.mapper.UserMapper">
 
+<insert id="userDataInsert">
+	<selectKey keyProperty="userSN" order="BEFORE" resultType="long">
+		SELECT USERDATA_SEQ.NEXTVAL FROM DUAL
+	</selectKey>
+	INSERT INTO USERDATA
+	(USERSN, USERID, PASSWORD,NICK,IMGURL)
+	VALUES
+	(#{userSN},#{userId}, #{password}, #{nick}, #{imgUrl})
+
+</insert>
+
+<insert id="userSelectUnizInsert">
+	<selectKey keyProperty="userSN" order="BEFORE" resultType="long">
+		SELECT USERDATA_SEQ.CURRVAL FROM DUAL
+	</selectKey>
+	<foreach item="item" collection="unizSN" separator=" " open="INSERT ALL " close="SELECT * FROM DUAL">
+	INTO MYUNIZPOINTLIST
+	(USERSN, UNIZSN, POINT)
+	VALUES
+	(#{userSN}, #{item}, 50)
+	</foreach>
+</insert>
+
+
+
+<select id="userDuplicationCheck" resultType="Integer">
+	SELECT COUNT(*) 
+	FROM USERDATA
+	WHERE NICK = #{nick}
+	OR USERID = #{userId}
+</select>
+
+
+<select id="userNickDuplicationCheck" resultType="Integer">
+	SELECT COUNT(*)
+	FROM USERDATA
+	WHERE NICK = #{nick}
+
+</select>
+
+<select id="userIdkDuplicationCheck" resultType="Integer">
+	SELECT COUNT(*)
+	FROM USERDATA
+	WHERE USERID = #{userId}
+
+</select>
+
 <insert id="insertUserData">
 insert into userData 
 ( userSN, nick, userId, password, imgUrl, userType, state, 

@@ -8,17 +8,28 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.uniz.domain.MyUnizPoint;
 import com.uniz.domain.UserDTO;
 
 public interface UserService {
 
+	//대윤
+	public int userRegister(UserDTO dto,List<Long> unizSN);
+	
+	public boolean isNotUserDTO(UserDTO dto); //test용
+	
+	public String userNickDuplicationCheck(String nick); //test용
+	
+	public String userIdDuplicationCheck(String userId); // test용
+	
+	//------
 	public boolean validateForm(UserDTO dto);
 	
 	public boolean getExistingUserId( String userId);
 	public boolean getExistingNick( String nick);
 	public boolean insertUserData(UserDTO dto);
-	public int register(UserDTO dto, Model model);
 	
+	public int register(UserDTO dto, Model model);
 
 	public boolean stateCheck(String userId, String password);
 	
@@ -39,5 +50,8 @@ public interface UserService {
 	public boolean updateState(UserDTO dto, Model model);
 	
 	public List<UserDTO> getUserDTOList(); //아이디 중복체크에 쓸 DB에서 유저정보 전부 가져오기. 
+	
+	//대윤
+	
 
 }
