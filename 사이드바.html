@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script></head>
+<style>
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: 'Nunito', sans-serif;
+    width: 100%;
+    height: 2100px;
+    background-color: rgb(251, 251, 249);
+}
+.sidebar{
+    /* background-color: rgb(223, 247, 255); */
+    background-color: white;
+    box-shadow: 4px 4px 2px  rgb(198, 214, 223);
+    width: 75px;
+    height: 220px;
+    display : inline-block;
+    position: fixed;
+    top: 23%;
+    border-radius: 6px;
+}
+body > div.sidebar > a > svg{
+    color: rgb(48, 143, 231);
+    border-radius: 30px;
+    padding: 10px 5px;
+    font-size: 60px; 
+    position: absolute;
+    left: 8%;
+}
+body > div.sidebar > a > svg:hover{
+    background-color: mintcream;
+    color: deepskyblue;
+    transition: 0.4s;
+    border: 3px solid rgb(189, 239, 255);
+    filter : blur;
+    }
+body > div.sidebar > a:nth-child(1) > svg{
+position: absolute;  
+    top: 7px;
+    border-radius: 50%;
+}
+body > div.sidebar > a:nth-child(1) > svg:hover{
+    background-color: mintcream;
+    color: deepskyblue;
+    transition: 0.4s;
+    border: 3px solid rgb(189, 239, 255);
+    filter : blur;
+}
+body > div.sidebar > a:nth-child(1) > svg:not(:first-child){
+    padding: 0 10px;
+}
+</style>
+<body>
+    <div class="sidebar">
+        <!-- <a href=""><i class="fas fa-crown" style="font-size: 45px; position: absolute; left: 14%; top: 30px;"></i></a> -->
+        <!-- <a href=""><i class="fas fa-crown" ></i></a> -->
+        <a href=""><i class="far fa-grin-squint-tears"></i></a>
+        <a href=""><i class="far fa-thumbs-up" style=" position: absolute; padding:  0 10px;  top: 80px;" ></i></a>
+        <a href=""><i class="far fa-comment" style=" position: absolute;  top: 150px;"></i></a>
+    </div>
+</body>
+
+<!-- 로그인 가입 버튼 글자 크기 15px  -->
+</html>
