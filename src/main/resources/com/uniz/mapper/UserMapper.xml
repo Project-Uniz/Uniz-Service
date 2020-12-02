@@ -49,60 +49,29 @@
 
 </select>
 
-<insert id="insertUserData">
-insert into userData 
-( userSN, nick, userId, password, imgUrl, userType, state, 
-lastLoginDateTime,createDateTime,updateDateTime, lastStateDateTime )
-values(userData_seq.nextval, #{nick}, #{userId}, #{password}, #{imgUrl}, #{userType}, #{state}, 
-sysdate, sysdate, sysdate, sysdate)
-</insert>
+<select id="userLogin" resultType="Integer">
+	SELECT COUNT(*) 
+	FROM USERDATA WHERE USERID = #{userId} 
+	AND PASSWORD = #{password}
+</select>
 
 <select id="getUserData" resultType="com.uniz.domain.UserDTO">
-select * from userData where userSN = #{userSN}
+	SELECT * 
+	FROM USERDATA 
+	WHERE USERSN = #{userSN}
 </select>
 
-<select id="findExistingUserId" resultType="INTEGER">
-select count(*) from userData 
-where userId = #{userId}
+<select id="getUser" resultType="com.uniz.domain.UserDTO">
+	SELECT * 
+	FROM USERDATA 
+	WHERE USERID = #{userId}
 </select>
 
-<select id="findExistingNick" resultType="INTEGER">
-select count(*) from userData 
-where nick = #{nick}
-</select>
+<select id="userUniz" resultType="com.uniz.domain.MyUnizPoint">
+	SELECT *
+	FROM MYUNIZPOINTLIST
+	WHERE USERSN = #{userSN}
 
-
-<select id="isIdPwdValid" resultType="INTEGER">
-select count(*) from userData where userId  = #{userId}  and password = #{password}
-</select>
-
-
-<select id="selectState"  resultType="INTEGER">
-select state from userData where userId = #{userId} and password = #{password}
-</select>
-
-<update id="updateUserInfo">
-update userData
-set nick = #{nick}, 
-password = #{password}
-
-where userId = #{userId}
-</update>
-
-<select id="getUserDTO" resultType="com.uniz.domain.UserDTO">
-select * from userData where userId = #{userId}
-</select>
-
-<update id="updateState">
-update userData
-set state = 0
-where password = #{password}
-</update>
-
-<select id="getUserDTOList" resultType="com.uniz.domain.UserDTO">
-<![CDATA[
-select * from userData where userSN > 0
-]]>
 </select>
 
 

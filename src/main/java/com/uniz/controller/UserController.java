@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,9 +34,9 @@ public class UserController {
 
 	private UserService userService;
 	private UnizService unizService;
+	
 	@GetMapping("/loginForm")
 	public String goLoginForm() {
-		log.info("loginForm");
 		return "/user/loginForm";
 	}
 
@@ -54,58 +55,38 @@ public class UserController {
 		
 		return "/user/register";
 	}
-
-	@GetMapping("/deleteConfirm")
-	public String updateState() {
-		log.info("State Update.......");
-		return "/user/deleteConfirm";
+	@GetMapping("/logout")
+	public String logout(HttpSession session){
+		session.invalidate();
+		
+		return "home";
 	}
 
 	@GetMapping("/info")
 	public String userInfoRead() {
-		return "/user/info";
+		
+		//1. 회원정보 가져오기
+		
+		//2. 회원유니즈 가져오기 
+		
+		//둘다 세션에 넣어버렸음 ㅎㅎ
+
+		return "/user/userInfo";
 	}
 
-	@GetMapping("/modify")
-	public String userInfoModify() {
-		return "/user/modify";
-	}
-
-	@GetMapping("/modifySuccess")
-	public String modifySuccess() {
-		return "/user/modifySuccess";
-	}
-
-	@GetMapping("/userDeleteConfirm")
-	public String userDeleteConfirm() {
-		return "/user/userDeleteConfirm";
-	}
-
-	@RequestMapping(value = "/nickCheck", method = { RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody String nickCheck(@RequestParam("userId") String userId) {
-
-		String str = "";
-		boolean SUCCESS = true;
-		if (userService.getExistingNick(userId) == SUCCESS) { // 아이디 중복 아님.
-			str = "YES";
-		} else {
-			str = "NO";
-		}
-		return str;
-	}
-	
-	// 회원가입 폼에서 회원가입 버튼 클릭 - 대윤
+	// 회원가입 폼에서 회원가입 버튼 클릭
 	@PostMapping("/register")
-	public String register(UserDTO userDto,@RequestParam("unizSN") List<Long> unizSN) {
+	public String register(UserDTO user,@RequestParam("unizSN") List<Long> unizSN) {
 		final int SUCCESS = 1;
 
 		//회원가입 버튼을 클릭시 필드에 입력한 값이 넘어온다 - dto
 		//서비스를 통해 회원가입을 진행한다
 		
-		userService.userRegister(userDto,unizSN);
+		userService.userRegister(user,unizSN);
 		
 		return "home";
 	}
+	//아이디 중복체크 - 대윤 
 	@PostMapping("/userIdCheck")
 	public @ResponseBody Map<String, Object> userIdDuplicationCheck(@RequestBody String userId){
 		
@@ -121,6 +102,7 @@ public class UserController {
 		return map;
 	}
 	
+	//닉네임 중복체크 - 대윤
 	@PostMapping("/userNickCheck")
 	public @ResponseBody Map<String, Object> userNickDuplicationCheck(@RequestBody String nick){
 		
@@ -137,38 +119,17 @@ public class UserController {
 	}
 	
 	@PostMapping("/loginForm")
-	public String login(UserDTO dto, Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String login(UserDTO user, Model model,HttpSession session) {
 		final int SUCCESS = 1;
-		if (userService.login(dto, model, request, response) == SUCCESS) {
-
-			return "/user/read";
-		} else {
-			return "/user/loginForm";
-		}
-	}
-
-	@PostMapping("/modify")
-	public String userInfoModify(UserDTO dto, Model model) {
-
-		model.addAttribute("UserDTO", userService.getUserDTO(dto.getUserId()));
-		System.out.println("get UserDTO ......." + userService.getUserDTO(dto.getUserId()));
-
-		boolean SUCCESS = true;
-		if (userService.modifyUserInfo(dto, model) == SUCCESS) {
-			return "/user/read";
-		} else {
-			return "/user/modify";
-		}
-	}
-
-	@PostMapping("/userDeleteConfirm")
-	public String updateState(UserDTO dto, Model model) {
-		boolean SUCCESS = true;
-		if (userService.updateState(dto, model) == SUCCESS) {
-			return "home";
-		} else {
-			return "/user/userDeleteConfirm";
-		}
+		//데이터 제대로 들어오는것 확인
+		log.info("user :"+ user);
+		
+		int loginResult = userService.userLogin(user,session);
+		
+		log.info("session Check : " + session.getAttribute("user"));
+		
+		return loginResult == SUCCESS ? "home" : "/user/loginForm";  
+		
 	}
 
 }
