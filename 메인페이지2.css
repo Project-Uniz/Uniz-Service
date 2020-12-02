@@ -1,0 +1,38 @@
+
+/* 여기는 그리드부터 다룹니다.  */
+.grid{
+    background-color: goldenrod;
+    width: 80%;
+    margin: 0 auto;
+    height: 770px;
+    }
+    /* .halfCir{
+    background-color: red;
+    width: 90px;
+    height: 50px;
+    position: absolute;
+    left: 46%;
+    z-index: 9999;
+    
+    } */
+    .footer{
+    background-color: dimgray;
+    width: 80%;
+    height: 10%;
+    margin: 0 auto;
+    }
+    .card{
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+    }
+    .card> img{ 
+        /* 카드 */
+        width: 100%;
+        height: auto;
+    }
+    .p{
+        font-size: 45px;
+        padding: 11px;
+        text-align: center;
+    }

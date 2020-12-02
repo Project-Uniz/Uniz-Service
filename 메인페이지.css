@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
+/* Nunito 폰트 써보고 싶어성.  */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
+/* 기본 설정, 네브바 로고, 카드 컨테이너까지 다룹니다.  */
+*{
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+body{
+font-family: 'Nunito', sans-serif;
+width: 100%;
+height: 2100px;
+background-color: rgb(251, 251, 249);
+}
+.title{
+/* background-color: rgb(245, 255, 252); */
+width: 100%;
+height: 4rem;
+display: flex;
+align-items: center;
+font-size: 3.6rem;
+font-weight: 200;
+font-family: 'Nunito', sans-serif;
+color:rgb(78, 80, 76);
+justify-content: center;
+}
+.Btns {
+display: flex;
+justify-content: space-between;
+align-items: center;
+font-size: 19px;
+margin: 10px;
+position: absolute;
+right: 30px;
+}
+.regBtn{
+background-color: rgb(123, 221, 224);
+color: white;
+border: 3px solid rgb(123, 221, 224);
+padding: 9px 21px ;
+margin-right: 10px;
+border-radius: 4px;
+font-weight: 700;
+}
+.loginBtn{
+padding: 9px 20px;
+border: 3px solid rgb(90, 199, 190);
+color: rgb(90, 199, 190);
+border-radius: 4px;
+font-weight: 700;
+}
+.Btns a{
+    text-decoration: none;
+}
+.line{
+background: rgb(209,255,69);
+background: linear-gradient(90deg, rgba(209,255,69,1) 0%, rgba(172,233,200,1) 46%, rgba(14,215,222,1) 100%);
+width: 80%;
+height : 2px;
+margin: 0 auto;
+margin-top: 14px;
+}
+.cardContainer{
+background-color: rgb(76, 78, 78);
+width: 80%;
+height: 28.5%;
+margin: 0 auto;
+display: flex;
+align-items: stretch;
+justify-content: space-around;
+
+}
+.card{
+background-color: rgb(236, 255, 214);
+width: 26%;
+height: 33rem;
+margin-top: 30px;
+}
+.sidebar{
+/* background-color: rgb(223, 247, 255); */
+background-color: white;
+box-shadow: 4px 4px 2px  rgb(198, 214, 223);
+width: 75px;
+height: 220px;
+display : inline-block;
+position: fixed;
+top: 23%;
+border-radius: 6px;
+}
+
+
+body > div.sidebar > a > svg{
+color: rgb(48, 143, 231);
+border-radius: 30px;
+padding: 10px 5px;
+font-size: 60px; 
+position: absolute;
+left: 8%;
+cursor: pointer;
+
+}
+body > div.sidebar > a > svg:hover{
+background-color: mintcream;
+color: deepskyblue;
+transition: 0.4s;
+border: 3px solid rgb(189, 239, 255);
+filter : blur;
+}
+body > div.sidebar > a:nth-child(1) > svg{
+position: absolute;  
+top: 7px;
+
+border-radius: 50%;
+}
+
+body > div.sidebar > a:nth-child(1) > svg:hover{
+background-color: mintcream;
+color: deepskyblue;
+transition: 0.4s;
+border: 3px solid rgb(189, 239, 255);
+filter : blur;
+}
+body > div.sidebar > a:nth-child(1) > svg:not(:first-child){
+padding: 0 10px;
+}
+
+.searchContainer{
+    /* background-color: blueviolet; */
+    width: 100%;
+    height: 4rem;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.input{
+ border: 1px solid #dddddd;
+ outline: none;
+ 
+ background-color: white;
+ padding: 16px 9px;
+ padding-right: 360px;
+ padding-left: 20px;
+}
+.search{
+    background-color: rgb(150, 216, 63);
+    position: absolute;
+    border: none;
+    padding: 8px 20px;
+    outline: none;
+
+}
+body > div.searchContainer > div > button > svg{
+    font-size: 33px;
+    color: white;
+}
+::placeholder{
+    font-size: 20px;
+}
