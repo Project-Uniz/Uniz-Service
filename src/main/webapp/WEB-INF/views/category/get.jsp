@@ -1,48 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-
-<style> 
-
-table{
-    border: 1px solid; 
-    border-collapse: collapse;
-}
-table.tr , td, th{
-    border: solid 1px ;
-}
-
-input{
-    width:100% border:0;
-}
-
-</style>
-
 <body>
-	
-	
-	<h1>게시글 보여주는 페이지</h1>
-	
-	
-	<div id="boardPost">
-	</div>
-	
-	<!--<c:if test="${userId.userSN == board.userSN}"> -->
-	<!--</c:if> -->
+
+	<div id = "boardPost"></div>
 	<button id='modify'>글 수정</button>
 	<button id='list'>목록으로</button>
-	<div></div>
 	
+	<div>
+	</div>
 
-				
-		
 	<div class="container">
         <label for="content">comment</label>
         <form name="commentInsertForm" >
@@ -57,10 +31,8 @@ input{
         </form>
     </div>
 	<div></div>
-
-		
-		
-		<div>
+	
+	<div>
 			
 			<div class="reply">
 			
@@ -69,22 +41,26 @@ input{
 			</div>	
 		
 		</div>
+	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="/resources/js/channel.js"></script>	
-<script type="text/javascript" src="/resources/js/chreply.js"></script>	
+<script type="text/javascript" src="/resources/js/category.js"></script>	
+<script type="text/javascript" src="/resources/js/reply.js"></script>
 <script type="text/javascript">
 
-$(document).ready(function(){	
+$(document).ready(function(){
+	
 	
 	var postSN = '<c:out value="${postSN}"/>';
 	
-	console.log("게시글 번호 : " + postSN);
-	channelService.getPost({postSN:postSN});
+	var boardSN = '<c:out value="${postSN}"/>';
+	
+	categoryService.getPost(boardSN);
+	
 	showList(1);
 	
 	function showList(page){
 		
-		chReplyService.commentList({postSN : postSN, page : page || 1} ,function(replyCnt, list){
+		replyService.commentList({postSN : postSN, page : page || 1} ,function(replyCnt, list){
 			
 			if(page == -1 ){
 				pageNum = Math.ceil(replyCny / 10.0);
@@ -112,8 +88,6 @@ $(document).ready(function(){
 
 	}
 	
-	
-	
 	var str = "";
 	var newReply = $(".container");
 
@@ -137,7 +111,7 @@ $(document).ready(function(){
 			return false;
 		}
 	
-		chReplyService.add(reply, function(result){
+		replyService.add(reply, function(result){
 			showList(-1);
 		});
 	
@@ -184,9 +158,8 @@ $(document).ready(function(){
 		showList(pageNum);
 	});
 
-
 	
-});	
+});
 
 function commentUpdate(replySN, replyContent){
     var a ='';
@@ -202,14 +175,14 @@ function commentUpdate(replySN, replyContent){
 }
 
 function replyUpdate(replySN){
-	chReplyService.commentUpdateProc(replySN);
+	replyService.commentUpdateProc(replySN);
 	location.reload(true);
 }
 
 function remove(replySN){
 	
 	if(confirm("삭제하시겠습니까?")){
-		chReplyService.remove(replySN);
+		replyService.remove(replySN);
 		location.reload(true);
 	}
 
@@ -231,7 +204,6 @@ function remove(replySN){
 
 	
 }
-
 
 </script>
 </body>

@@ -30,9 +30,14 @@ public class ChannelServiceImpl implements ChannelService {
 		return mapper.getChannelList();
 	}
 	
-	public List<ChannelBoardVO> getPostList(Long channelSN){
+	public List<ChannelBoardVO> getPostList(Criteria cri ,Long channelSN){
 		log.info("해당 채널 게시글 목록 출력");
-		return mapper.getPostList(channelSN);
+		return mapper.getPostList( cri , channelSN);
+	}
+	
+	public ChannelPageDTO getPostListPaging(Criteria cri , Long channelSN) {
+		
+		return new ChannelPageDTO ( mapper.getTotalCountByChannel(channelSN), mapper.getPostList(cri, channelSN));
 	}
 	
 	public List<ChannelBoardVO> getAllPost(Criteria cri){

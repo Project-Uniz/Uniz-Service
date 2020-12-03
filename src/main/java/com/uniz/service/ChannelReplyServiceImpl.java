@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.uniz.domain.ChannelReplyPageDTO;
 import com.uniz.domain.ChannelReplyVO;
 import com.uniz.domain.Criteria;
 import com.uniz.mapper.ChannelReplyMapper;
@@ -48,6 +49,14 @@ public class ChannelReplyServiceImpl implements ChannelReplyService {
 		//postSN 해당하는 댓글 목록 불러옴
 		
 		return mapper.getList(cri, postSN);
+	}
+	
+	@Override
+	public ChannelReplyPageDTO getListPage(Criteria cri , Long postSN) {
+		
+		return new ChannelReplyPageDTO(mapper.getCount(postSN),
+									   mapper.getList(cri, postSN));
+		
 	}
 
 }

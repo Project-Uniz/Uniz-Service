@@ -91,7 +91,7 @@ $(document).ready(function(){
 	
 	
 	$("#boardPost").on("click",function(){
-		self.location = "/board/list";
+		self.location = "/category/main";
 	});
 	$("#createChannel").on("click" , function(){
 		self.location = "/channel/chcreate";

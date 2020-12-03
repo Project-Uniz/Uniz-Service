@@ -9,11 +9,9 @@ import lombok.Getter;
 @Data
 @AllArgsConstructor
 @Getter
-public class PageDTO {
+public class ChannelReplyPageDTO {
 	
-	private int postCnt;
-	private List<BoardVO> List;
-	
-	
+	private int replyCnt;
+	private List<ChannelReplyVO> list;
 	
 }

@@ -92,16 +92,35 @@ public class BoardMapperTests {
 //		
 //	}
 	
+//	@Test
+//	public void testSearch() {
+//		
+//		Criteria cri = new Criteria();
+//		cri.setKeyword("오민뚱");
+//		cri.setType("W");
+//		
+//		List<BoardVO> list = mapper.getListWithPaging(cri);
+//		
+//		list.forEach(board -> log.info(board));
+//		
+//	}
+	
+//	@Test
+//	public void testGetBoardList() {
+//		
+//		log.info("=====" + mapper.getBoardList());
+//	}
+	
+//	@Test
+//	public void testGetPostList() {
+//		
+//		log.info("------- " + mapper.getPostList(1L));
+//	}
+	
 	@Test
-	public void testSearch() {
+	public void testList() {
 		
-		Criteria cri = new Criteria();
-		cri.setKeyword("오민뚱");
-		cri.setType("W");
-		
-		List<BoardVO> list = mapper.getListWithPaging(cri);
-		
-		list.forEach(board -> log.info(board));
+		mapper.getTotalCountByBoard(3L);
 		
 	}
 	

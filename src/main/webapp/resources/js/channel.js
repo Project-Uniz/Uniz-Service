@@ -76,11 +76,12 @@ var channelService = (function(){
 	//해당 채널의 게시물 목록을 보여줌
 	function getChannelPostList(param, callback , error){
 		 var channelSN = param.channelSN;
+		 var page = param.page;
 		 
-		 $.getJSON("/channel/list/"+ channelSN + ".json",
+		 $.getJSON("/channel/list/"+ channelSN + "/" + page +".json",
 				 function(data){
 			 if(callback){
-				 callback(data);
+				 callback(data.postCnt, data.list);
 			 }
 		 }).fail(function(xhr, status, err){
 			 if(error){
@@ -108,7 +109,7 @@ var channelService = (function(){
 					
 					str += "<div><label>글 제목</label><input name='postSN' value='"+post.title+"' readonly='readonly' /></div>";
 					str += "<div><label>글 번호</label><input name='postSN' value='"+post.postSN+"' readonly='readonly' /></div>";
-					str += "<div><label>작성자 </label><input name='postSN' value='"+post.userSN+"' readonly='readonly' /></div>";
+					str += "<div><label>작성자 </label><input name='postSN' value='"+post.nick+"' readonly='readonly' /></div>";
 					str += "<div><label>글 내용</label><textarea row='3' name='postContent' readonly='readonly'>" + post.postContent +"</textarea>";
 					console.log("======"+post.postSN);
 					

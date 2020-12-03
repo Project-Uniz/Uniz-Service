@@ -12,11 +12,13 @@ public interface ChannelMapper {
 
 	public List<ChannelBoardVO> getChannelList(); // 채널 리스트 출력
 	
-	public List<ChannelBoardVO> getPostList(Long channelSN); // 해당 채널의 게시글 목록을 보여줌
+	public List<ChannelBoardVO> getPostList(@Param("cri") Criteria cri , @Param("channelSN")Long channelSN); // 해당 채널의 게시글 목록을 보여줌
 	
 	public List<ChannelBoardVO> getAllPost(@Param("cri") Criteria cri);
 	
 	public int getCountByPost(); // 게시글 전체 수
+	
+	public int getTotalCountByChannel(Long channelSN); // 해당 채널 게시판의 게시글 총 수
 	
 	public ChannelBoardVO getPost(Long postSN);
 	

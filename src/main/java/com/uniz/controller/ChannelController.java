@@ -66,9 +66,6 @@ public class ChannelController {
 				
 			}
 		
-		
-	
-		
 	}
 	
 	// 채널 게시판으로 이동
@@ -134,12 +131,15 @@ public class ChannelController {
 	}
 	
 	// 채널 별 게시글 목록 보여줌
-	@GetMapping(value ="/list/{channelSN}",
+	@GetMapping(value ="/list/{channelSN}/{page}",
 			produces = {
 					 MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<ChannelBoardVO>>getPostList(@PathVariable("channelSN") Long channelSN ){
-		log.info("get Post List.....");
-		return new ResponseEntity<>(service.getPostList(channelSN), HttpStatus.OK);
+	public ResponseEntity<ChannelPageDTO>getPostList (@PathVariable("channelSN") Long channelSN, @PathVariable("page") int page ){
+		
+		Criteria cri = new Criteria(page, 10);
+		
+		return new ResponseEntity<>(service.getPostListPaging( cri , channelSN), HttpStatus.OK);
+		
 	}
 	
 	// 채널 게시물 전체 목록 보여줌

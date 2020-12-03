@@ -40,10 +40,12 @@
             <div class="mySlides">
                 <div class="slideBox">
                     
-                    <p><video  muted autoplay loop>
+                    <p>
+                      <video  muted autoplay loop>
                         <source src="/resources/project/Dance - 32936.mp4" type="video/mp4">
                         <strong>Your browser does not support the video tag.</strong>
-                      </video></p>
+                      </video>
+                    </p>
                       <p><video  muted autoplay loop>
                         <source src="/resources/project/Food - 24999.mp4" type="video/mp4">
                         <strong>Your browser does not support the video tag.</strong>

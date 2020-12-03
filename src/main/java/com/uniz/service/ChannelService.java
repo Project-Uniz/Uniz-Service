@@ -11,9 +11,11 @@ public interface ChannelService {
 	
 	public List<ChannelBoardVO> getChannelList();
 	
-	public List<ChannelBoardVO> getPostList(Long channelSN);
+	public List<ChannelBoardVO> getPostList( Criteria cri , Long channelSN); // 해당 채널 게시물 목록
 	
-	public List<ChannelBoardVO> getAllPost(Criteria cri);  // cri 추가
+	public ChannelPageDTO getPostListPaging( Criteria cri, Long channelSN); // 해당 채널 게시물 페이징 처리
+	
+	public List<ChannelBoardVO> getAllPost(Criteria cri);  // cri 추가  전체 게시물 페이징 처리
 	
 	public ChannelPageDTO getListPage(Criteria cri);  // 추가
 	

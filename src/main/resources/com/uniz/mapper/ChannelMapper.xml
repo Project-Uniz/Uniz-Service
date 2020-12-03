@@ -37,17 +37,26 @@
 		
 		<!-- 해당 게시판의 게시글 목록 보여주기 -->
 		<select id ="getPostList" resultType="com.uniz.domain.ChannelBoardVO" resultMap="getAllPostList">
-			select p.channelsn , p.title , p.createdatetime , c.channeltitle , u.nick ,p.postSN 
-			from channelpost p , channel c , userdata u
-			where p.channelsn = #{channelSN} 
-			and c.channelsn = p.channelsn 
-			and u.usersn = p.usersn
-			order by p.postsn desc
-		</select>
-		
-		<select id="getTotal" resultType="int">
-			select count(*) from channelpost
-			where postsn > 0
+		<![CDATA[
+		select *
+		from (
+			select rownum rn , a.*
+			from
+				(
+				select p.channelsn , p.title , p.createdatetime , c.channeltitle , u.nick ,p.postSN 
+				from channelpost p , channel c , userdata u
+				where p.channelsn = #{channelSN} 
+				and c.channelsn = p.channelsn 
+				and u.usersn = p.usersn
+				order by p.postsn desc
+				) a
+				where
+	]]>	
+	<![CDATA[
+	  	rownum <= #{cri.pageNum} * #{cri.amount}
+	  	)
+	  	where rn > (#{cri.pageNum} -1 ) * #{cri.amount}
+	  ]]>	
 		</select>
 		
 		<!-- 게시글 전체 목록 보여주기	 -->
@@ -71,9 +80,16 @@
 			where rn >= (#{cri.pageNum} -1 ) * #{cri.amount}
 			]]>
 		</select>
-
+	
+	
+		<!--  채널 게시물 총 갯수 -->
 		<select id="getCountByPost" resultType="int">
 			select count(*) from channelpost
+		</select>
+		
+		<!-- 해당 채널 게시물 총 수  -->
+		<select id="getTotalCountByChannel" resultType="int">
+			select count(*) from channelpost where channelsn = #{channelSN}
 		</select>
 		
 		<!-- 게시글 보여 주기 -->

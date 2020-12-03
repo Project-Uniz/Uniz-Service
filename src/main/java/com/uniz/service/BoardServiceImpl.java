@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.uniz.domain.BoardVO;
 import com.uniz.domain.Criteria;
+import com.uniz.domain.PageDTO;
 import com.uniz.mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
@@ -23,10 +24,32 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper mapper;
 	
 	@Override
-	public List<BoardVO> getListWithPaging(Criteria cri){
+	public List<BoardVO> getBoardList(){
+		return mapper.getBoardList();
+	}
+	
+	@Override
+	public List<BoardVO> getPostList( Criteria cri , Long boardSN){
+		return mapper.getPostList(cri, boardSN);
+	}
+	
+	@Override
+	public List<BoardVO> getAllPost(Criteria cri){
 		
-		return mapper.getListWithPaging(cri);
+		return mapper.getAllPost(cri);
 		
+	}
+	@Override
+	public PageDTO getPostListPaging(Criteria cri, Long boardSN) {
+
+		return new PageDTO(mapper.getTotalCountByBoard(boardSN),
+						   mapper.getPostList(cri, boardSN));
+		
+	}
+	
+	@Override
+	public PageDTO getListPage(Criteria cri) {
+		return new PageDTO(mapper.getTotalCount() , mapper.getAllPost(cri));
 	}
 	
 	@Override
@@ -84,10 +107,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public int getTotal(Criteria cri) {
+	public int getTotal() {
 		
-		return mapper.getTotalCount(cri);
+		return mapper.getTotalCount();
 		
 	}
+
 
 }
