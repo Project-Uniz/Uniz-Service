@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <link rel="stylesheet" href="메인페이지.css">
+    <link rel="stylesheet" href="메인페이지2.css">
+    <link rel="stylesheet" href="modal.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4./jquery.min.js"></script>
+     
+    </head>
+<style>
+</style>
+<body>
+    
+
+    
+    <div class="sidebar">
+        <!-- <a href=""><i class="fas fa-crown" style="font-size: 45px; position: absolute; left: 14%; top: 30px;"></i></a> -->
+        <button onclick="location.href='메인페이지.html'"class="Btn"><i class="fas fa-home" style=" position: absolute;  left: 5%; "></i></button>
+        <button onclick="location.href='인기.html'" class="Btn"><i class="far fa-grin-squint-tears" style=" position: absolute;  top: 80px;"></i></butoon>
+        <button class="Btn"><i class="far fa-thumbs-up" style=" position: absolute;   top: 150px;" ></i></button>
+        <button onclick="location.href='커뮤니티.html'" class="Btn"><i class="far fa-comment" style=" position: absolute;  top: 220px;"></i></button>
+        <button  class="Btn"id="myBtn"><i class="fas fa-user-circle" style=" position: absolute;  top: 280px;"></i></button>
+    </div>
+    <div class="title">
+            <div class="logo">uniz</div>
+            <div class="Btns">
+                <button class="regBtn">Register</button>
+                <button class="loginBtn">Login</button>
+            </div>
+    </div>
+
+    <div class="searchContainer">
+        <div class="searchBar">
+            <input type="text" class="input" placeholder="search">
+            <button class="search"><i class="fas fa-search"></i></button>
+            <div class="searchBtnContainer">
+            <a href="#">
+                 
+            </a> 
+        </div>
+        </div>
+
+    </div>
+    <div class="line"></div>
+    <div class="cardContainer">
+        <div class="card card1">
+            <img src="인기.jpg" alt="">
+        </div>
+        <div class="card card2"></div>
+        <div class="card card3">
+            <img src="community.jpg" alt="">
+
+        </div>
+    </div>
+    <div class="gridContainer">
+        <!-- <div class="halfCir"></div> -->
+            <!-- <i class="fas fa-angle-up"></i> -->
+            
+            <div class="item box1">
+
+                <iframe src="Cute Cat - 3092.mp4" frameborder="0"></iframe>
+            </div>
+            <div class="item box2">
+            </div>
+            <div class="item box2">2</div>
+            <div class="item box2">2</div>
+            <div class="item box3">3</div>
+            <div class="item box4">
+                <iframe src="Beach - 997.mp4" frameborder="0"></iframe>
+
+
+            </div>
+            <div class="item box5">5</div>
+            <div class="item box5">5</div>
+            <div class="item box6">6</div>
+            <div class="item box7">7</div>
+            <div class="p">Explore various Youtube videos.</div>
+            <div class="item box8">8</div>
+        <div class="item box9">9</div>
+        <div class="item box10">10</div>
+    </div>
+    <div class="footer">
+    </div>
+    
+    <!-- <button id="myBtn">Open Modal</button> -->
+
+    <!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Some text in the Modal..</p>
+    </div>
+  
+  </div>
+    
+    
+       <script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+</body>
+
+<!-- 로그인 가입 버튼 글자 크기 15px  -->
+</html>
+

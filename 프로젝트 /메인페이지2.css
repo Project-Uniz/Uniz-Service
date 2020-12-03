@@ -1,0 +1,112 @@
+
+/* 여기는 그리드부터 다룹니다.  */
+.gridContainer{
+    background-color: goldenrod;
+    width: 80%;
+    margin: 0 auto;
+    height: 1200px;
+    display: grid;
+
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repear(5, 1fr);
+     overflow: hidden;
+    gap :  10px 20px;
+    
+    }
+    /* .halfCir{
+    background-color: red;
+    width: 90px;
+    height: 50px;
+    position: absolute;
+    left: 46%;
+    z-index: 9999;
+    
+    } */
+    .footer{
+    background-color: dimgray;
+    width: 80%;
+    height: 10%;
+    margin: 0 auto;
+    }
+    .card{
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+    }
+    .card> img{ 
+        /* 카드 */
+        width: 100%;
+        height: auto;
+    }
+    .p{
+        background-color: rgb(217, 255, 146);
+        border: 5px solid black;
+        font-size: 45px;
+        padding: 11px;
+        text-align: center;
+    }
+    .item{
+     background-color: black;
+
+    }
+    .box1{
+        background-color: blue;
+        grid-column-start: 1/span 12;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+    .box2{
+        background: chartreuse;
+        grid-column-start : 3;
+        grid-column-end : 3;
+    }
+    .box3{
+        background-color: cyan;
+        grid-column: 1/3;
+  grid-row: 2 / 4;
+    }
+    .box4{
+        background-color: darkorange;
+    }
+    .box5{
+        background-color: fuchsia;
+    }
+    .box6{
+        background-color: ghostwhite;
+    }
+    .box7{
+        background-color: hotpink;
+    }
+    .box8{
+        background-color: indigo;
+    }
+    .box9{
+        background-color: lightblue;
+    }
+    .box10{
+        background-color: moccasin;
+    }
+
+
+    .Btn{
+        color:    deepskyblue;
+        position: absolute;
+        left: 10px;
+        top: 8px;
+    }
+    .Btn svg{
+        border-radius: 30px;
+
+        font-size: 45px;
+    }
+    .Btn svg:hover{
+        background-color: mintcream;
+    color: deepskyblue;
+    transition: 0.4s;
+    border: 3px solid rgb(189, 239, 255);
+    border-radius: 30px;
+    /* padding: 5px; */
+    filter : blur;
+    font-size: 47px;
+    }
