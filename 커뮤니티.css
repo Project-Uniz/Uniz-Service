@@ -1,0 +1,76 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: 'Nunito', sans-serif;
+    width: 100%;
+    height: 2100px;
+    background-color: rgb(251, 251, 249);
+}
+.unizp{
+    font-size: 3.6rem;
+}
+
+ul li a{
+    display: block;
+    padding: 19px 15px;
+    text-decoration: none;
+    font-size: 23px;
+    border-bottom: 3px solid rgb(173, 169, 169);
+}
+.Wbtn{
+    background-color: rgb(21, 154, 243);
+    color: white;
+    border-radius: 40px;
+    text-align: center;
+    border: none;
+}
+.nav{
+    /* background-color: rgb(69, 243, 220); */
+    display: inline-block;
+}
+.table{
+    background-color: #f9fdfd;
+    display: inline-block;
+    border-radius: 50px;
+    
+}
+table{
+    padding: 10px;
+    border-collapse: collapse;
+    border-spacing: html;
+    border-radius: 50px;
+}
+table tr td{
+    padding: 12px 160px;
+}
+table tr, th, td{
+    border: 1px solid rgb(173, 170, 170);
+}
+table th{
+    padding: 10px;
+    border-radius: 50px 50px 0 0;
+}
+.pagination{
+    display: flex;
+    justify-content: flex-end;
+    
+}
+.pagination a{
+    border: 1px solid #ccc;
+    background-color: #fbfbfb;
+    color: rgb(53, 51, 51);
+    padding: 10px 20px;
+    font-size: 1.7rem;
+    font-weight: 200;
+    text-decoration: none;
+    border-radius: 8px;
+
+}
+.pagination a:hover{
+    background-color: rgb(157, 224, 214);
+    color: white;
+    border: none;
+}
