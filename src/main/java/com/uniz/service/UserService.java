@@ -25,6 +25,12 @@ public interface UserService {
 	
 	public int userLogin(UserDTO user, HttpSession session);
 	//------
+
+	public List<MyUnizPoint> getUserUniz(Long userSN);
+
+	public String modifyUser(UserDTO userDto, UserDTO modifyUserDto, String c_password, HttpSession session);
+
+	public void changeUserState(Long userSN, int STATECODE);
 	
 	//대윤
 	

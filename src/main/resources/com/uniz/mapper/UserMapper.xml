@@ -25,7 +25,15 @@
 	</foreach>
 </insert>
 
-
+<insert id="registerUserStateLog">
+	<selectKey keyProperty="userSN" order="BEFORE" resultType="long">
+		SELECT USERDATA_SEQ.CURRVAL FROM DUAL
+	</selectKey>
+	INSERT INTO USERSTATELOG
+	(USERSN, STATUSSN)
+	VALUES
+	(#{userSN}, #{state})
+</insert>
 
 <select id="userDuplicationCheck" resultType="Integer">
 	SELECT COUNT(*) 
@@ -68,11 +76,41 @@
 </select>
 
 <select id="userUniz" resultType="com.uniz.domain.MyUnizPoint">
-	SELECT *
-	FROM MYUNIZPOINTLIST
-	WHERE USERSN = #{userSN}
+	SELECT UP.USERSN,U.UNIZSN,U.UNIZKEYWORD, UP.POINT 
+	FROM MYUNIZPOINTLIST UP, UNIZ U 
+	WHERE UP.USERSN = #{userSN}
+	AND UP.UNIZSN = U.UNIZSN
 
 </select>
 
+<update id ="userDataUpdate">
+	UPDATE 
+	  USERDATA
+	SET
+	  USERSN = #{userSN},
+	  USERID = #{userId},
+	  PASSWORD = #{password},
+	  UPDATEDATETIME = SYSDATE
+	WHERE
+	  USERSN = #{userSN}  
+</update>
+
+<update id ="changeUserState">
+	UPDATE 
+	  USERDATA
+	SET 
+	  STATE = #{state},
+	  LASTSTATEDATETIME = sysdate
+	WHERE 
+	  USERSN = #{userSN}   
+</update>
+
+<insert id = "userStateLogInsert">
+	INSERT INTO USERSTATELOG
+	(USERSN, STATUSSN)
+	VALUES
+	(#{userSN}, #{state})
+
+</insert>
 
 </mapper>

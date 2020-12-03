@@ -31,7 +31,8 @@ public class UserServiceImpl implements UserService{
 	public int userRegister(UserDTO dto,List<Long> unizSN) {
 		final int SUCCESS = 1;
 		final int NO_DUPLICATION = 0;
-		final int FAIL = -1;
+		final int DB_ERROR = -1;
+		log.info("dto : "+ dto);
 		
 		if(dto.getImgUrl()==null) {
 			dto.setImgUrl("default.img");
@@ -42,16 +43,17 @@ public class UserServiceImpl implements UserService{
 			if((mapper.userDuplicationCheck(dto) == NO_DUPLICATION)) {
 				try {
 					mapper.userDataInsert(dto);	
-					
 					mapper.userSelectUnizInsert(unizSN);
+					mapper.registerUserStateLog(dto.getState());
+					
 					return SUCCESS;
 				}catch(Exception e){
 					e.printStackTrace();
-					return FAIL;
+					return DB_ERROR;
 				}
 			}
 		}
-		return FAIL;
+		return NO_DUPLICATION;
 	}
 	
 	@Transactional
@@ -121,13 +123,87 @@ public class UserServiceImpl implements UserService{
 		
 				//세션 생성
 				user = mapper.getUser(user);
-				List<MyUnizPoint> myUnizPoint = mapper.userUniz(user.getUserSN());
-				user.setMyUnizPoint(myUnizPoint);
+//				List<MyUnizPoint> myUnizPoint = mapper.userUniz(user.getUserSN());
+//				user.setMyUnizPoint(myUnizPoint);
 				session.setAttribute("user", user);
 				return SUCCESS;
 			}
 		}
 		return FAIL;
 	}
+
+	@Override
+	public List<MyUnizPoint> getUserUniz(Long userSN) {
+		
+		if(userSN != null) {
+			//user의 MyUnizpoint(유저의 유니즈 목록을 가져온다)
+			try {
+				return mapper.userUniz(userSN);				
+			}catch(Exception e){
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public String modifyUser(UserDTO userDto, UserDTO modifyUserDto, String com_password,HttpSession session) {
+				
+		final String SUCCESS= "SUCCESS";
+		final String FAIL = "FAIL";
+		final String DB_ERROR = "DB ERROR";
+		//비밀번호 변경이라고 가정
+		
+		String realPassword = userDto.getPassword(); //바꾸기 전 비밀번호 , 비교 = com_password
+		String modifyPassword = modifyUserDto.getPassword();
+		//1. NULL CHECK
+		if(isValid(realPassword, modifyPassword, com_password) == true) {
+			
+			//DB비밀번호와 입력한 비밀번호가 같으면
+			if(realPassword.equals(com_password)) {
+				//UPDATE
+				try {
+					
+					//비밀번호말고 다른 정보도 바꾼다면 변경해야함
+					userDto.setPassword(modifyPassword);
+					
+					int result = mapper.userDataUpdate(userDto);
+					
+					session.invalidate();
+					
+					return SUCCESS;
+				}catch(Exception e) {
+					e.printStackTrace();
+					return DB_ERROR;
+				}
+			}
+		}
+		return FAIL;
+		
+	}
 	
+	@Override
+	@Transactional
+	public void changeUserState(Long userSN,int state) {
+		if(userSN != null) {
+			try {
+				//회원상태를 3으로 변경해야한다.
+				mapper.changeUserState(userSN, state);
+				//userstateLog 테이블에도 데이터를 추가해 줘야한다.
+				mapper.userStateLogInsert(userSN, state);
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
+		}
+	}
+	
+	//나중에 통일할것
+	public boolean isValid(String realPassword, String modifyPassword, String com_password) {
+		
+		return realPassword != null && modifyPassword != null && com_password != null ? true : false;
+	}
+
 }

@@ -31,4 +31,12 @@ public interface UserMapper {
 	public List<MyUnizPoint> userUniz(@Param("userSN") Long userSN);
 
 	public UserDTO getUser(UserDTO user);
+
+	public int userDataUpdate(UserDTO modifyUserDto);
+
+	public void changeUserState(@Param("userSN") Long userSN, @Param("state") int state);
+
+	public void userStateLogInsert(@Param("userSN") Long userSN, @Param("state") int state);
+
+	public void registerUserStateLog(@Param("state") int state);
 }

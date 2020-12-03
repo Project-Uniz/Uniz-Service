@@ -20,7 +20,7 @@ public class MyUnizPoint {
 	private Long userSN;
 	private Long unizSN;
 	private Integer point;
-
+	private String unizKeyword;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	Date createDateTime;
 

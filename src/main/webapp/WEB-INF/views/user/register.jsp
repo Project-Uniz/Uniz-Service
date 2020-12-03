@@ -23,6 +23,7 @@
 			<input type="checkbox" name="unizSN" value="${preset.unizSN}">${preset.unizKeyword}<br>
 		</c:forEach>
 		
+		<input type ="hidden" name="state" value="1">
 		<button class="btn" type="submit">register</button>
 	</form>
 	
@@ -31,66 +32,66 @@
 	<script>
  	
 	$(document).ready(function(){
-	
-			$('#userIdCheckBtn').click(function(){
-			
-				if($("#userId").val()==""){
-				alert("중복체크할 아이디를 입력해 주세요");
-				return ;
-				}
-			
-			$.ajax({
-				type : "POST",
-				url : "/user/userIdCheck",
-				data : $("#userId").val(),		
-				contentType : "application/json; charset=UTF-8",
-				dataType: "json",
-				success : function(data){
-					
-					const SUCCESS = "SUCCESS";
-					const DUPLICATION = "DUPLICATION";
-					if(data.data == SUCCESS){
-						alert("사용할 수 있는 아이디 입니다.")
-						$("#userId").attr("disabled", "true");
-						$("#userIdCheckBtn").attr("disabled", "true");
-					}else if(data.data == DUPLICATION){
-						alert("이미 존재하는 아이디 입니다.")	
-					}else{
-						alert("데이터 입력 중 오류가 발생하였습니다.\n입력한 정보를 다시 확인해 주세요.");
-					}			
-				}
-			});
-		});
 		
-		$('#userNickCheckBtn').click(function(){
+		$('#userIdCheckBtn').click(function(){
 			
-			if($("#nick").val()==""){
-				alert("중복체크할 닉네임를 입력해 주세요");
-				return ;
+			if($("#userId").val()==""){
+			alert("중복체크할 아이디를 입력해 주세요");
+			return ;
 			}
-			console.log("중복확인버튼클릭");
-
-			$.ajax({
-				type : "POST",
-				url : "/user/userNickCheck",
-				data : $("#nick").val(),		
-				contentType : "application/json; charset=UTF-8",
-				dataType: "json",
-				success : function(data){
-					
-					const SUCCESS = "SUCCESS";
-					const DUPLICATION = "DUPLICATION";
-					if(data.data == SUCCESS){
-						alert("사용할 수 있는 닉네임 입니다.")
-					}else if(data.data == DUPLICATION){
-						alert("이미 존재하는 닉네임 입니다.")	
-					}else{
-						alert("데이터 입력 중 오류가 발생하였습니다.\n입력한 정보를 다시 확인해 주세요.");
-					}			
-				}
-			});
-		});
 		
+		$.ajax({
+			type : "POST",
+			url : "/user/userIdCheck",
+			data : $("#userId").val(),		
+			contentType : "application/json; charset=UTF-8",
+			dataType: "json",
+			success : function(data){
+				
+				const SUCCESS = "SUCCESS";
+				const DUPLICATION = "DUPLICATION";
+				if(data.data == SUCCESS){
+					alert("사용할 수 있는 아이디 입니다.")
+					$("#userId").attr("readonly", "true");
+					$("#userIdCheckBtn").attr("disabled", "true");
+				}else if(data.data == DUPLICATION){
+					alert("이미 존재하는 아이디 입니다.")	
+				}else{
+					alert("데이터 입력 중 오류가 발생하였습니다.\n입력한 정보를 다시 확인해 주세요.");
+				}			
+			}
+		});
+	});
+	
+	$('#userNickCheckBtn').click(function(){
+		
+		if($("#nick").val()==""){
+			alert("중복체크할 닉네임를 입력해 주세요");
+			return ;
+		}
+		console.log("중복확인버튼클릭");
+
+		$.ajax({
+			type : "POST",
+			url : "/user/userNickCheck",
+			data : $("#nick").val(),		
+			contentType : "application/json; charset=UTF-8",
+			dataType: "json",
+			success : function(data){
+				
+				const SUCCESS = "SUCCESS";
+				const DUPLICATION = "DUPLICATION";
+				if(data.data == SUCCESS){
+					alert("사용할 수 있는 닉네임 입니다.")
+				}else if(data.data == DUPLICATION){
+					alert("이미 존재하는 닉네임 입니다.")	
+				}else{
+					alert("데이터 입력 중 오류가 발생하였습니다.입력한 정보를 다시 확인해 주세요.");
+				}			
+			}
+		});			
+	});
+});
 </script>
 
 </body>
