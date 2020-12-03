@@ -19,5 +19,6 @@ public class BoardVO {
 	private String postContent;
 	private Date createDateTime;
 	private Date updateDateTime;
+	private int replyCnt;
 	
 }

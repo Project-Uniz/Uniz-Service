@@ -15,6 +15,7 @@
 			<result property="postContent" column="postContent"></result>
 			<result property="createDateTime" column="createdatetime"></result>
 			<result property="nick" column="nick"></result>
+			<result property="replyCnt" column="replycnt"></result>
 		</resultMap>
 		
 		<!--  채널 유무 판단 -->
@@ -43,7 +44,7 @@
 			select rownum rn , a.*
 			from
 				(
-				select p.channelsn , p.title , p.createdatetime , c.channeltitle , u.nick ,p.postSN 
+				select p.channelsn , p.title , p.createdatetime , c.channeltitle , u.nick ,p.postSN , p.replycnt 
 				from channelpost p , channel c , userdata u
 				where p.channelsn = #{channelSN} 
 				and c.channelsn = p.channelsn 
@@ -68,7 +69,7 @@
             	from
                 	(
                 	select
-                    	c.channelTitle , p.postsn , p.title , u.nick , p.createdatetime
+                    	c.channelTitle , p.postsn , p.title , u.nick , p.createdatetime , p.replycnt
                     	from channel c , channelpost p , userdata u
                     	where p.usersn = u.usersn and c.channelsn = p.channelsn
                     	order by p.postsn desc
@@ -143,6 +144,12 @@
 		<update id="updateCont" parameterType="com.uniz.domain.ChannelBoardVO">
 			update ChannelPostContent
 			set postContent = #{postContent}
+			where postSN = #{postSN}
+		</update>
+		
+		<update id="updateReplyCnt">
+			update channelpost
+			set replycnt = replycnt + #{amount}
 			where postSN = #{postSN}
 		</update>
 		

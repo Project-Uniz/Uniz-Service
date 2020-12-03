@@ -32,7 +32,7 @@ $(document).ready(function(){
 		for (var i = 0, len = list.length || 0; i < len; i++){
 			
 			str += "<thead><tr><th>"+list[i].channelTitle + "</th>";
-			str += "<th><a  href='/channel/get/"+list[i].postSN+"'>"+list[i].title+"</a></th>";
+			str += "<th><a  href='/channel/get/"+list[i].postSN+"'>"+list[i].title+"["+list[i].replyCnt+"]"+"</a></th>";
 			str += "<th>"+list[i].nick + "</th>";
 			str += "<th>"+channelService.displayTime(list[i].createDateTime) +"</th></tr></thead>";
 			

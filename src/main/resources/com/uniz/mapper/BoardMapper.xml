@@ -33,7 +33,7 @@
             from
             	(
             	select
-           		p.postsn , p.title , p.createdatetime , u.usersn , u.nick , b.boardcomment
+           		p.postsn , p.title , p.createdatetime , u.usersn , u.nick , b.boardcomment , p.replycnt
             	from boardpost p ,  userdata u , board b
     			where u.usersn = p.usersn 
     			and b.boardsn = p.boardsn
@@ -86,7 +86,7 @@
 			select rownum rn , a.*
 			from
 				(
-				select b.boardsn , p.postsn , p.title, p.createdatetime , b.boardComment, u.nick
+				select b.boardsn , p.postsn , p.title, p.createdatetime , b.boardComment, u.nick , p.replycnt
 				from board b , boardpost p , userdata u
 				where b.boardsn = #{boardSN}
 				and b.boardsn = p.boardsn
@@ -155,6 +155,12 @@
 		update boardpostcontent
 		set postContent = #{postContent}
 		where postSN = #{postSN}		
+	</update>
+	
+	<update id="updateReplyCnt">
+		update boardpost 
+		set replycnt = replycnt + #{amount} 
+		where postSN = #{postSN}
 	</update>
 	
 </mapper>

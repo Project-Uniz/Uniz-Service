@@ -40,4 +40,6 @@ public interface ChannelMapper {
 	
 	public int updateCont(ChannelBoardVO vo);		   //게시글 내용 update
 	
+	public void updateReplyCnt(@Param("postSN") Long postSN, @Param("amount") int amount);
+	
 }

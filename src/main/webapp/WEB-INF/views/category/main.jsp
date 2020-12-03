@@ -61,7 +61,7 @@
 					for (var i = 0, len = list.length || 0; i < len; i++){
 						
 						str += "<thead><tr><th>"+list[i].boardComment + "</th>";
-						str += "<th><a  href='/category/get/"+list[i].postSN+"'>"+list[i].title+"</a></th>";
+						str += "<th><a  href='/category/get/"+list[i].postSN+"'>"+list[i].title+"["+list[i].replyCnt+"]"+"</a></th>";
 						str += "<th>"+list[i].nick + "</th>";
 						str += "<th>"+categoryService.displayTime(list[i].createDateTime) +"</th></tr></thead>";
 						

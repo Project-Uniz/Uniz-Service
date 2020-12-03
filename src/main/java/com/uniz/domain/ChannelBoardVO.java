@@ -18,5 +18,6 @@ public class ChannelBoardVO {
 	private int likeCnt;
 	private Date createDateTime;
 	private Date updateDateTime;
+	private int replyCnt;
 	
 }
