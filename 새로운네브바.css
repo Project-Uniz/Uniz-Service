@@ -3,7 +3,6 @@
     padding: 0;
     margin: 0;
 }
-
 .navbar{
     background-color: white;
     width: 100%;
@@ -11,14 +10,10 @@
     position: relative;
 }
 .navbar1{
-    /* background-color: rgb(30, 248, 255); */
-    /* background-color: white; */
     width: 100%;
     height: 120px;
     display: flex;
     justify-content: center;
-
-    
 }
 .navbar2{
     background-color: rgb(98, 178, 243);
@@ -68,7 +63,6 @@
 .buttons{
     position: absolute;
     right: 20px;
-
 }
 .regBtn, .logBtn{
     padding: 12px 20px;
@@ -88,7 +82,94 @@
     color: white;
     margin-top: 5px;
     margin-left: 20px;
-
 }
+.searchoverlay {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(174, 204, 245, 0.8);
+    overflow-y: hidden;
+    transition: 0.5s;
+  }
+  .searchoverlay-content {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+  }
+  .closeBox{
+    display: flex;
+    justify-content: end;
+    /* background-color: khaki; */
+    width: 100%;
+    height: 110px;
+}
+.closeBtn {
+    font-size: 100px;
+    color: white;
+    text-decoration: none;
+    right: 0;
+    width: 300px;
+    height: 105px;
+    margin: 0;
+    margin-left: 2800px;
+  }
+  .lineBox{
+      /* background-color: gold; */
+      width: 100%;
+      height: 300px;
+      position: relative;
+      top: 90px;
+  }
+  .line{
+      background-color: white;
+      width: 100%;
+      height: 5px;
+  }
+  .BOX{
+      background-color: indianred;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+  }
+  .searchBar{
+    width: 100%;
+    height: 100%;
+    background-color: gold;
+  }
+  .searchBar2{
+      background-color: indigo;
+      width: 200px;
+      height: 200px;
+  }
+  input[type=text]{
+      /* background-color: rgba(241, 246, 250, 1); */
+      border: none;
+      width: 100%;
+      height: 200px;
+      font-size: 90px;
+      outline: none;
+      padding-left: 50px;      
+  }
+  #searchBtn2{
+      background-color: rgb(26, 131, 230);
+      color: white;
+      border: none;
+      font-size: 90px;
+     width: 100%;
+     height: 100%;
+  }
+  ::placeholder{
+      color: rgb(131, 140, 153);
+  }
+  input[type=text]:focus{
+    color: rgb(66, 100, 145);
+}
+  
 
 
