@@ -17,16 +17,28 @@ public class VideoDataVO {
 
 	private Long	videoSN;
 	private String	title;
-	private String	authorID;
 	private String	authorNick;
+	private String  searchKeyword;
 	private String	urlPath;
 	private String	thumbUrl;
 	
 	private Long	likeCnt;
+	private Long    dislikeCnt;
 	private Long	followCnt;
 	private Long	viewCnt;
+	private Long    duration;
+	
+	private String  utbCategory;
 	private int		utbCateSN;
+	private boolean isFamilyFriendly;
+	private String  titleHashTags;
+	private String  descHashTags;
 	private String	utbVideoID;
+	private String  authorID;
+	private String  keywords;
+	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+	private Date yUploadDateTime;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	private Date createDateTime;
