@@ -1,13 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
 *{
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-family: 'Nunito Sans', sans-serif;
 }
 .navbar{
-    background-color: white;
+    
+    background-color: rgb(249, 251, 255);
     width: 100%;
     height: 190px;
-    position: relative;
+    position: fixed;
+    z-index: 500;
 }
 .navbar1{
     width: 100%;
@@ -16,7 +20,8 @@
     justify-content: center;
 }
 .navbar2{
-    background-color: rgb(98, 178, 243);
+    /* background-color: rgb(98, 178, 243); */
+
     position: absolute;
     width: 100%;
     bottom: 0;
@@ -24,14 +29,18 @@
     justify-content: center;
     overflow: hidden;
 }
+.navbar2 ul li{
+    list-style:none ;
+}
 .navbar2 ul li a{
-    padding: 12px 20px;
+    padding: 18px 40px;
     margin: 10px 10px;
     text-decoration: none;
     font-size: 2.7rem;
-    color: white;
+    /* color: white; */
+    color:rgb(17, 81, 177);
     font-weight: 500;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border-radius: 9px;
 }
 .navbar2 ul li a:nth-child(1){
     margin-right:30px;
@@ -39,6 +48,14 @@
 .navbar2 ul li a:nth-child(2){
     margin: 10px 12px;
     margin-right: 20px;
+}
+.navbar2 ul li a:nth-child(3){
+    margin-right: 40px;
+}
+.navbar2 ul li a:hover{
+    background-color: rgb(151, 202, 243);
+    color: white;
+    transition: 0.3s ease-in;
 }
 .unizSvg{
     display: flex;
@@ -65,43 +82,52 @@
     right: 20px;
 }
 .regBtn, .logBtn{
-    padding: 12px 20px;
+    background-color: rgb(65, 191, 241);
     font-size: 2.5rem;
     color: floralwhite;
+    border: 3px solid rgb(65, 191, 241);   
+    outline: none;
+    padding: 12px 20px;
     margin-top: 33px;
     margin-left: 10px;
-    border-radius: 20px;
-    border: none;
-    background-color: rgb(34, 192, 255);
+    border-radius: 10px;
+    cursor: pointer;
+}
+.logBtn{
+    background-color: rgb(255, 255, 255);
+    color: rgb(65, 191, 241);
+    border: 3px solid rgb(65, 191, 241);
+    padding: 12px 22px;
 }
 #searchBtn {
-    background-color: rgb(98, 178, 243);
+    background-color:inherit;
     border: none;
     outline: none;
     font-size: 2.5rem;
     color: white;
+    color:rgb(17, 81, 177);
     margin-top: 5px;
     margin-left: 20px;
 }
 .searchoverlay {
-    height: 100%;
+    height: 0%;
     width: 100%;
     position: fixed;
-    z-index: 1;
+    z-index: 1000;
     top: 0;
     left: 0;
     background-color: rgb(0,0,0);
     background-color: rgba(174, 204, 245, 0.8);
     overflow-y: hidden;
-    transition: 0.5s;
-  }
-  .searchoverlay-content {
+    transition: 0.8s;
+}
+.searchoverlay-content {
     position: relative;
     width: 100%;
     text-align: center;
     margin-top: 30px;
-  }
-  .closeBox{
+}
+.closeBox{
     display: flex;
     justify-content: end;
     /* background-color: khaki; */
@@ -116,38 +142,39 @@
     width: 300px;
     height: 105px;
     margin: 0;
-    margin-left: 2800px;
-  }
-  .lineBox{
+    margin-left: 2750px;
+    cursor: pointer;
+}
+.lineBox{
       /* background-color: gold; */
       width: 100%;
       height: 300px;
       position: relative;
       top: 90px;
-  }
-  .line{
+}
+.line{
       background-color: white;
       width: 100%;
       height: 5px;
-  }
-  .BOX{
+}
+.BOX{
       background-color: indianred;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 200px;
-  }
-  .searchBar{
+}
+.searchBar{
     width: 100%;
     height: 100%;
     background-color: gold;
-  }
-  .searchBar2{
+}
+.searchBar2{
       background-color: indigo;
       width: 200px;
       height: 200px;
-  }
-  input[type=text]{
+}
+input[type=text]{
       /* background-color: rgba(241, 246, 250, 1); */
       border: none;
       width: 100%;
@@ -155,21 +182,263 @@
       font-size: 90px;
       outline: none;
       padding-left: 50px;      
-  }
-  #searchBtn2{
+}
+#searchBtn2{
       background-color: rgb(26, 131, 230);
       color: white;
       border: none;
+      outline: none;
       font-size: 90px;
-     width: 100%;
-     height: 100%;
-  }
-  ::placeholder{
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+}
+::placeholder{
       color: rgb(131, 140, 153);
-  }
-  input[type=text]:focus{
+}
+input[type=text]:focus{
+     color: rgb(66, 100, 145);
+}
+input[type=text]{
+    /* 이러면 글자색 바뀐다.  */
     color: rgb(66, 100, 145);
 }
-  
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.show {display: block;}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.main{
+    background-color: paleturquoise;
+    width: 90%;
+    height: 2500px;
+    margin: 0 auto;
+}
+.banner{
+    /* background-color: rgb(227, 235, 255); */
+    background-color: rgb(199, 241, 241);
+    width: 100%;
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+}
+.box1{
+    background-color: violet;
+    width: 27%;
+    height: 500px;
+    margin-top: 240px;
+    overflow: hidden;
+}
+.box1 img{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
 
+}
+.content{
+    background-color: rgb(27, 27, 27);
+    width: 100%;
+    height: 3%;
+}
+.content p{
+    font-size: 4rem;
+    color: white;
+    text-align: center;
+    margin-right: 50px;
+}
+.contentBox{
+    background-color: rgb(27, 27, 27);
+    width: 100%;
+    height: 7%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.key1{
+    background-color: rgb(234, 250, 239);
+    width: 11%;
+    height:60%;
+    border-radius: 70px;
+}
+.key2{
+    background-color: rgb(119, 168, 231);
+    width: 10%;
+    height: 65%;
+    border-radius: 50px;
+}
+.key1 .p, .key2 .p{
+    text-align: center;
+    font-size: 2.5rem;
+    margin-top: 27px;
+}
+.topBtn{
+    background-color: yellowgreen;
+    width: 180px;
+    height: 160px;
+    /* z-index: 1; */
+    position: fixed;
+    top: 70%;
+    left: 92%;
+    font-size: 3rem;
+    border-radius: 30px;
+}
 
+/* 여기부터 커뮤니티 css
+ */
+.comMain{
+    background-color: cornflowerblue;
+    width: 90%;
+    margin: 0 auto;
+    height: 5000px;
+    overflow: hidden;
+}
+.leftBar{
+background-color: rgb(242, 252, 255);
+width: 17%;
+height: 95%;
+position: fixed;
+top: 190px;
+border-left: 5px solid rgb(131, 136, 135);
+z-index: 20;
+}
+.navBar{
+    background-color: rgb(242, 252, 255);
+    width: 90%;
+    position: absolute;
+    right: 0;
+    height: 800px;
+}
+.navBar ul li{
+    list-style-type: none;
+}
+.navBar ul li a{
+    text-decoration: none;
+    display: block;
+    width: 80%;
+    border-radius: 50px;
+    padding: 40px 10px;
+    font-size: 3.3rem;
+}
+.navBar ul li a:hover{
+    transition: 0.3s;
+    color: rgb(55, 182, 255);
+}
+.navBar ul li a:last-child{
+    border-radius: 80px;
+}
+.navBar ul li a:last-child:hover{
+    background-color: rgb(25, 74, 211);
+    color: whitesmoke;
+}
+.WBtn{
+    background-color: dodgerblue;
+    text-align: center;
+    margin: 0;
+    width: 90%;
+    color: white;
+}
+.rightPage{
+    background-color: rgb(79, 192, 186);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+}
+.channelBox{
+    background-color: yellowgreen;
+    width: 83%;
+    position: absolute;
+    right: 0;
+    height: 40%;
+}
+#h1{
+    font-size: 6rem;
+}
+.upBox{
+    /* 네브바땜에 희생한 박스. */
+    background-color: rgb(175, 119, 119);
+    position: absolute;
+    right: 0;
+    width: 81.1%;
+    height: 190px;
+    /* z-index: 3000; */
+}
+.channelContent{
+    background-color: rgb(29, 63, 134);
+    position: absolute;
+    top:190px;
+    right: 0;
+    width: 81.2%;
+    height: 150px;
+    font-size: 3rem;
+}
+.channelContent h2{
+    /* color: rgb(15, 24, 155); */
+    color: white;
+    margin-top: 20px;
+    margin-left: 150px;
+}
+.channelTable{
+    /* background-color: rgb(62, 145, 240); */
+    background-color: rgb(179, 188, 206);
+    position: absolute;
+    top: 340px;
+    right: 0;
+    width: 81.2%;
+    height: 1400px;
+}
+
+.channelTable ul li a{
+    background-color: rgb(245, 253, 251);
+    width: 90%;
+    margin: 0 auto;
+    font-size: 4rem;
+    display: block;
+    padding: 19px 0;
+    text-decoration: none;
+    border-bottom: 3px solid grey;
+    color: rgb(15, 24, 155);
+    /* margin-left: 30px; */
+}
+.channelTable ul li a:hover{
+    color: rgb(41, 212, 255);
+    transition: 0.4s;
+}
+.channelTable ul li a:first-child{
+    margin-top: 45px;
+    border-radius:  20px 20px 0 0;
+}
+.channelTable ul li a:last-child{
+    border-radius: 0 0 20px 20px;
+    border: none;
+}
+.channelTable ul li a:nth-last-child(odd) {
+    background-color: rgb(202, 235, 255);
+}
+
+.boardContent{
+    background-color: rgb(29, 63, 134);
+    position: absolute;
+    top:1730px;
+    right: 0;
+    width: 81.2%;
+    height: 150px;
+}
