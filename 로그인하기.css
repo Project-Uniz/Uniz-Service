@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.regMain{
+    /* background-color: lightskyblue; */
+    background: url(night.jpg);
+    opacity: 0.9;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+}
+.Box{
+    /* background-color: rgb(255, 255, 255); */
+    width: 20%;
+    height: 40%;
+    margin: 0 auto;
+    margin-top: 300px;
+    border-radius: 80px;
+    /* border: 3px solid black; */
+    position: relative;
+
+}
+
+input[type=text]{
+    font-size: 3rem;
+    width: 100%;
+    height: 150px;
+    outline: none;
+    border: 5px solid dodgerblue;
+    background-color: rgba(243, 243, 243, 0.9);
+    color: rgb(0, 18, 117);
+}
+label{
+    font-size: 4rem;
+}
+.userIdBox2{
+    /* background-color: rgb(205, 222, 233); */
+    width: 80%;
+    height: 16%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+.Box svg{
+    width: 350px;
+    height: 200px;
+
+}
+.svgbox{
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.svgbox #unizIcon{
+   width: 400px;
+   height: 400px;
+
+}
+.pwdBox{
+    width: 80%;
+    height: 16%;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+.regBtnBox{
+    width: 100%;
+    height: 16%;
+    display: flex;
+    justify-content: center;
+}
+.regBtn{
+    background-color: rgb(6, 0, 94);
+    color: rgb(205, 241, 255);
+    font-size: 5rem;
+    border-radius: 40px;
+    padding: 10px 90px;
+    border: none;
+    outline: none;
+    margin-top: 80px;
+    width: 80%;
+}
+.loginBtn{
+    background-color: rgb(255, 255, 255);
+    color: rgb(1, 50, 141);
+    margin-top: 25px;
+}
+.nickBox{
+    width: 80%;
+    height: 16%;
+    margin: 0 auto;
+}
+.chkBox{
+    /* background-color: yellowgreen; */
+    width: 55%;
+    height: 100px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: flex-start;
+    margin-top: 40px;
+}
+.chkBox label{
+    margin-left: 20px;
+    color: rgb(240, 246, 255);
+}
+.chkBox input[type=checkbox]{
+    width: 90px;
+    height: 90px;
+    border-radius: 40px;
+    outline: none;
+    border: none;
+
+}
+input[type=checkbox]:checked{
+    box-shadow: 0 0 0 10px rgb(255, 182, 218);
+}
