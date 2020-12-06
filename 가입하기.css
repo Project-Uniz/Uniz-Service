@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.regMain{
+    /* background-color: lightskyblue; */
+    background: url(sky.jpg);
+    opacity: 0.9;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 3000px;
+    position: fixed;
+}
+.Box{
+    /* background-color: rgb(255, 255, 255); */
+    width: 20%;
+    height: 40%;
+    margin: 0 auto;
+    margin-top: 190px;
+    border-radius: 80px;
+    /* border: 3px solid black; */
+    position: relative;
+}
+
+input[type=text]{
+    font-size: 3rem;
+    width: 100%;
+    height: 150px;
+    outline: none;
+    border: 5px solid dodgerblue;
+    background-color: rgba(243, 243, 243, 0.9);
+}
+label{
+    font-size: 4rem;
+}
+.userIdBox2{
+    /* background-color: rgb(205, 222, 233); */
+    width: 80%;
+    height: 16%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+.Box svg{
+    width: 350px;
+    height: 200px;
+
+}
+.svgbox{
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.pwdBox{
+    width: 80%;
+    height: 16%;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+.regBtnBox{
+    width: 100%;
+    height: 16%;
+    display: flex;
+    justify-content: center;
+}
+.regBtn{
+    background-color: rgb(0, 74, 170);
+    color: rgb(205, 241, 255);
+    font-size: 5rem;
+    border-radius: 40px;
+    padding: 10px 90px;
+    border: none;
+    outline: none;
+    margin-top: 80px;
+    width: 80%;
+}
+.loginBtn{
+    background-color: rgb(255, 255, 255);
+    color: deepskyblue;
+    margin-top: 25px;
+}
+.nickBox{
+    width: 80%;
+    height: 16%;
+    margin: 0 auto;
+}
