@@ -23,7 +23,7 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/UnizHit/*")
 @AllArgsConstructor
 public class UnizHitController {
-	//2차테스트 
+	
 	
 	private UnizHitService service;
 	//private UserService userService;
@@ -37,6 +37,8 @@ public class UnizHitController {
 		return new ResponseEntity<List<VideoDataVO>>(service.getHitList(),HttpStatus.OK);
 		
 	}
+	
+
 	
 	@GetMapping("/UnizHit")
 	public String unizHitView(Model model) {
@@ -56,7 +58,16 @@ public class UnizHitController {
 		
 		return "videoDetail";
 	}
-		
+	
+	
+	@GetMapping(value = "/keywordHitlist/{unizSN}",
+			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	
+			public ResponseEntity<List<VideoDataVO>>keywordHitlist(
+			@PathVariable("unizSN") Long unizSN)
+				{
+				return new ResponseEntity<List<VideoDataVO>>(service.keywordHitList(unizSN),HttpStatus.OK);
+				} 
 	
 		//0.로그인 여부는 당장 상관없음.(추후고려)
 

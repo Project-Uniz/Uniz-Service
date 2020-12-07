@@ -21,12 +21,13 @@ public class VideoDataVO {
 	private String	authorNick;
 	private String	urlPath;
 	private String	thumbUrl;
-	
+
 	private Long	likeCnt;
 	private Long	followCnt;
 	private Long	viewCnt;
 	private int		utbCateSN;
 	private String	utbVideoID;
+	private String  yuploaddatetime;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	private Date createDateTime;
