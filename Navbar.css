@@ -77,7 +77,7 @@
     transition: 0.4s;
 }
 
-/* 커뮤니티입니당.  */
+/* 커뮤니티.  */
 .communityPage{
     background-color: rgb(250, 253, 255);
     width: 90%;
@@ -113,7 +113,6 @@
     color:rgb(0, 132, 209);
     transition: 0.3s;
 }
-
 .channelListBox{
     /* background-color: darkorange; */
     width: 85%;
@@ -123,11 +122,9 @@
 }
 .header{
     /* '채널 게시판' */
-
     font-size: 28px;
     padding: 35px  30px 20px 35px;
     font-weight: 500;
-
 }
 .chP{
     font-size: 22px;
@@ -153,7 +150,6 @@
     font-size: 18px;
     border-bottom: 1px solid rgb(189, 187, 187);
     color: rgb(72, 73, 141);
-
 }
 .Chlist ul li a:last-child{
     border-bottom: none;
@@ -164,73 +160,42 @@
     color: rgb(1, 155, 216);
     border-left: 6px solid rgb(25, 155, 231);
 }
-.allPostList{
-    background-color: rgb(236, 246, 255);
-    width: 90%;
-    margin: 0 auto;
-    border-collapse: none;
-    border-spacing: 0;
-    /* border-spacing을 0으로 줘야 정체모를 세로 공간(줄무늬 같은거)이 사라진다.  */
-    cursor: pointer;
-}
-.allPostList th{
-    padding: 6px 0;
-    background-color: rgb(166, 231, 217);
-}
-.allPostList tr:nth-child(even){
-    background-color: rgb(247, 253, 247);
-}
-.allPostList td, th, tr, thead{
-    border: none;
-}
-.allPostList td{
-    padding: 10px 10px;
-    color: rgb(41, 30, 30);
-}
-.allPostList tr:hover, td:hover{
-    /* background-color:  rgb(216, 231, 216); */
-    color: rgb(21, 9, 128);
-    transition: 0.4s;
-}
+/* pagination */
 .postFooter{
     margin-top: 50px;
     /* background-color: hotpink; */
     width: 100%;
-    height: 10px;
+    height: 100px;
     display: flex;
     justify-content: center;
 }
 .postFooter ul li{
     list-style-type: none;
+    display: inline;    
+    border-spacing: 0;
 }
 .postFooter ul li a{
     text-decoration: none;
-    border: 1px solid rgb(196, 180, 216);
+    /* border: 1px solid rgb(196, 180, 216); */
     border-collapse: none;
     padding: 10px 12px;
     font-size: 16px;
     color: dodgerblue;
 }
 .postFooter ul li a:hover{
-    color: white;
-    background-color: rgb(133, 218, 251);
+    color: rgb(0, 100, 182);
+    background-color: rgb(223, 246, 255);
     transition: 0.3s ease-in-out;
 }
-.postFooter ul li a:first-child{
-    border-radius: 20px 0 0 20px;
-}
-.postFooter ul li a:last-child{
-    border-radius: 0 20px 20px 0;
-}
-.postFooter ul li a:not(:last-child){
-    border-right: none;
+.postFooter ul li> a{
+    border-radius: 20px;
+    border: 1px solid #ddd;
 }
 .footer{
-    background-color: rgb(59, 150, 241);
+    background-color: rgb(85, 163, 241);
     width: 100%;
     height: 200px;
     display: flex;
-    
 }
 .footer1{
     /* background-color:yellow; */
@@ -253,4 +218,32 @@
 }
 .footer1, .footer2, .footer3{
     color: white;
+}
+/* 전체 게시물 목록 css */
+.allPostList{
+    background-color: rgb(236, 246, 255);
+    width: 90%;
+    margin: 0 auto;
+    border-collapse: none;
+    border-spacing: 0;
+    /* border-spacing을 0으로 줘야 정체모를 세로 공간(줄무늬 같은거)이 사라진다.  */
+    cursor: pointer;
+    color: rgb(101, 8, 129);
+    table-layout: fixed;
+    /* 필요 */
+}
+.allPostList th{
+    padding: 6px 0;
+    background-color: rgb(166, 231, 217);
+}
+.allPostList tr:nth-child(even){
+    background-color: rgb(247, 253, 247);
+}
+.allPostList  thead tr td{
+    /* 반드시 필요. 지우지 말기 */
+    padding: 10px 20px;
+    color: rgb(8, 2, 92);
+    text-overflow:ellipsis; 
+    overflow:hidden; 
+    white-space:nowrap;
 }
