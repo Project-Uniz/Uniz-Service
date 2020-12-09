@@ -1,7 +1,9 @@
 *{ box-sizing: border-box;
    margin: 0;
    padding: 0;
-   font-family: 'Courier New', Courier, monospace;
+   /* font-family: 'Courier New', Courier, monospace; */
+   font-family: "Noto Sans KR", sans-serif, 나눔고딕, 돋움, Dotum, 굴림, Gulim, "Apple SD Gothic Neo";
+
 }
 .navbar{
     width: 100%;
@@ -48,7 +50,7 @@
 }
 .searchIcon{
     position: absolute;
-    top: 20px;
+    top: 25px;
 }
 .nav2{
     /* background-color: lightblue; */
@@ -78,13 +80,14 @@
 }
 
 /* 커뮤니티.  */
-.communityPage{
+.commuPage{
     background-color: rgb(250, 253, 255);
     width: 90%;
     height: 1100px;
     margin: 0 auto;
     display: flex;
 }
+
 .commuNavbar{
     background-color: white;
     width: 225px;
@@ -247,3 +250,120 @@
     overflow:hidden; 
     white-space:nowrap;
 }
+.mainPage{
+    background-color: rgb(230, 233, 235);
+    /* background-color: lawngreen; */
+    width: 100%;
+    height: 600px;
+}
+.Wbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 580px;
+    /* background-color: #504f5c; */
+    z-index: 200;
+    overflow: hidden;
+    
+}
+.watchContainer{
+    background-color: rgb(169, 207, 132);
+    width: 100%;
+    height: 500px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 0;
+    grid-template-areas: 
+            "video video main "
+            "video video main"
+            "video video main"
+            "video video comment"
+            "video video comment";
+}
+
+header { grid-area: video; 
+    grid-row: 1/6;
+    grid-column: 1/6;
+    /* background-color: lightcoral; */
+        
+        }
+header  > iframe{
+    width: 100%;
+    height: 100%;
+}
+main {grid-area: main;
+    grid-row: 1/5;
+    grid-column: 6/8;
+    background-color: lightgoldenrodyellow;
+    }
+aside { grid-area : comment;
+        grid-row: 5/6;
+        grid-column: 6/8;
+
+        background-color: lightgreen;
+        overflow: scroll;
+    }
+.videos{
+    background-color: coral;
+    width: 100%;
+    height: 170px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+.videos iframe{
+    width: 223px;
+    height: 124px;
+    border-radius: 3px;
+}
+.Wbox{
+    width: 100%;
+    height: 500px;
+}
+.Wnavbar{
+    width: 100%;
+    height: 55px;
+    display: flex;
+    align-items: center;
+}
+.Wnavbar h1{
+    font-size: 21px;
+    padding-left: 30px;
+    /* font-family: "Noto Sans KR", sans-serif, 나눔고딕, 돋움, Dotum, 굴림, Gulim, "Apple SD Gothic Neo"; */
+}
+.Wnavbar .moreBtn{
+     padding: 9px 14px;
+     margin-left: 10px;
+     border-radius: 10px;
+}
+
+.p{
+    font-size: 21px;
+    line-height: 40px;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+main{
+    overflow: scroll;
+}
+aside p input{
+    width: 80%;
+    height: 70px;
+    margin : 0 auto;
+    
+}
+.submitBtn{
+    padding: 6px 15px;
+}
+.Vheader{
+    background-color: coral;
+    width: 100%;
+    height: 150px;
+}
+
+
+
+
