@@ -36,6 +36,8 @@ public interface ChannelMapper {
 	
 	public int deleteCont(Long postSN);		   //게시글 내용 delete
 	
+	public int deleteReply(Long postSN);
+	
 	public int updatePost(ChannelBoardVO vo); 	   //게시글 update
 	
 	public int updateCont(ChannelBoardVO vo);		   //게시글 내용 update

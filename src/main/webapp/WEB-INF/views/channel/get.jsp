@@ -9,18 +9,65 @@
 <title>Insert title here</title>
 </head>
 
-<style> 
+<style>
 
-table{
-    border: 1px solid; 
-    border-collapse: collapse;
-}
-table.tr , td, th{
-    border: solid 1px ;
+.uploadResult{
+
+	whidth : 100%;
+	background-color : gray;
+
 }
 
-input{
-    width:100% border:0;
+.uploadResult ul{
+
+	display : flex;
+	flex-flow : row;
+	justify-content : center;
+	align-items: center;
+
+}
+
+.uploadResult ul li {
+
+	list-style : none;
+	padding : 10px;
+
+}
+
+.uploadResult ul li img{
+
+	width : 50%;
+	
+}
+
+.bigPictureWrapper {
+
+	position : absolute;
+	display : none;
+	justify-content : center;
+	align-items : center;
+	top : 0%;
+	width : 100%;
+	height : 100%;
+	background-color : gray;
+	z-index : 100;
+	background : rgba(255,255,255,0.5);
+
+}
+
+.bigPicture {
+
+	position : relative;
+	display : flex;
+	justify-content : center;
+	align-items : center;
+
+}
+
+.bigPicture img {
+
+	width : 600px;
+
 }
 
 </style>
@@ -36,6 +83,13 @@ input{
 	
 	<!--<c:if test="${userId.userSN == board.userSN}"> -->
 	<!--</c:if> -->
+	
+			<div>Files</div>
+				<div class="uploadResult">
+					<ul>
+					</ul>
+				</div>
+	
 	<button id='modify'>글 수정</button>
 	<button id='list'>목록으로</button>
 	<div></div>
@@ -232,6 +286,43 @@ function remove(replySN){
 	
 }
 
+
+</script>
+<script>
+
+$(document).ready(function(){
+	
+	(function(){
+		
+		var postSN = '<c:out value="${postSN}"/>';
+		
+		$.getJSON("/channel/chgetAttachList", {postSN: postSN}, function(arr){
+		
+			console.log(arr);
+			
+			var str = "";
+			
+			$(arr).each(function(i, attach){
+				
+				if(attach.fileType){
+					
+					var fileCallPath = encodeURIComponent( attach.uploadPath+"/s_"+ attach.uuid + "_" + attach.fileName);
+					
+					str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"'data-type'"+attach.fileType+"'><div>";
+					str += "<img src='/chdisplay?fileName="+fileCallPath+"'>";
+					str += "</div>";
+					str += "</li>";
+				}
+				
+			});
+			
+			$(".uploadResult ul").html(str);
+	
+		});
+	
+	})();
+	
+});
 
 </script>
 </body>

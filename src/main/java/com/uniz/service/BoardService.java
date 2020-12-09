@@ -2,6 +2,7 @@ package com.uniz.service;
 
 import java.util.List;
 
+import com.uniz.domain.BoardAttachVO;
 import com.uniz.domain.BoardVO;
 import com.uniz.domain.Criteria;
 import com.uniz.domain.PageDTO;
@@ -29,4 +30,7 @@ public interface BoardService {
 	public BoardVO get(Long postSN);
 	
 	public int getTotal();
+	
+	public List<BoardAttachVO> getAttachList(Long postSN);	
+	
 }

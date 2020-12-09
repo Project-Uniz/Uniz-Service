@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.uniz.domain.ChannelAttachVO;
 import com.uniz.domain.ChannelBoardVO;
 import com.uniz.domain.ChannelPageDTO;
 import com.uniz.domain.ChannelVO;
 import com.uniz.domain.Criteria;
+import com.uniz.mapper.ChannelAttachMapper;
 import com.uniz.mapper.ChannelMapper;
 
 import lombok.AllArgsConstructor;
@@ -24,6 +26,8 @@ public class ChannelServiceImpl implements ChannelService {
 	@Setter(onMethod_ = @Autowired)
 	private ChannelMapper mapper;
 	
+	@Setter(onMethod_ = @Autowired)
+	private ChannelAttachMapper attachMapper;
 	
 	public List<ChannelBoardVO> getChannelList(){
 		log.info("채널  목록 출력");
@@ -66,13 +70,32 @@ public class ChannelServiceImpl implements ChannelService {
 		
 		mapper.insertPost(vo);
 		mapper.insertCont(vo);
+		
+		if(vo.getAttachList() == null || vo.getAttachList().size() <= 0) {
+			
+			return;
+			
+		}
+		
+		vo.getAttachList().forEach(attach ->{
+			attach.setPostSN(vo.getPostSN());
+			attachMapper.insert(attach);
+		});
+		
 	}
 	
 	@Transactional
 	@Override
 	public boolean delete(Long postSN) {
 		
-		if(mapper.deletePost(postSN) == 1 && mapper.deleteCont(postSN) == 1) {
+		attachMapper.deleteAll(postSN);
+		
+		mapper.deleteReply(postSN);
+		
+		int chCont = mapper.deleteCont(postSN);
+		int chPost = mapper.deletePost(postSN); 
+		
+		if(chCont == 1 && chPost == 1) {
 			log.info("삭제중");
 			return true;
 		}
@@ -85,10 +108,31 @@ public class ChannelServiceImpl implements ChannelService {
 	@Override
 	public boolean update(ChannelBoardVO vo) {
 		
-		if(mapper.updatePost(vo) == 1 && mapper.updateCont(vo) == 1) {
-			return true;
+		attachMapper.deleteAll(vo.getPostSN());
+		
+		boolean modifyResult = mapper.updateCont(vo) == 1 && mapper.updatePost(vo) ==1;
+		
+		if(modifyResult && vo.getAttachList() != null 
+				&& vo.getAttachList().size() > 0) {
+			
+				vo.getAttachList().forEach(attach -> {
+				
+				attach.setPostSN(vo.getPostSN());
+				attachMapper.insert(attach);
+				
+			});
+			
 		}
-			return false;
+			return modifyResult;
+	}
+	
+	@Override
+	public List<ChannelAttachVO> getAttachList(Long postSN){
+		
+		log.info("첨부 파일 불러오기 : " + postSN);
+		
+		return attachMapper.findByPostSN(postSN);
+		
 	}
 
 }

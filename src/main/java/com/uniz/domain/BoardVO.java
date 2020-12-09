@@ -1,7 +1,7 @@
 package com.uniz.domain;
 
 import java.util.Date;
-
+import java.util.List;
 
 import lombok.Data;
 
@@ -20,5 +20,9 @@ public class BoardVO {
 	private Date createDateTime;
 	private Date updateDateTime;
 	private int replyCnt;
+	
+	private String changename;
+	
+	private List<BoardAttachVO> attachList;
 	
 }

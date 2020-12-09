@@ -71,6 +71,29 @@ var categoryService = (function(){
 				});
 		}   
 	
+	function getImg(param){
+		var str = "";
+		var postSN = param;
+		var imgs = $("#imgs");
+		
+		$.ajax({
+			
+			type : 'get',
+			url : '/category/fileview/'+ param ,
+			dataType : 'json',
+			contentType : "application/json; charset=utf-8",
+			success : function(img){
+				
+				for(var i = 0, len = img.length || 0; i < len; i ++){
+					str += "<img src='/img/"+ img[i].CHANGENAME +"'/><div></div>";
+				}
+				
+				imgs.html(str);
+				
+			}
+		})
+	}
+	
 	function getPost(param){
 		var str = "";
 		var boardPost = $("#boardPost");
@@ -90,7 +113,7 @@ var categoryService = (function(){
 				str += "<div><label>글 제목</label><input name='postSN' value='"+post.title+"' readonly='readonly' /></div>";
 				str += "<div><label>글 번호</label><input name='postSN' value='"+post.postSN+"' readonly='readonly' /></div>";
 				str += "<div><label>작성자 </label><input name='postSN' value='"+post.nick+"' readonly='readonly' /></div>";
-				str += "<div><label>글 내용</label><textarea row='3' name='postContent' readonly='readonly'>" + post.postContent +"</textarea>";
+				str += "<div><label>글 내용</label><p>" + post.postContent +"</p>";
 				
 				$("#modify").on("click", function(){
 					self.location = "/category/modify/" + postSN + "/"+ boardSN;
@@ -166,6 +189,7 @@ var categoryService = (function(){
 		getAllPost : getAllPost,
 		getBoardPostList : getBoardPostList,
 		getPost : getPost,
+		getImg : getImg,
 		modify : modify,
 		displayTime : displayTime
 	};

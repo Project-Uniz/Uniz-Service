@@ -8,9 +8,103 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+
+.uploadResult{
+
+	whidth : 100%;
+	background-color : gray;
+
+}
+
+.uploadResult ul{
+
+	display : flex;
+	flex-flow : row;
+	justify-content : center;
+	align-items: center;
+
+}
+
+.uploadResult ul li {
+
+	list-style : none;
+	padding : 10px;
+
+}
+
+.uploadResult ul li img{
+
+	width : 50%;
+	
+}
+
+.bigPictureWrapper {
+
+	position : absolute;
+	display : none;
+	justify-content : center;
+	align-items : center;
+	top : 0%;
+	width : 100%;
+	height : 100%;
+	background-color : gray;
+	z-index : 100;
+	background : rgba(255,255,255,0.5);
+
+}
+
+.bigPicture {
+
+	position : relative;
+	display : flex;
+	justify-content : center;
+	align-items : center;
+
+}
+
+.bigPicture img {
+
+	width : 600px;
+
+}
+
+</style>
 <body>
 
-	<div id = "boardPost"></div>
+	<h1> <c:out value="${board.boardComment}"/></h1>
+		
+				<div class="form-group">
+					<label>글 번호</label> <input class="form-control" name='postSN'
+						value='<c:out value="${board.postSN}" />' readonly="readonly">
+				</div>
+
+				<div class="form-group">
+					<label>제목</label> <input class="form-control" name='title'
+						value='<c:out value="${board.title}" />' readonly="readonly">
+				</div>
+
+
+				<div class="form-group">
+					<label>작성자</label> <input class="form-control" name='writer'
+						value='<c:out value="${board.nick}" />' readonly="readonly">
+				</div>
+		
+				<div class="form-group">
+					<label>내용</label>
+					<p><c:out value="${board.postContent}" /></p>
+				</div>
+		
+		<div id="imgs">
+		</div>
+		
+		<div>Files</div>
+			<div class="uploadResult">
+				<ul>
+				</ul>
+			</div>
+	
+	
 	<button id='modify'>글 수정</button>
 	<button id='list'>목록으로</button>
 	
@@ -30,7 +124,7 @@
               </div>
         </form>
     </div>
-	<div></div>
+	
 	
 	<div>
 			
@@ -51,10 +145,12 @@ $(document).ready(function(){
 	
 	
 	var postSN = '<c:out value="${postSN}"/>';
+	var boardSN = '<c:out value="${board.boardSN}"/>';
+	console.log(postSN);
+	console.log(boardSN);
+	//categoryService.getPost(postSN);
 	
-	var boardSN = '<c:out value="${postSN}"/>';
-	
-	categoryService.getPost(boardSN);
+	//categoryService.getImg(postSN);
 	
 	showList(1);
 	
@@ -88,6 +184,14 @@ $(document).ready(function(){
 
 	}
 	
+	$("#modify").on("click", function(){
+		self.location = "/category/modify/" + postSN + "/"+ boardSN;
+	});
+	
+	$("#list").on("click", function(){
+		self.location = "/category/board/"+boardSN;
+	});
+	
 	var str = "";
 	var newReply = $(".container");
 
@@ -112,7 +216,8 @@ $(document).ready(function(){
 		}
 	
 		replyService.add(reply, function(result){
-			showList(-1);
+			location.reload(true);
+			showList(1);
 		});
 	
 	});
@@ -204,6 +309,43 @@ function remove(replySN){
 
 	
 }
+
+</script>
+<script>
+
+$(document).ready(function(){
+	
+	(function(){
+		
+		var postSN = '<c:out value="${postSN}"/>';
+		
+		$.getJSON("/category/getAttachList", {postSN: postSN}, function(arr){
+		
+			console.log(arr);
+			
+			var str = "";
+			
+			$(arr).each(function(i, attach){
+				
+				if(attach.fileType){
+					
+					var fileCallPath = encodeURIComponent( attach.uploadPath+"/s_"+ attach.uuid + "_" + attach.fileName);
+					
+					str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"'data-type'"+attach.fileType+"'><div>";
+					str += "<img src='/display?fileName="+fileCallPath+"'>";
+					str += "</div>";
+					str += "</li>";
+				}
+				
+			});
+			
+			$(".uploadResult ul").html(str);
+	
+		});
+	
+	})();
+	
+});
 
 </script>
 </body>

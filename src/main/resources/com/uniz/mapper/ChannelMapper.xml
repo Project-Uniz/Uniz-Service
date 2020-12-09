@@ -134,6 +134,10 @@
 			delete from ChannelPostContent where postSN = #{postSN}
 		</delete>
 		
+		<delete id="deleteReply">
+			delete from channelreply where postSN = #{postSN}
+		</delete>
+		
 		<update id="updatePost" parameterType="com.uniz.domain.ChannelBoardVO">
 			update ChannelPost
 			set title = #{title},

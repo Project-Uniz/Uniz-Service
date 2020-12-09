@@ -1,5 +1,8 @@
 package com.uniz.controller;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -12,8 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.uniz.domain.BoardAttachVO;
+import com.uniz.domain.ChannelAttachVO;
 import com.uniz.domain.ChannelBoardVO;
 import com.uniz.domain.ChannelPageDTO;
 import com.uniz.domain.ChannelVO;
@@ -104,7 +110,14 @@ public class ChannelController {
 	
 	// 게시글 작성
 	@PostMapping("/register")
-	public String register( ChannelBoardVO vo , Long channelSN , RedirectAttributes rttr) {
+	public String register( ChannelBoardVO vo , RedirectAttributes rttr) {
+		
+		if(vo.getAttachList() != null) {
+			
+			vo.getAttachList().forEach(attach -> log.info(attach));
+			
+		}
+		
 		service.register(vo);
 		
 		rttr.addFlashAttribute("result", vo.getPostSN());
@@ -175,8 +188,15 @@ public class ChannelController {
 	@PostMapping(value ="/remove")		
 	public String remove(@RequestParam("postSN") Long postSN,@RequestParam("channelSN") Long channelSN ,RedirectAttributes rttr){
 		
+		List<ChannelAttachVO> attachList = service.getAttachList(postSN);
+		
 		log.info("게시물 삭제 : " + postSN);
-		if(service.delete(postSN)) {
+		
+		boolean deletecheck = service.delete(postSN);
+		
+		if(deletecheck) {
+			
+			deleteFiles(attachList);
 			rttr.addFlashAttribute("result", "success");
 		}
 		
@@ -194,6 +214,49 @@ public class ChannelController {
 		}
 		
 		return "redirect:/channel/board/" + channelSN;
+		
+	}
+	
+	@GetMapping(value ="/chgetAttachList",
+			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<ChannelAttachVO>> getAttachList(Long postSN){
+		
+		log.info("getAttachList====== : " + postSN);
+		
+		return new ResponseEntity<>(service.getAttachList(postSN) , HttpStatus.OK);
+		
+	}
+	
+	
+private void deleteFiles(List<ChannelAttachVO> attachList) {
+		
+		if(attachList == null || attachList.size() == 0) {
+			return;
+		}
+		attachList.forEach(attach -> {
+			
+		  try {
+			  
+		  
+			Path file = Paths.get("C:\\ch\\file\\" + attach.getUploadPath()+ "\\"+
+					attach.getUuid()+"_" + attach.getFileName());
+			
+			Files.deleteIfExists(file);
+			
+			if(Files.probeContentType(file).startsWith("image")) {
+				
+				Path thumNail = Paths.get("C:\\ch\\file\\" + attach.getUploadPath() + 
+						"\\s_" + attach.getUuid()+"_"+attach.getFileName());
+				
+				Files.delete(thumNail);
+				
+			}
+			
+		  }catch(Exception e) {
+			  log.error("delete File error " + e.getMessage());
+		  }
+		});
 		
 	}
 	

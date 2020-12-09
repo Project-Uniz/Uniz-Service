@@ -2,6 +2,7 @@ package com.uniz.service;
 
 import java.util.List;
 
+import com.uniz.domain.ChannelAttachVO;
 import com.uniz.domain.ChannelBoardVO;
 import com.uniz.domain.ChannelPageDTO;
 import com.uniz.domain.ChannelVO;
@@ -28,5 +29,7 @@ public interface ChannelService {
 	public boolean delete(Long postSN);
 	
 	public boolean update(ChannelBoardVO vo);
+	
+	public List<ChannelAttachVO> getAttachList(Long postSN);
 	
 }

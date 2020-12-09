@@ -104,12 +104,14 @@
 	
 	<select id="read" resultType="com.uniz.domain.BoardVO">
 		
-			select p.postSN, p.boardsn ,u.nick, p.title, c.postcontent, p.createdatetime , p.userSN, b.boardcomment
-			from boardpost p , boardpostcontent c , userdata u , board b
-			where p.postSN = #{postSN} 
+			select p.postSN, p.boardsn ,u.nick, p.title, c.postcontent, 
+				   p.createdatetime , p.userSN, b.boardcomment
+                
+			from boardpost p , boardpostcontent c , userdata u , board b 
+			where p.postSN = #{postSN}
 			and p.postsn = c.postsn 
 			and u.usersn = p.usersn
-			and b.boardsn = p.boardsn
+			and b.boardsn = p.boardsn    
 			
 	</select>
 	
@@ -118,7 +120,7 @@
 			select boardpost_seq.nextval from dual
 		</selectKey>
 		insert into boardpost
-		(postSN, userSN, title , boardSN)
+		(postSN, userSN, title , boardSN )
 		values 
 		(#{postSN}, #{userSN} , #{title} , #{boardSN} )
 	</insert>
@@ -131,6 +133,17 @@
 		(#{postSN} , #{postContent} )
 	
 	</insert>
+	
+	<insert id="insertFile" parameterType="hashMap">
+		insert into board_imgfile
+		(filesn, postsn, orgname, changename, filesize)
+		values
+		(boardimgfile_seq.nextval, #{postSN}, #{orgName}, #{changeName}, #{fileSize})
+	</insert> 
+	
+	<delete id="deleteFile">
+		delete from board_imgfile where postSN = #{postSN}
+	</delete>
 	
 	<delete id="deletePost">
 		delete from boardpost where postSN = #{postSN}
@@ -162,5 +175,13 @@
 		set replycnt = replycnt + #{amount} 
 		where postSN = #{postSN}
 	</update>
+	
+	<select id="findByPostSN" parameterType="long" resultType="hashmap">
+		select filesn , orgname , changename , round(filesize/1024 , 1) 
+		from board_imgfile
+		where postsn = #{postSN}
+		and del_ck = 'N'
+	</select>
+	
 	
 </mapper>

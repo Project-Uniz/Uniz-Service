@@ -42,6 +42,7 @@
 	<context:component-scan base-package="com.uniz.service"/>
 	<context:component-scan base-package="com.uniz.aop"/>
 	<context:component-scan base-package="com.uniz.task"/>
+	<context:component-scan base-package="com.uniz.utils"/>
 	
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	<task:annotation-driven/>

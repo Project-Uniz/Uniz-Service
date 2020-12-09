@@ -43,10 +43,10 @@ var channelService = (function(){
 					for(prop in cData) {
 						console.log(prop + ":" + cData[prop] );
 					}
-					
+					str += "<ul>";
 					str += "<li data-channelsn='"+list[i].channelSN+"'>";
 					console.log(list[i].channelSN);
-					str += "<a href='/channel/board/"+list[i].channelSN+"'><strong>"+list[i].channelTitle+"</strong></a></div></li>";
+					str += "<a href='/channel/board/"+list[i].channelSN+"'><i class='fab fa-youtube'></i><strong>"+list[i].channelTitle+"</strong></a></div></li></ul>";
 				}
 				channelList.html(str);
 			}

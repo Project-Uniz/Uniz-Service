@@ -1,6 +1,9 @@
 package com.uniz.controller;
 
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -14,11 +17,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.uniz.domain.BoardAttachVO;
 import com.uniz.domain.BoardVO;
-import com.uniz.domain.ChannelBoardVO;
-import com.uniz.domain.ChannelPageDTO;
 import com.uniz.domain.Criteria;
 import com.uniz.domain.PageDTO;
 import com.uniz.service.BoardService;
@@ -48,6 +51,15 @@ public class BoardController {
 		log.info("get Board List........");
 		return new ResponseEntity<>(service.getBoardList() , HttpStatus.OK);
 	} 
+	
+//	@GetMapping(value = "/fileview/{postSN}",
+//			produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+//	//@ResponseBody
+//	public ResponseEntity<List<Map<String , Object>>> findByPostSN(@PathVariable("postSN") Long postSN) {
+//		
+//		return new ResponseEntity<>(service.findByPostSN(postSN) , HttpStatus.OK);
+//		
+//	}
 	
 	// 게시판 별 게시글 목록 보여줌
 	@GetMapping(value = "/boardlist/{boardSN}/{page}",
@@ -91,7 +103,14 @@ public class BoardController {
 	}
 	
 	@PostMapping("/register")
-	public String register(BoardVO vo, Long boardSN ,RedirectAttributes rttr ) {
+	public String register(BoardVO vo, RedirectAttributes rttr ) throws Exception {
+		
+		
+		if (vo.getAttachList() != null) {
+			
+			vo.getAttachList().forEach(attach -> log.info(attach));
+			
+		}
 		//유효성 검사 서버에서 체크 할 수 있게
 		service.register(vo);
 		rttr.addFlashAttribute("result", vo.getPostSN());
@@ -128,6 +147,7 @@ public class BoardController {
 		}
 	}
 	
+	
 	// 게시글 내용 보여줌
 	@GetMapping(value ="/{postSN}",
 			produces = { MediaType.APPLICATION_XML_VALUE,
@@ -139,18 +159,16 @@ public class BoardController {
 	}
 	
 	@PostMapping("/modify")
-	public String modify(@RequestParam("postSN") Long postSN,
-						 @RequestParam("boardSN") Long boardSN,	
-						 BoardVO vo,RedirectAttributes rttr) {
+	public String modify( BoardVO vo,RedirectAttributes rttr ) throws Exception {
 		
-		boolean updatePost = service.update(vo);
+		log.info("수정이야 이자시가"+ vo);
 		
-		if(updatePost) {
+		if(service.update(vo)) {
 			log.info("modify after");
 			rttr.addFlashAttribute("result", "success");
 		}
 		
-		return "redirect:/category/board/" + boardSN;
+		return "redirect:/category/board/" + vo.getBoardSN();
 		
 	}
 	
@@ -158,14 +176,69 @@ public class BoardController {
 	public String remove(@RequestParam("postSN") Long postSN , 
 						 @RequestParam("boardSN") Long boardSN , RedirectAttributes rttr) {
 		
-		boolean deletePost = service.delete(postSN);
+		List<BoardAttachVO> attachList = service.getAttachList(postSN);
 		
-		if(deletePost) {
+		log.info("=========== : " + postSN);
+		
+		boolean deletecheck = service.delete(postSN);
+		
+		log.info("----------- : " + postSN);
+		
+		if(deletecheck) {
+			
+			log.info("파일 삭제 전====");
+			
+			deleteFiles(attachList);
+			
+			log.info("파일 삭제======");
+			
 			rttr.addFlashAttribute("result", "success");
-			log.info("삭제 후 1");
+			
 		}
 			log.info("삭제 후 2");
 		return "redirect:/category/board/" + boardSN;
+		
+	}
+	
+	@GetMapping(value ="/getAttachList",
+			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long postSN){
+		
+		log.info("getAttachList====== : " + postSN);
+		
+		return new ResponseEntity<>(service.getAttachList(postSN) , HttpStatus.OK);
+		
+	}
+	
+	private void deleteFiles(List<BoardAttachVO> attachList) {
+		
+		if(attachList == null || attachList.size() == 0) {
+			return;
+		}
+		attachList.forEach(attach -> {
+			
+		  try {
+			  
+		  
+			Path file = Paths.get("C:\\mp\\file\\" + attach.getUploadPath()+ "\\"+
+					attach.getUuid()+"_" + attach.getFileName());
+			
+			Files.deleteIfExists(file);
+			
+			if(Files.probeContentType(file).startsWith("image")) {
+				
+				Path thumNail = Paths.get("C:\\mp\\file\\" + attach.getUploadPath() + 
+						"\\s_" + attach.getUuid()+"_"+attach.getFileName());
+				
+				Files.delete(thumNail);
+				
+			}
+			
+		  }catch(Exception e) {
+			  log.error("delete File error " + e.getMessage());
+		  }
+		});
 		
 	}
 	
