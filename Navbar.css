@@ -8,7 +8,7 @@
     width: 100%;
     height: 80px;
     display:flex;
-    /* border-bottom: 2px solid rgb(202, 218, 210); */
+    border-bottom: 2px solid rgb(202, 218, 210);
     background-color: white;
 }
 .navbar a{
@@ -47,10 +47,6 @@
 }
 .font{
     margin-left: 8px;
-}
-.searchIcon{
-    position: absolute;
-    top: 25px;
 }
 .notice{
     display: block;
@@ -227,10 +223,11 @@
     white-space:nowrap;
 }
 .mainPage{
-    background-color: rgb(230, 233, 235);
+    /* background-color: rgb(84, 145, 185); */
+    background-color: white;
     /* background-color: lawngreen; */
     width: 100%;
-    height: 600px;
+    height: 1500px;
 }
 .Wbox{
     display: flex;
@@ -624,49 +621,193 @@ aside p input{
 }
 
 .gridBox{
-    background-color: springgreen;
+    /* background-color: springgreen;
     width: 85%;
-    height: 600px;
+    height: 900px; */
     margin: 0 auto;
     display: grid;
     grid-template-rows: repeat(6, 1fr);
-    grid-template-columns: repeat(12, 1fr);
-    grid-gap: 10px;
+    grid-template-columns: repeat(9, 1fr);
+    grid-gap: 20px;
 }
 .griditem1{
     background-color: tomato;
-    grid-column: 1/2;
+    grid-column: 1/3;
+    grid-row: 1/4;
 }
 .griditem2{
     background-color: gold;
-    grid-column: 2/6;
+    grid-column: 3/6;
 }
 .griditem3{
     background-color: rgb(123, 89, 187);
-    grid-column: 6/9;
+    grid-column: 6/10;
 }
 .griditem4{
     background-color: rgb(50, 122, 144);
-    grid-column:9/13;
+    grid-row: 2/6;
+    grid-column: 3/4;
 }
 .griditem5{
     background-color: rgb(255, 227, 222);
-    grid-row: 2/4;
-    grid-column: 1/6;
+    grid-row: 2/5;
+    grid-column: 4/8;
 }
 .griditem6{
     background-color: rgb(14, 119, 54);
+    grid-row: 4/7;
+    grid-column: 1/3;
 }
 .griditem7{
     background-color: rgb(197, 80, 148);
+    grid-row:6/7;
 }
 .griditem8{
     background-color: rgb(197, 80, 148);
+    grid-row: 5/7;
+    grid-column: 4/9;
 }
 .griditem9{
     background-color: rgb(102, 156, 0);
+    grid-row: 2/5;
+    grid-column: 8/10;
 }
 .griditem10{
-    background-color: rgb(7, 97, 59);
-    
+    background-color: rgb(102, 156, 0);
+    grid-row: 5/7;
+    grid-column: 9/10;
+}
+.searchBanner{
+    background-color:white;
+    width: 100%;
+    height: 80px;
+}
+.searchBanner .p{
+    font-size: 20px;
+    padding-top: 40px;
+}
+.searchGridContainer{
+    /* background-color: white;
+    width: 100%;
+    height: 900px; */
+    display: grid;
+    grid-template-columns:repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr); 
+     gap: 36px;
+     padding: 25px 50px;
+}
+.round {
+    border-radius: 10px;
+    width: 85%;
+    margin: 0 auto;
+}
+.round iframe{
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+}
+.searchItems1{
+    background-color: rgb(139, 165, 194);
+}
+.searchItems2{
+    background-color: rgb(0, 149, 105);
+}
+.searchItems3{
+    background-color: rgb(77, 160, 255);
+}
+.searchItems4{
+    background-color: rgb(139, 165, 194);
+}
+.searchItems5{
+    background-color: rgb(66, 80, 95);
+}
+.searchItems6{
+    background-color: rgb(81, 230, 125);
+}
+.searchItems7{
+    background-color: rgb(231, 151, 86);
+}
+.searchItems8{
+    background-color: rgb(255, 77, 240);
+}
+
+.searchBox{
+    background: url(office.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -120px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 250px;
+    flex-wrap: wrap;
+    /* padding-top: 80px; */
+}
+.inputBox{
+    width: 100%;
+    height: 100px;
+    /* background-color: greenyellow; */
+    display:flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-right: 150px;
+}
+.searchInput{
+    padding: 0 280px;
+    height: 50px;
+    border: none;
+    padding-left: 20px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    border: 1px solid grey;
+    border-right: none;
+
+}
+.searchBtn{
+    border: none;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    border-radius: 0 5px 5px 0;
+    border: 1px solid grey;
+
+}
+.optBtn{
+    position: absolute;
+    margin-left: 60px;
+    width: 65px;
+    height: 50px;
+    border-radius: 10px;
+    outline: none;
+    background-color: rgb(255, 255, 255);
+    color: rgb(17, 34, 180);
+    border: 2px solid rgb(28, 54, 206);
+    font-size: 16px;
+
+
+}
+.unizBox{
+    /* background-color: firebrick; */
+    width: 100%;
+    height: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.uniz1{
+    text-align: center;
+    display: inline-block;
+    width: 8%;
+    border-radius: 20px;
+    padding: 15px 0;
+    margin: 8px;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(0, 101, 168);
+    outline: none;
+}
+.times{
+    border-radius: 30px;
+    background-color: gold;
+    padding: 10px 13px;
 }
