@@ -24,15 +24,15 @@ public interface UserService {
 	public String userIdDuplicationCheck(String userId); // test용
 	
 	public int userLogin(UserDTO user, HttpSession session);
-	//------
 
 	public List<MyUnizPoint> getUserUniz(Long userSN);
 
 	public String modifyUser(UserDTO userDto, UserDTO modifyUserDto, String c_password, HttpSession session);
 
 	public void changeUserState(Long userSN, int STATECODE);
+
+	public String addMyPlayLog(Long userSN, Long videoSN, int currentTime);
 	
-	//대윤
 	
 
 }

@@ -50,6 +50,7 @@
 				
 				const SUCCESS = "SUCCESS";
 				const DUPLICATION = "DUPLICATION";
+				
 				if(data.data == SUCCESS){
 					alert("사용할 수 있는 아이디 입니다.")
 					$("#userId").attr("readonly", "true");

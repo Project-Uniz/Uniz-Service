@@ -18,11 +18,10 @@
                         </c:if>
                         <!-- 로그인 시에만 보여줄 영역 -->
                         <c:if test="${user != null}">
+                        	<li><a href="#" target="trg">${user.nick}님 환영합니다</a></li>
 	                        <li><a href="/user/logout" target="trg">Logout</a></li>
 	                        <li><a href="/user/info" target="trg">Mypage</a></li>
-                        
                         </c:if>
-                        
                         
                         <!-- <li><a href="#">icon</a></li>
                         <li><a href="#">icon2</a></li> -->

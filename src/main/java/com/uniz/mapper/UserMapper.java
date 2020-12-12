@@ -25,7 +25,7 @@ public interface UserMapper {
 	public void userSelectUnizInsert(@Param("unizSN")List<Long> unizSN);
 
 	public int userLogin(UserDTO user);
-
+	
 	public UserDTO getUserData(@Param("userSN")Long userSN);
 
 	public List<MyUnizPoint> userUniz(@Param("userSN") Long userSN);
@@ -39,4 +39,9 @@ public interface UserMapper {
 	public void userStateLogInsert(@Param("userSN") Long userSN, @Param("state") int state);
 
 	public void registerUserStateLog(@Param("state") int state);
+
+	public void updateUserLogin(@Param("userSN") Long userSN);
+
+	public int addMyPlaylog(@Param("userSN")Long userSN, @Param("videoSN")long videoSN, @Param("position")int position);
+
 }

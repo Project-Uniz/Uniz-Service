@@ -15,7 +15,7 @@
 	
 	SELECT videoSN,thumbUrl,yuploaddatetime
 	
-	FROM videoData2
+	FROM videoData
 	
 	where yuploaddatetime >= (select SYSDATE - 60
                           from dual
@@ -28,7 +28,7 @@
 	
 	
 	<select id="getVideo" resultType="com.uniz.domain.VideoDataVO">
-		SELECT * FROM videoData2 where videoSn = #{videoSN}
+		SELECT * FROM videoData where videoSn = #{videoSN}
 	</select>
 	
 </mapper>

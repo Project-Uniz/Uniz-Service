@@ -120,12 +120,13 @@ public class UserServiceImpl implements UserService{
 			
 			//로그인 성공
 			if(loginResult == SUCCESS) {
-		
+				
 				//세션 생성
 				user = mapper.getUser(user);
-//				List<MyUnizPoint> myUnizPoint = mapper.userUniz(user.getUserSN());
-//				user.setMyUnizPoint(myUnizPoint);
 				session.setAttribute("user", user);
+				
+				//로그인 이력 변경
+				mapper.updateUserLogin(user.getUserSN());
 				return SUCCESS;
 			}
 		}
@@ -200,10 +201,26 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 	
+	@Override
+	public String addMyPlayLog(Long userSN, Long videoSN, int currentTime) {
+		final String SUCCESS = "SUCCESS";
+		final String FAIL = "FAIL";
+		
+		//3. 회원이 본 영상을 기록하기 위해 Myplaylog에 추가
+		try {			
+			int result = mapper.addMyPlaylog(userSN, videoSN, currentTime);
+			
+		}catch(Exception e) {			
+			e.printStackTrace();
+			return FAIL;
+		}
+		return SUCCESS;
+	}
 	//나중에 통일할것
 	public boolean isValid(String realPassword, String modifyPassword, String com_password) {
 		
 		return realPassword != null && modifyPassword != null && com_password != null ? true : false;
 	}
+
 
 }

@@ -18,6 +18,7 @@
 			<button type="submit">log in</button>
 		</form>
 			<a href="/user/register">회원가입하러가기. </a><br>
+			
 	</body>
 	
 	<%@ include file="/WEB-INF/views/includes/script.jsp"%>
@@ -25,5 +26,7 @@
 	//테스트용 아이디 비밀번호 고정
 		$("#userId").val("test0003");
 		$("#password").val("1234");
+		
+		
 	</script>
 </html>

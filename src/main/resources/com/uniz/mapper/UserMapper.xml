@@ -75,6 +75,15 @@
 	WHERE USERID = #{userId}
 </select>
 
+<update id="updateUserLogin">
+	UPDATE 
+	  USERDATA
+	SET
+	  LASTSTATEDATETIME = sysdate
+	WHERE 
+	  USERSN = #{userSN}
+</update>
+
 <select id="userUniz" resultType="com.uniz.domain.MyUnizPoint">
 	SELECT UP.USERSN,U.UNIZSN,U.UNIZKEYWORD, UP.POINT 
 	FROM MYUNIZPOINTLIST UP, UNIZ U 
@@ -113,4 +122,26 @@
 
 </insert>
 
+<insert id="addMyPlaylog">
+		MERGE INTO myplaylog
+			  USING dual
+			  ON (
+			 	 userSN = #{userSN} 
+			 	 AND
+			  	 videoSN = #{videoSN}
+			  )
+		WHEN MATCHED THEN
+		  UPDATE SET 
+		  lastposition = #{position},
+		  startdatetime = sysdate
+
+		WHEN NOT MATCHED THEN
+			
+		  INSERT(
+		  	usersn, videosn, lastposition
+		  ) 
+		  VALUES 
+		  (#{userSN}, #{videoSN}, #{position}) 
+		  
+	</insert> 
 </mapper>
