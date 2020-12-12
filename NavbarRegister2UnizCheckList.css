@@ -1,0 +1,1060 @@
+*{ box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   font-family: "Noto Sans KR", sans-serif, 나눔고딕, 돋움, Dotum, 굴림, Gulim, "Apple SD Gothic Neo";
+
+}
+.navbar{
+    width: 100%;
+    height: 80px;
+    display:flex;
+    border-bottom: 2px solid rgb(202, 218, 210);
+    background-color: white;
+}
+.navbar a{
+    text-decoration: none;
+}
+.nav1{
+    width: 80%;
+    display: flex;
+    align-items: center;
+}
+.nav1 ul li {
+    list-style-type: none;
+}
+.nav1 ul li button{
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 20px;
+    font-weight: 500;
+    border-radius: 12px;
+    /* color: rgb(71, 71, 71); */
+    color: #504f5c;
+}
+.nav1 ul li .link:first-child{
+    margin-left: 15px;
+}
+.nav1 ul li button:hover {
+    /* background-color: rgb(214, 238, 245, 0.6); */
+    color: rgb(14, 0, 143);
+    transition: 0.4s;
+}
+.nav1 ul li button:last-child{
+    padding-right: 40px;
+}
+.logo{
+    margin-left: 10px;
+}
+.font{
+    margin-left: 8px;
+}
+.notice{
+    display: block;
+}
+.nav2{
+    /* background-color: lightblue; */
+    width: 20%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.btn{
+    background-color: rgb(61, 186, 218);
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 10px 16px;
+    margin-right: 20px;
+    border-radius: 9px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+}
+.btn:first-child{
+    background-color: white;
+    color:rgba(61, 69, 71, 0.6);
+}
+.btn:first-child:hover{
+    color: rgb(59, 58, 58);
+    transition: 0.4s;
+}
+
+/* 커뮤니티.  */
+.commuPage{
+    background-color: rgb(250, 253, 255);
+    width: 90%;
+    height: 1100px;
+    margin: 0 auto;
+    display: flex;
+}
+
+.commuNavbar{
+    background-color: white;
+    width: 225px;
+    height: 100%;
+}
+.BtnBox{
+    /* background-color: magenta; */
+    width: 100%;
+    height: 300px;
+    padding: 30px 0;
+}
+.comBtn{
+    display: block;
+    margin-left: 30px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 19px;
+    border: none;
+    outline: none;
+}
+.comBtn:last-child{
+    margin-top: 10px;
+}
+.comBtn:hover{
+    background-color: rgb(223, 243, 251);
+    color:rgb(0, 132, 209);
+    transition: 0.3s;
+}
+.channelListBox{
+    /* background-color: darkorange; */
+    width: 85%;
+    height: 100%;
+    border-left: 2px solid #dbdbdb;
+    border-right: 2px solid #dbdbdb;
+}
+.header{
+    /* '채널 게시판' */
+    font-size: 28px;
+    padding: 35px  30px 20px 35px;
+    font-weight: 500;
+}
+.chP{
+    font-size: 22px;
+    padding: 8px 10px;
+    color: rgb(219, 236, 255);
+    background-color: dodgerblue;
+    width: 90%;
+    margin: 0 auto;
+}
+.chP:nth-child(5){
+    border-top : 40px solid rgb(250, 253, 255);
+}
+.Chlist ul li{
+    list-style-type: none;
+}
+.Chlist ul li a{
+    text-decoration: none;
+    display: block;
+    padding: 5px  20px;
+    background-color: rgb(255, 255, 255);
+    width: 90%;
+    margin: 0 auto;
+    font-size: 18px;
+    border-bottom: 1px solid rgb(189, 187, 187);
+    color: rgb(72, 73, 141);
+}
+.Chlist ul li a:last-child{
+    border-bottom: none;
+}
+.Chlist ul li a:hover{
+    background-color: rgb(245, 255, 255);
+    transition: 0.3s;
+    color: rgb(1, 155, 216);
+    border-left: 6px solid rgb(25, 155, 231);
+}
+/* pagination */
+.postFooter{
+    margin-top: 50px;
+    /* background-color: hotpink; */
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+}
+.postFooter ul li{
+    list-style-type: none;
+    display: inline;    
+    border-spacing: 0;
+}
+.postFooter ul li a{
+    text-decoration: none;
+    /* border: 1px solid rgb(196, 180, 216); */
+    border-collapse: none;
+    padding: 10px 12px;
+    font-size: 16px;
+    color: dodgerblue;
+}
+.postFooter ul li a:hover, .active{
+    color: rgb(0, 100, 182);
+    background-color: rgb(223, 246, 255);
+    transition: 0.3s ease-in-out;
+}
+.postFooter ul li> a{
+    border-radius: 20px;
+    border: 1px solid #ddd;
+}
+
+/* 전체 게시물 목록 css */
+.allPostList{
+    background-color: rgb(236, 246, 255);
+    width: 90%;
+    margin: 0 auto;
+    border-collapse: none;
+    border-spacing: 0;
+    /* border-spacing을 0으로 줘야 정체모를 세로 공간(줄무늬 같은거)이 사라진다.  */
+    cursor: pointer;
+    color: rgb(101, 8, 129);
+    table-layout: fixed;
+    /* 필요 */
+}
+.allPostList th{
+    padding: 6px 0;
+    background-color: rgb(166, 231, 217);
+}
+.allPostList tr:nth-child(even){
+    background-color: rgb(247, 253, 247);
+}
+.allPostList  thead tr td{
+    /* 반드시 필요. 지우지 말기 */
+    padding: 10px 20px;
+    color: rgb(8, 2, 92);
+    text-overflow:ellipsis; 
+    overflow:hidden; 
+    white-space:nowrap;
+}
+.mainPage{
+    /* background-color: rgb(84, 145, 185); */
+    background-color: rgb(107, 77, 77);
+    /* background-color: lawngreen; */
+    width: 100%;
+    height: 900px;
+    /* 서치페이지에 메인 필요없읍?! */
+}
+.Wbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 580px;
+    /* background-color: #504f5c; */
+    z-index: 200;
+    overflow: hidden;
+    
+}
+.watchContainer{
+    background-color: rgb(169, 207, 132);
+    width: 100%;
+    height: 500px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 0;
+    grid-template-areas: 
+            "video video main "
+            "video video main"
+            "video video main"
+            "video video comment"
+            "video video comment";
+}
+
+header { grid-area: video; 
+    grid-row: 1/6;
+    grid-column: 1/6;
+    /* background-color: lightcoral; */
+        
+        }
+header  > iframe{
+    width: 100%;
+    height: 100%;
+}
+main {grid-area: main;
+    grid-row: 1/5;
+    grid-column: 6/8;
+    background-color: lightgoldenrodyellow;
+    }
+aside { grid-area : comment;
+        grid-row: 5/6;
+        grid-column: 6/8;
+
+        background-color: lightgreen;
+        overflow: scroll;
+    }
+.videos{
+    background-color: coral;
+    width: 100%;
+    height: 170px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+.videos iframe{
+    width: 223px;
+    height: 124px;
+    border-radius: 3px;
+}
+.Wbox{
+    width: 100%;
+    height: 500px;
+}
+.Wnavbar{
+    width: 100%;
+    height: 55px;
+    display: flex;
+    align-items: center;
+}
+.Wnavbar h1{
+    font-size: 21px;
+    padding-left: 30px;
+    /* font-family: "Noto Sans KR", sans-serif, 나눔고딕, 돋움, Dotum, 굴림, Gulim, "Apple SD Gothic Neo"; */
+}
+.Wnavbar .moreBtn{
+     padding: 9px 14px;
+     margin-left: 10px;
+     border-radius: 10px;
+}
+
+.p{
+    font-size: 21px;
+    line-height: 40px;
+    margin-left: 30px;
+    /* margin-top: 30px; */
+}
+main{
+    overflow: scroll;
+}
+aside p input{
+    width: 80%;
+    height: 70px;
+    margin : 0 auto;
+    
+}
+.submitBtn{
+    padding: 6px 15px;
+}
+.Vheader{
+    background-color: coral;
+    width: 100%;
+    height: 150px;
+}
+
+
+.active{
+    background: sandybrown;
+}
+
+.Bcontainer{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: "Montserrat", sans-serif;
+  }
+  
+  .wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+  
+  .card {
+    width: 360px;
+    height: 200px;
+    margin-top: 10px;
+    /* margin: 1em; */
+    overflow: hidden;
+    perspective: 1500px;
+  }
+  .card .content {
+    position: relative;
+    width: 80%;
+    height: 80%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.75, 0, 0.85, 1);
+    /* 요부분이 카드 뒤집는 속도. 난 좀 빠르게 해봄.  */
+    transition: transform 0.4s cubic-bezier(0.75, 0, 0.85, 1);
+  }
+  
+  .more {
+    display: none;
+  }
+  .more:checked ~ .content {
+    transform: rotateY(180deg);
+  }
+  
+  .front,
+  .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* width: 60%; */
+    height: 100%;
+    /* height: 60%; */
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    border-radius: 6px;
+  }
+  .front .inner,
+  .back .inner {
+    height: 100%;
+    display: grid;
+    padding: 1.5em;
+    transform: translateZ(80px) scale(0.94);
+  }
+  
+  .front {
+    background-color: #fff;
+    background-size: cover;
+    background-position: center center;
+  }
+  .front:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 6px;
+    backface-visibility: hidden;
+    background: linear-gradient(40deg, rgba(67, 138, 243, 0.7), rgba(255, 242, 166, 0.7));
+  }
+  .front .inner {
+    grid-template-rows: 5fr 1fr 1fr 2fr 1fr;
+    justify-items: center;
+    overflow: hidden;
+  }
+  .front h2 {
+    grid-row: 2;
+    margin-bottom: 0.3em;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #fff;
+    font-weight: 500;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  }
+  .front .rating {
+    grid-row: 3;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    display: flex;
+    flex-flow: row nowrap;
+  }
+  .front .rating i {
+    margin: 0 1px;
+  }
+  
+  .back {
+    transform: rotateY(180deg);
+    background-color: #fff;
+    border: 2px solid #f0f0f0;
+  }
+  .back .inner {
+    grid-template-rows: 1fr 2fr 1fr 2fr 14fr 1fr 1fr;
+    grid-template-columns: repeat(4, auto);
+    grid-column-gap: 0.8em;
+    justify-items: center;
+  }
+  .back .info {
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: #355cc9;
+    grid-row: 3;
+  }
+  .back .info:not(:first-of-type):before {
+    content: "";
+    position: absolute;
+    left: -0.9em;
+    height: 18px;
+    width: 1px;
+    background-color: #ccc;
+  }
+  .back .info span {
+    font-size: 2em;
+    font-weight: 700;
+  }
+  .back .info i {
+    font-size: 1.2em;
+  }
+  .back .info i:before {
+    background: linear-gradient(40deg, #355cc9, #438af3);
+    -webkit-text-fill-color: transparent;
+  }
+  .back .info .icon {
+    margin-left: 0.3em;
+  }
+  .back .info .icon span {
+    display: block;
+    margin-top: -0.25em;
+    font-size: 0.8em;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow : hidden;
+  }
+  .back .description {
+    grid-row: 5;
+    grid-column: 1/-1;
+    font-size: 0.86em;
+    border-radius: 5px;
+    font-weight: 600;
+    line-height: 1.4em;
+    overflow: auto;
+    /* overflow: hidden; */
+    color: #355cc9;
+    padding-right: 10px;
+  }
+  .back .location,
+  .back .price {
+    font-weight: 600;
+    color: #355cc9;
+    grid-row: 1;
+    font-size: 0.86em;
+  }
+ 
+  .back .button {
+    grid-column: 1/-1;
+    justify-self: center;
+  }
+  
+  .button {
+    grid-row: -1;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    padding: 0 1.4em;
+    height: 2em;
+    /* 파란색 버튼 크기 조절.  */
+    line-height: 2.9em;
+    min-width: 3em;
+    background-color: transparent;
+    border: solid 2px #fff;
+    color: #fff;
+    border-radius: 4px;
+    text-align: center;
+    left: 40%;
+    backface-visibility: hidden;
+    transition: 0.3s ease-in-out;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+  .button:hover {
+    background-color: #fff;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    text-shadow: none;
+    color: #355cc9;
+  }
+  .button.return {
+    line-height: 3em;
+    color: #355cc9;
+    border-color: #355cc9;
+    text-shadow: none;
+  }
+  .button.return:hover {
+    background-color: #355cc9;
+    color: #fff;
+    box-shadow: none;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #859ddf;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #355cc9;
+  }
+  
+  .back iframe{
+      width: 226px;
+      height: 206px;
+      overflow: hidden;
+  }
+
+  .words{
+      margin: 40px 0;
+      text-align: center;
+  }
+  .unizNews{
+      background-color: skyblue;
+      width: 100%;
+      height: 700px;
+  }
+  
+  .footer{
+    background-color: rgb(85, 163, 241);
+    width: 100%;
+    height: 200px;
+    display: flex;
+}
+.footer1{
+    /* background-color:yellow; */
+    width: 30%;
+    height: 100%;
+    padding: 40px 10px;
+    margin: 0 auto;
+}
+.footer2{
+    /* background-color: yellowgreen; */
+    width: 20%;
+    height: 100%;
+    padding: 40px;
+}
+.footer3{
+    /* background-color: aquamarine; */
+    width: 50%;
+    height: 100%;
+    padding: 40px 16px;
+}
+.footer1, .footer2, .footer3{
+    color: white;
+}
+
+.gridBox{
+    /* background-color: springgreen;
+    width: 85%;
+    height: 900px; */
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(9, 1fr);
+    grid-gap: 20px;
+}
+.griditem1{
+    background-color: tomato;
+    grid-column: 1/3;
+    grid-row: 1/4;
+}
+.griditem2{
+    background-color: gold;
+    grid-column: 3/6;
+}
+.griditem3{
+    background-color: rgb(123, 89, 187);
+    grid-column: 6/10;
+}
+.griditem4{
+    background-color: rgb(50, 122, 144);
+    grid-row: 2/6;
+    grid-column: 3/4;
+}
+.griditem5{
+    background-color: rgb(255, 227, 222);
+    grid-row: 2/5;
+    grid-column: 4/8;
+}
+.griditem6{
+    background-color: rgb(14, 119, 54);
+    grid-row: 4/7;
+    grid-column: 1/3;
+}
+.griditem7{
+    background-color: rgb(197, 80, 148);
+    grid-row:6/7;
+}
+.griditem8{
+    background-color: rgb(197, 80, 148);
+    grid-row: 5/7;
+    grid-column: 4/9;
+}
+.griditem9{
+    background-color: rgb(102, 156, 0);
+    grid-row: 2/5;
+    grid-column: 8/10;
+}
+.griditem10{
+    background-color: rgb(102, 156, 0);
+    grid-row: 5/7;
+    grid-column: 9/10;
+}
+.searchBanner{
+    background-color:white;
+    width: 100%;
+    height: 80px;
+}
+.searchBanner .p{
+    font-size: 20px;
+    padding-top: 40px;
+}
+.searchGridContainer{
+background-color: white; 
+    width: 100%;
+    height: 1000px; 
+    display: grid;
+    grid-template-columns:repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr); 
+     gap: 36px;
+     padding: 25px 50px;
+}
+.round {
+    border-radius: 10px;
+    width: 85%;
+    margin: 0 auto;
+}
+.round iframe{
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+}
+.searchItems1{
+    background-color: rgb(139, 165, 194);
+}
+.searchItems2{
+    background-color: rgb(0, 149, 105);
+}
+.searchItems3{
+    background-color: rgb(77, 160, 255);
+}
+.searchItems4{
+    background-color: rgb(139, 165, 194);
+}
+.searchItems5{
+    background-color: rgb(66, 80, 95);
+}
+.searchItems6{
+    background-color: rgb(81, 230, 125);
+}
+.searchItems7{
+    background-color: rgb(231, 151, 86);
+}
+.searchItems8{
+    background-color: rgb(255, 77, 240);
+}
+
+.searchBox{
+    background: url(office.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -120px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 250px;
+    flex-wrap: wrap;
+    /* padding-top: 80px; */
+}
+.inputBox{
+    width: 100%;
+    height: 100px;
+    background-color: greenyellow;
+    display:flex;
+    /* justify-content: center; */
+    align-items: flex-end;
+    padding-right: 150px;
+}
+.searchInput{
+    /* size: 250px; */
+    /* padding: 0 280px; */
+
+    width: 100%;
+    height: 50px;
+    border: none;
+    padding-left: 20px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    border: 1px solid grey;
+    border-right: none;
+
+}
+.searchBtn{
+    border: none;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    border-radius: 0 5px 5px 0;
+    border: 1px solid grey;
+
+}
+.optBtn{
+    margin-left: 60px;
+    width: 65px;
+    height: 50px;
+    border-radius: 10px;
+    outline: none;
+    background-color: rgb(255, 255, 255);
+    color: rgb(17, 34, 180);
+    border: 2px solid rgb(28, 54, 206);
+    font-size: 16px;
+}
+.unizBox{
+    /* background-color: firebrick; */
+    width: 100%;
+    height: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.uniz1{
+    text-align: center;
+    display: inline-block;
+    width: 8%;
+    border-radius: 20px;
+    padding: 15px 0;
+    margin: 8px;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(0, 101, 168);
+    outline: none;
+}
+.times{
+    border-radius: 30px;
+    background-color: gold;
+    padding: 10px 13px;
+}
+
+
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* LoginPage.html css  */
+  .bg{
+      background-color: #dcf1ff;
+      width: 100%;
+      height: 900px;
+  }
+  .login-box{
+      background-color: white;
+      width: 400px;
+      height: 40px;
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform : translate(-50%, -30%);
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 2px 12px 0 rgba(172, 132, 132, 0.4);
+      border-radius: 4px;
+  }
+  .loginHeader{
+    width: 400px;
+    height: 130px;
+    padding: 0;
+  }
+  .loginHeader{
+      text-align: center;
+      width: 100%;
+  }
+  .textBox{
+      font-size: 20px;
+    }
+    .textBox svg{
+        margin-left: 15px;
+        width: 50px;
+    }
+    .textBox input[type=text], .textBox input[type=password]{
+        height: 54px;
+      border: none;
+      width: 200px;
+      size: 200;
+      outline: none;
+      font-size: 15px;
+      color: rgb(16, 36, 56);
+  }
+  input[type=text]::placeholder, input[type=password]::placeholder{
+      color: rgb(11, 100, 189);
+  }
+  .textBox{
+      border: 2px solid rgb(54, 62, 175, 0.2);
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    .textBox, input[type=text], input[type=password]{
+        background-color: rgb(245, 252, 255);
+    }
+  .textBox  {
+      color: rgb(80, 80, 180);
+  }
+  .cookieBox{
+      padding-top: 8px;
+      padding-left: 7px;
+      margin-left: 10px;
+      margin-top: 2px;
+    }
+  .cookieBox input[type=checkbox]{
+        outline: none;
+   }
+  .btnBox{
+      padding: 4px 0;
+  }
+  .logBtn{
+      background-color: rgb(80, 147, 235);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 7px;
+      border: 1px solid rgb(80, 129, 235);
+      outline: none;
+      padding: 16px 40px;
+      margin: 23px 0;
+      margin-left: 5px;
+      
+  }
+  .logBtn:hover{
+      background-color: rgb(13, 67, 168);
+      transition: 0.3s ease-in-out;
+  }
+  .regBtn{
+      margin-left: 10px;
+      background-color: rgb(242, 252, 255);
+      color: rgb(105, 101, 101);
+      border: 2px solid rgb(175, 191, 226);
+      padding: 16px 54px; 
+  }x
+  .regBtn:hover{
+      background-color: rgb(214, 255, 252);
+      color: rgb(92, 92, 92);
+  }
+  input[type=checkbox]:checked{
+    box-shadow: 0 0 0 2px rgb(255, 182, 218);
+}
+
+
+/* RegisterPage.html */
+.regTextBox{
+    font-size: 20px;
+}
+.regTextBox input[type=text], .regTextBox input[type=password]{
+    border: none;
+    width: 200px;
+    height: 30px;
+    outline: none;
+    font-size: 15px;
+    padding: 5px;
+    color: rgb(16, 36, 56);
+}
+input[type=text]::placeholder, input[type=password]::placeholder{
+    color: rgb(11, 100, 189);
+}
+.regTextBox{
+    border: 2px solid rgb(54, 62, 175, 0.2);
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+.regTextBox, input[type=text], input[type=password]{
+      background-color: rgb(245, 252, 255);
+}
+.regTextBox  {
+    color: rgb(80, 80, 180);
+    position: relative;
+}
+.duplicateBtn{
+    margin-top: px;
+    position: absolute;
+    right: 5px;
+    top: 15%;
+    padding: 10px 13px;
+    outline: none;
+    background-color: #3f9bc8;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+.duplicateBtn:hover{
+    background-color: rgb(30, 216, 223);
+    transition: 0.3s ease-in-out;
+}
+.register-box{
+    background-color: white;
+    width: 400px;
+    height: 520px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform : translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 2px 12px 0 rgba(172, 132, 132, 0.4);
+    border-radius: 4px;
+}
+.regHeader{
+    font-size: 16px;
+    padding: 3px 5px;
+}
+.regIntro{
+    font-size: 20px;
+    color: rgb(78, 11, 117);
+}
+
+/* chkList register css  */
+.chkListBox{
+    /* background-color: yellowgreen; */
+    margin-top: 7px;
+    width: 320px;
+    height: 230px;
+    overflow: scroll;
+}
+.chkListBox input[type=checkbox]{
+    margin: 7px;
+}
+.chkBox{
+    
+    font-size: 16px;
+    padding: 12px 22px;
+    display: block;
+}
+label{
+    padding: 4px;
+    display: inline-block;
+    width: 60px;
+    line-height: 50px;
+}
+label:hover, input[type=checkbox]:hover{
+    /* color: rgb(19, 202, 235); */
+    transition: 0.3s ease-in-out;
+    
+}
+
+input[type=checkbox]:checked{
+    box-shadow: 0 0 0 2px rgb(45, 218, 111);
+}
+.regBtn:hover{
+    background-color: rgb(230, 252, 251);
+}
