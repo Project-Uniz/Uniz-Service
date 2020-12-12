@@ -862,11 +862,11 @@ background-color: white;
   .login-box{
       background-color: white;
       width: 400px;
-      height: 430px;
+      height: 40px;
       position: absolute;
-      top: 50%;
+      top: 30%;
       left: 50%;
-      transform : translate(-50%, -50%);
+      transform : translate(-50%, -30%);
       display: flex;
       justify-content: center;
       box-shadow: 0 2px 12px 0 rgba(172, 132, 132, 0.4);
@@ -886,6 +886,7 @@ background-color: white;
     }
     .textBox svg{
         margin-left: 15px;
+        width: 50px;
     }
     .textBox input[type=text], .textBox input[type=password]{
         height: 54px;
@@ -932,8 +933,9 @@ background-color: white;
       border: 1px solid rgb(80, 129, 235);
       outline: none;
       padding: 16px 45px;
-      margin: 15px 0;
+      margin: 18px 0;
       margin-right: 5px;
+      
   }
   .logBtn:hover{
       background-color: rgb(13, 67, 168);
@@ -943,10 +945,10 @@ background-color: white;
       background-color: rgb(242, 252, 255);
       color: rgb(105, 101, 101);
       border: 2px solid rgb(175, 191, 226);
+      padding: 16px 50px; 
   }
   .regBtn:hover{
-      /* background-color: rgb(214, 243, 255); */
-      background-color: rgb(214, 255, 252);;
+      background-color: rgb(214, 255, 252);
       color: rgb(92, 92, 92);
   }
   input[type=checkbox]:checked{
@@ -958,16 +960,13 @@ background-color: white;
 .regTextBox{
     font-size: 20px;
 }
-.regTextBox svg{
-    /* margin-left: 15px; */
-}
-.regTextBox input[type=text], input[type=password]{
+.regTextBox input[type=text], .regTextBox input[type=password]{
     border: none;
     width: 200px;
     height: 30px;
-    /* padding: 5px; */
     outline: none;
     font-size: 15px;
+    padding: 5px;
     color: rgb(16, 36, 56);
 }
 input[type=text]::placeholder, input[type=password]::placeholder{
@@ -978,26 +977,37 @@ input[type=text]::placeholder, input[type=password]::placeholder{
     border-radius: 5px;
     margin-top: 10px;
   }
-  .regTextBox, input[type=text], input[type=password]{
+.regTextBox, input[type=text], input[type=password]{
       background-color: rgb(245, 252, 255);
-  }
+}
 .regTextBox  {
     color: rgb(80, 80, 180);
     position: relative;
 }
 .duplicateBtn{
+    margin-top: px;
     position: absolute;
-    right: 10px;
-
+    right: 5px;
+    top: 15%;
+    padding: 10px 13px;
+    outline: none;
+    background-color: #3f9bc8;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+.duplicateBtn:hover{
+    background-color: rgb(30, 216, 223);
+    transition: 0.3s ease-in-out;
 }
 .register-box{
     background-color: white;
     width: 400px;
-    height: 500px;
+    height: 520px;
     position: absolute;
-    top: 30%;
+    top: 50%;
     left: 50%;
-    transform : translate(-50%, -30%);
+    transform : translate(-50%, -50%);
     display: flex;
     justify-content: center;
     box-shadow: 0 2px 12px 0 rgba(172, 132, 132, 0.4);
@@ -1007,10 +1017,7 @@ input[type=text]::placeholder, input[type=password]::placeholder{
     font-size: 16px;
     padding: 3px 5px;
 }
-
 .regIntro{
-    /* 이거 uniz 보다 개인화된 유튜브 서비스 문구라서 지우면 안됨... */
     font-size: 20px;
     color: rgb(78, 11, 117);
 }
-

@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="Navbar.css">
+    <link rel="stylesheet" href="NavbarRegister.css">
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
 </head>
 <body>
+
 <div class="bg">
     <div class="navbar">
         <div class="nav1">
@@ -46,11 +47,10 @@
             </ul>
         </div>
 </div>
-    <div class="login-box">
+    <div class="register-box">
         <form action="
         ">
         <h1 class="loginHeader">
-            
             <svg xmlns="http://www.w3.org/2000/svg" width="119" height="90" viewBox="0 0 1319 554">
                 <defs>
                   <style>
@@ -68,24 +68,35 @@
               </svg>
               <p class="regIntro">보다 개인화된 유튜브 서비스</p>
         </h1>
-        </h1>
-        <div class="textBox">
-            <i class="fa fa-user"></i>
-            <input type="text" placeholder="아이디"><br>
+        <div class="regTextBox">
+            <p class="regHeader">
+                <i class="far fa-laugh-squint"></i>
+                닉네임</p>
+            <input type="text" placeholder="" size="70">
+            <button class="duplicateBtn">중복확인</button>
         </div>
-        <div class="textBox">
-            <i class="fa fa-lock"></i>
-            <input type="password" placeholder="비밀번호">
+        <div class="regTextBox">
+            <p class="regHeader">
+                <i class="fa fa-user"></i>
+                아이디</p>
+            <input type="text" placeholder="" size="70">
+            <button class="duplicateBtn">중복확인</button>
         </div>
-        <div class="cookieBox">
-            <input type="checkbox">
-            <label for="">아이디 기억하기</label>
+        <div class="regTextBox">
+            <p class="regHeader">
+                <i class="fa fa-lock"></i>
+                비밀번호</p>
+            <input type="password" placeholder="">
         </div>
-        <div class="regLink">
+        <div class="regTextBox">
+            <p class="regHeader">비밀번호 확인</p>
+            <input type="password" placeholder="">
         </div>
+        
+        
         <div class="btnBox">
+            <button class="logBtn regBtn"onclick="">다음</button>
             <button class="logBtn"type="submit">로그인</button>
-            <button class="logBtn regBtn"onclick="">회원가입</button>
         </div>
         
         </form>
