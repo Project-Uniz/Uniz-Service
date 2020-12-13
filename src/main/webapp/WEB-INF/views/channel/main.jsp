@@ -321,6 +321,7 @@
             <div class="BtnBox">
                 <button class="comBtn" id="boardPost">카테고리별 게시판</button>
                 <button class="comBtn" id="createChannel">채널 게시판 신청</button>
+                <button class="comBtn" id="registerCreator">크리에이터 등록</button>
             </div>
         </div>
         <!-- navbar -->

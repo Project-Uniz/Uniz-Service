@@ -10,7 +10,10 @@
 </head>
 <body>
 	
-	
+	<c:forEach items="${channel}" var="channel">
+	<h1><c:out value="${channel.channelTitle}"/></h1>
+	</c:forEach>
+	<div id ="board"></div>
 	
 	<div class="board"></div>
 	<div></div>
@@ -35,11 +38,14 @@
 
 $(document).ready(function(){
 	
+	var channelTitle = '<c:out value="${channelTitle}"/>';
+	
 	var channelSN = '<c:out value="${channelSN}"/>';
 	var board = $(".board");
 	var post = $(".post");
 	var postFooter = $("#postFooter");
 	
+	console.log( "channelTitle" + channelTitle);
 	showList(1);
 	
 	function showList(page){
@@ -70,7 +76,7 @@ $(document).ready(function(){
 					str += "<th>"+channelService.displayTime(list[i].createDateTime) +"</th></tr></thead>";	
 					
 				}
-				board.html("<h1>"+list[0].channelTitle+" 게시판</h1>");
+				
 				post.html(str);
 				showPostPage(postCnt);
 			});

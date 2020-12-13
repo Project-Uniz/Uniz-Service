@@ -44,6 +44,7 @@ public class BoardController {
 	}
 	
 	// 게시판 목록 보여줌
+	
 	@GetMapping(value = "/boardlist" ,
 			produces = { MediaType.APPLICATION_XML_VALUE,
 					 MediaType.APPLICATION_JSON_UTF8_VALUE})
@@ -88,9 +89,21 @@ public class BoardController {
 	@GetMapping("/board/{boardSN}")
 	public String getBoard(@PathVariable("boardSN") Long boardSN , BoardVO vo, Model model) {
 		
-		model.addAttribute("board", vo);
+		final int CHECKBOARD = service.checkBoard(boardSN);
 		
-		return "category/board";
+		if(CHECKBOARD==1) {
+			
+			List<BoardVO> test = service.getList(boardSN);
+			log.info("게시판 VO ===== " + test  );
+			
+			model.addAttribute("board", test);
+			
+			return "category/board";
+		}
+		 	
+			return "category/main";
+		
+		
 		
 	}
 	

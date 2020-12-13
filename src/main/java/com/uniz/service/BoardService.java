@@ -19,7 +19,9 @@ public interface BoardService {
 	
 	public PageDTO getListPage(Criteria cri);
 	
-	public List<BoardVO> getList(Criteria cri);
+	public List<BoardVO> getList(Long boardSN);
+	
+	public int checkBoard(Long boardSN);
 	
 	public void register(BoardVO board);
 	

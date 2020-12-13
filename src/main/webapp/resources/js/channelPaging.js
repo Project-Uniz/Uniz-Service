@@ -97,4 +97,8 @@ $(document).ready(function(){
 		self.location = "/channel/chcreate";
 	});
 	
+	$("#registerCreator").on("click", function(){
+		self.location = "/creator/apply";
+	});
+	
 });

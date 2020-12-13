@@ -61,13 +61,19 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public List<BoardVO> getList(Criteria cri){
+	public List<BoardVO> getList(Long boardSN){
 		
-		log.info("get List with criteria: " + cri);
+		
 		
 		log.info("board매퍼 ======="+ mapper);
 		
-		return mapper.getList();
+		return mapper.getList(boardSN);
+		
+	}
+	
+	public int checkBoard(Long boardSN) {
+		
+		return mapper.checkBoard(boardSN);
 		
 	}
 	

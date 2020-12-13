@@ -346,7 +346,7 @@
                 <li><a href="/UnizHit/UnizHit" target="trg">인기</a></li>
                 <li><a href="#">추천</a></li>
                 <li><a href="/search/index" target="trg">검색</a></li>
-                <li><a href="/board/list" target="trg">커뮤니티</a></li>
+                <li><a href="/category/main" target="trg">커뮤니티</a></li>
          
                 <span>
                     <ul>

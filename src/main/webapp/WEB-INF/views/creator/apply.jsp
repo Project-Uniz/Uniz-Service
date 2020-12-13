@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>      
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +11,6 @@
 .uploadResult{
 
 	whidth : 100%;
-	background-color : gray;
 
 }
 
@@ -70,43 +68,103 @@
 
 </style>
 <body>
-
-
+	
+	
     
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-heading"><h1>글 쓰기</h1></div>
+				<div class="panel-heading"><h1>크리에이터 등록 페이지</h1></div>
 				<!-- /.panel-heading -->
 				<div class="panel-body">
 					
-					<form role="form" action="/channel/register" method="post" onsubmit="return checkTitle()">
+					<form role="form" action="/creator/apply" method="post" >
+					
 						<div class="form-group">
-							<label>제목</label>
-							<input class="form-control" name='title' id='title'>
-						</div>
 						
-						<div class="form-group">
-							<label>내용</label>
-							<textarea class="form-control" rows="3" name='postContent'></textarea>
-						</div>
-						
-						<div class="form-group">
+							<p>[운영하는 채널 이름]</p>
 							
-							<input  class="form-control" name='userSN' value=''>
+							<label>채널 이름</label>
+							
+							<input class="form-control" name='channelTitle' id='channelTitle'>
+							
 						</div>
 						
+						<br>
+						
 						<div class="form-group">
+						
+							<p>[userSN]</p>
 							
-							<input type="hidden" class="form-control" name='channelSN' value="${channelSN}">
+							<label>userSN</label>
+							
+							<input class="form-control" name='userSN' id='userSN'>
+							
 						</div>
+						
+						<br>
+						
+						<div class="form-group">
+						
+							<p>[운영하는 채널의 주 카테고리]</p>
+							
+							<label>카테고리 목록</label>
+							
+							<select name='category' id='category'>
+								<option value='영화/애니메이션'>영화/애니메이션</option>
+								<option value='자동차/교통'>자동차/교통</option>
+								<option value='음악'>음악</option>
+								<option value='애완동물/동물'>애완동물/동물</option>
+								<option value='스포츠'>스포츠</option>
+								<option value='여행/이벤트'>여행/이벤트</option>
+								<option value='게임'>게임</option>
+								<option value='인물/블로그'>인물/블로그</option>
+								<option value='코미디'>코미디</option>
+								<option value='엔터테인먼트'>엔터테인먼트</option>
+								<option value='뉴스/정치'>뉴스/정치</option>
+								<option value='노하우/스타일'>노하우/스타일</option>
+								<option value='교육'>교육</option>
+								<option value='과학기술'>과학기술</option>
+								<option value='비영리/사회운동'>비영리/사회운동</option>
+							</select>
+							
+						</div>
+						
+						<br>
+						
+						<div class="form-group">
+						
+							<p>[연락 받을 이메일 주소를 입력하세요] </p>
+							
+							<label>이메일 주소</label>
+							
+							<input  class="form-control" name='email' value=''>
+							
+						</div>
+						
+						<br>
 						
 						<div class="uploadResult">
+						
 							<ul>
 							</ul>
+							
 						</div>
 						
-						<button type="submit" class="btn btn-default">작성완료</button>
+						<br>
+						
+						<p>[본인 유튜브 스튜디오 메인 페이지 캡쳐 이미지 업로드 해주세요]</p>
+						
+		   				<div class="panel-body">	
+							<div class="form-group uploadDiv">
+								<input type='file' name='uploadFile' multiple>
+							</div>
+							
+						</div>
+						
+						<br>
+						
+						<button type="submit" >등록 신청하기</button>
 						<button type="reset" class="btn btn-default">전체 지우기</button>
 					
 					</form>
@@ -115,15 +173,10 @@
 		</div>
 	</div> 
 	
-	   				<div class="panel-body">	
-						<div class="form-group uploadDiv">
-							<input type='file' name='uploadFile' multiple>
-						</div>
-						
-					</div>
+	
+					
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="/resources/js/channel.js"></script>
 <script>
 
 $(document).ready(function(e){
@@ -149,7 +202,8 @@ $(document).ready(function(e){
 		str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+jobj.data("type")+"'>";
 		
 	});
-	
+		
+		console.log("str : " + str);
 		formObj.append(str).submit();
 		
 		
@@ -187,8 +241,8 @@ $(document).ready(function(e){
 	        	str += "data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"'data-type='"+obj.image+"'"		
 	        	str += "><div>";
 	        	str += "<span>" + obj.fileName + "</span>";
-	        	str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='image' class='btn btn-warning btn-circle'> x <i class='fa fa-times'></i></button><br>";
-	        	str += "<img src='/chdisplay?fileName="+fileCallPath+"'>";
+	        	str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='image' class='btn btn-warning btn-circle'> <i class='fa fa-times'>x</i></button><br>";
+	        	str += "<img src='/apDisplay?fileName="+fileCallPath+"'>";
 	        	str += "</div>";
 	        	str += "</li>";
 	        }else {
@@ -230,7 +284,7 @@ $(document).ready(function(e){
 		}
 	    
 	    $.ajax({
-	    	url : '/chuploadAjaxAction',
+	    	url : '/apUploadAjaxAction',
 			processData : false,
 			contentType : false,
 			data : formData,
@@ -256,7 +310,7 @@ $(".uploadResult").on("click", "button" , function(e){
 	
 	$.ajax({
 		
-		url: '/chdeleteFile',
+		url: '/apDeleteFile',
 		data: {fileName: targetFile, type: type},
 		dataType: 'text',
 		type: 'POST',
@@ -270,31 +324,20 @@ $(".uploadResult").on("click", "button" , function(e){
 });
 
 
-function addFile() {
-    var str = "<div class='file-group'><input type='file' name='file'><a href='#this' name='file-delete'>삭제</a></div>";
-    $("#file-list").append(str);
-    $("a[name='file-delete']").on("click", function(e) {
-        e.preventDefault();
-        deleteFile($(this));
-    });
-}
-
-function deleteFile(obj) {
-    obj.parent().remove();
-}
 
 function checkTitle(){
-	
-	var str = document.getElementById('title');
-	var blank_pattern = /^\s+|\s+$/g;
-	
-	if(str.value == '' || str.value == null || str.value.replace(blank_pattern, '').length == 0){
-		alert("제목을 입력하세요");
-		return false;
-	}
-	
+
+
+var str = document.getElementById('title');
+var blank_pattern = /^\s+|\s+$/g;
+
+if(str.value == '' || str.value == null || str.value.replace(blank_pattern, '').length == 0){
+	alert("제목을 입력하세요");
+	return false;
 }
 
-</script>	
+}
+
+</script>
 </body>
 </html>

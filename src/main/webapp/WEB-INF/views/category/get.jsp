@@ -97,19 +97,20 @@
 		
 		<div id="imgs">
 		</div>
-		
-		<div>Files</div>
+		<br>
 			<div class="uploadResult">
 				<ul>
 				</ul>
 			</div>
 	
-	
+		<br>
 	<button id='modify'>글 수정</button>
 	<button id='list'>목록으로</button>
 	
 	<div>
 	</div>
+	
+	<br>
 
 	<div class="container">
         <label for="content">comment</label>
@@ -125,6 +126,7 @@
         </form>
     </div>
 	
+	<br>
 	
 	<div>
 			
@@ -146,15 +148,13 @@ $(document).ready(function(){
 	
 	var postSN = '<c:out value="${postSN}"/>';
 	var boardSN = '<c:out value="${board.boardSN}"/>';
-	console.log(postSN);
-	console.log(boardSN);
-	//categoryService.getPost(postSN);
-	
-	//categoryService.getImg(postSN);
 	
 	showList(1);
 	
 	function showList(page){
+		
+		var postSN = '<c:out value="${postSN}"/>';
+		var boardSN = '<c:out value="${board.boardSN}"/>';
 		
 		replyService.commentList({postSN : postSN, page : page || 1} ,function(replyCnt, list){
 			
@@ -216,11 +216,26 @@ $(document).ready(function(){
 		}
 	
 		replyService.add(reply, function(result){
-			location.reload(true);
-			showList(1);
+			replyService.showList(1);
 		});
 	
 	});
+	
+//	var deleteBtn = $(".deleteBtn");
+//	
+//	deleteBtn.on("click", function(e){
+//	
+//		if(confirm("삭제하시겠습니까?")){
+//			replyService.remove(replySN , function(result){
+//				showList(1);			
+//			});
+//		}
+//		
+//	});
+	
+	
+
+
 	
 	var pageNum = 1;
 	var replyPageFooter = $(".panel-footer");
@@ -260,11 +275,21 @@ $(document).ready(function(){
 		var targetPageNum = $(this).attr("href");
 		
 		pageNum = targetPageNum;
-		showList(pageNum);
+		replyService.showList(pageNum);
 	});
 
 	
 });
+
+function remove(replySN){
+	
+	if(confirm("삭제하시겠습니까?")){
+		replyService.remove(replySN , function(result){
+			location.reload(true);			
+		});
+	}
+
+}
 
 function commentUpdate(replySN, replyContent){
     var a ='';
@@ -284,14 +309,6 @@ function replyUpdate(replySN){
 	location.reload(true);
 }
 
-function remove(replySN){
-	
-	if(confirm("삭제하시겠습니까?")){
-		replyService.remove(replySN);
-		location.reload(true);
-	}
-
-}
 
 	
 

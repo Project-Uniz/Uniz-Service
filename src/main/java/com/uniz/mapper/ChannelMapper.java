@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.uniz.domain.BoardVO;
 import com.uniz.domain.ChannelBoardVO;
 import com.uniz.domain.ChannelVO;
 import com.uniz.domain.Criteria;
@@ -15,6 +16,8 @@ public interface ChannelMapper {
 	public List<ChannelBoardVO> getPostList(@Param("cri") Criteria cri , @Param("channelSN")Long channelSN); // 해당 채널의 게시글 목록을 보여줌
 	
 	public List<ChannelBoardVO> getAllPost(@Param("cri") Criteria cri);
+	
+	public List<ChannelBoardVO> getList(Long channelSN);
 	
 	public int getCountByPost(); // 게시글 전체 수
 	

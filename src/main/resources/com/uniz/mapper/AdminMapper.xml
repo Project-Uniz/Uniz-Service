@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.uniz.mapper.AdminMapper">
+
+	<update id="acceptApply" parameterType="com.uniz.domain.UserData">
+		update applycreator
+			set userType = 2,
+			state = 1
+			where applySN = #{applySN}	
+	</update>
+	
+	<update id="changeUser" parameterType="com.uniz.domain.UserData">
+		update userdata
+			set userType = 2,
+			updatedatetime = sysdate
+			where userSN = #{userSN}
+	</update>
+
+</mapper>

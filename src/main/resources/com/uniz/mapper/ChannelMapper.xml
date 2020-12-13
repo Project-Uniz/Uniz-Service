@@ -60,6 +60,12 @@
 	  ]]>	
 		</select>
 		
+		<select id="getList" resultType="com.uniz.domain.ChannelBoardVO">
+		
+			select * from channel where channelsn = #{channelSN}
+		
+		</select>
+		
 		<!-- 게시글 전체 목록 보여주기	 -->
 		<select id="getAllPost" resultType="com.uniz.domain.ChannelBoardVO" resultMap="getAllPostList">
 			<![CDATA[

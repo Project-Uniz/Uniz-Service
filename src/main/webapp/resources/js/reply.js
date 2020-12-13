@@ -25,9 +25,9 @@ var replyService = (function(){
 		$.ajax({
 			type : 'delete',
 			url : '/replies/' + replySN,
-			success : function(deleteResult, status, xhr){
+			success : function(result, status, xhr){
 				if(callback){
-					callback(deleteResult);
+					callback(result);
 				}
 			},
 			error : function(xhr, status, er){
@@ -108,6 +108,39 @@ function commentList(param, callback, error){
 		});
 	    
 	}   
+
+function showList(page){
+	
+	var postSN = '<c:out value="${postSN}"/>';
+	var boardSN = '<c:out value="${board.boardSN}"/>';
+	
+	replyService.commentList({postSN : postSN, page : page || 1} ,function(replyCnt, list){
+		
+		if(page == -1 ){
+			pageNum = Math.ceil(replyCny / 10.0);
+			showList(pageNum);
+			return;
+		}
+		
+		var a = "";
+		
+		if(list == null || list.length == 0){
+			return;
+		}
+		
+		for (var i = 0, len = list.length || 0; i < len; i++){
+			  a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+                a += '<div class="commentInfo'+list[i].replySN+'">'+'댓글번호 : '+list[i].replySN+' / 작성자 : '+list[i].nick;
+                a += '<a onclick="commentUpdate('+list[i].replySN+',\''+list[i].replyContent+'\');"> 수정 </a>';
+                a += '<a role="button" class="deleteBtn" onclick="remove('+list[i].replySN+');"> 삭제 </a> </div>';
+                a += '<div class="commentContent'+list[i].replySN+'"> <p> 내용 : '+list[i].replyContent +'</p>';
+                a += '</div></div>';
+		}
+		 $(".reply").html(a);
+		 showReplyPage(replyCnt);
+	});
+
+}
 	
 	return {
 		add :add,
@@ -115,6 +148,7 @@ function commentList(param, callback, error){
 		remove : remove,
 		commentUpdateProc : commentUpdateProc,
 		get : get,
-		displayTime : displayTime
+		displayTime : displayTime,
+		showList : showList
 	};
 })();

@@ -81,9 +81,6 @@
 	<div id="boardPost">
 	</div>
 	
-	<!--<c:if test="${userId.userSN == board.userSN}"> -->
-	<!--</c:if> -->
-	
 			<div>Files</div>
 				<div class="uploadResult">
 					<ul>

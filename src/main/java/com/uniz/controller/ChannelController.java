@@ -78,10 +78,11 @@ public class ChannelController {
 	@GetMapping("/board/{channelSN}")
 	public String getBoard(@PathVariable("channelSN")Long channelSN, ChannelBoardVO vo ,Model model) {
 		
+		final int CHECKCHANNEL = service.checkChannel(channelSN);
 		
-		if(mapper.checkChannel(channelSN) == 1){
+		if(CHECKCHANNEL== 1){
 		
-			model.addAttribute("channel", vo);
+			model.addAttribute("channel", service.getList(channelSN));
 		
 			return "channel/board";
 
@@ -126,6 +127,7 @@ public class ChannelController {
 		return "redirect:/channel/board/" + vo.getChannelSN();
 	}
 	
+	//채널 게시판 생성
 	@PostMapping("/chcreate")
 	public String createChannel (ChannelVO vo , RedirectAttributes rttr) {
 		service.createChannel(vo);
@@ -176,13 +178,6 @@ public class ChannelController {
 		
 	}
 	
-	
-	// 게시글 조회
-//	@GetMapping("/getPost/{postSN}")
-//	public void getPost(@RequestParam("postSN") Long postSN , Model model) {
-//		model.addAttribute("board", service.getPost(postSN));
-//		log.info("얍얍얍 = " + model);
-//	}
 	
 	//게시글 삭제
 	@PostMapping(value ="/remove")		
@@ -259,7 +254,6 @@ private void deleteFiles(List<ChannelAttachVO> attachList) {
 		});
 		
 	}
-	
 	
 	
 }

@@ -20,11 +20,13 @@ public interface BoardMapper {
 	
 	public int getTotalCountByBoard(Long boardSN); // 해당 게시판의 게시글 총 수
 	
-	public List<BoardVO> getList();  // 게시글 목록 보여주는 mapper
+	public List<BoardVO> getList(Long boardSN);  // 게시글 목록 보여주는 mapper
 	
 	public List<BoardVO> getAllPost(@Param("cri") Criteria cri); // 게시글 목록 페이징 처리한거
 	
 	public int getTotalCount(); // 게시글 총 수
+	
+	public int checkBoard(Long boardSN);
 	
 	public void insertPost(BoardVO board); // 게시글 쓰는거
 	

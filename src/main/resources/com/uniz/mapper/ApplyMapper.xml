@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.uniz.mapper.ApplyMapper">
+	
+	<!-- 크리에이터 신청 -->
+	
+	
+	<insert id="apply">
+	
+		<selectKey keyProperty="applySN" order="BEFORE" resultType="long">
+			select apply_seq.nextval from dual
+		</selectKey>
+		
+		insert into applycreator
+		(applysn , usersn, channeltitle, category, email,
+		 createdatetime, updatedatetime)
+		values
+		(#{applySN}, #{userSN} , #{channelTitle}, #{category}, #{email} ,sysdate, sysdate)
+		
+	</insert>
+	
+	<!-- 신청한 내용 불러오기 -->
+	<select id="getApply" resultType="com.uniz.domain.ApplyVO">
+		select * from applycreator 
+		where usersn = #{userSN}
+	</select>
+	
+	<!-- 신청한 내용 수정하기 -->
+	<update id="modifyApply" parameterType="com.uniz.domain.ApplyVO">
+		update applycreator
+		set channeltitle = #{channelTitle}, 
+		category = #{category},
+		email = #{email},
+		updatedatetime = sysdate
+		where userSN = #{userSN}
+	</update>
+	
+	<!-- 신청한 내용 취소하기 -->
+	<delete id="cancleApply">
+		delete from applycreator where usersn = #{userSN}
+	</delete>
+	
+	<select id="checkApply" resultType="INTEGER">
+		select count(*) from applycreator where usersn = #{userSN}
+	</select>
+	
+	<select id="getAllApply" resultType="com.uniz.domain.ApplyVO">
+		select *
+			from applycreator
+			order by applysn asc
+	</select>
+	
+	
+</mapper>

@@ -65,12 +65,7 @@
 	
 	<select id="getList"  resultType="com.uniz.domain.BoardVO">
 		
-		<![CDATA[
-			select p.postsn, p.title, c.postcontent, p.createDateTime , u.nick
-			from boardpost p , boardpostcontent c , userdata u
-			where p.postsn = c.postsn and u.usersn = p.usersn
-			order by p.postsn desc
-		]]>
+		select * from board where boardsn = #{boardSN}
 		
 	</select>
 	
@@ -113,6 +108,11 @@
 			and u.usersn = p.usersn
 			and b.boardsn = p.boardsn    
 			
+	</select>
+	
+	
+	<select id="checkBoard" resultType="int">
+		select count(*) from board where boardsn = #{boardSN}
 	</select>
 	
 	<insert id="insertPost">

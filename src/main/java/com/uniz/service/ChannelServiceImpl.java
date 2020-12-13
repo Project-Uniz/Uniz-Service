@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.uniz.domain.BoardVO;
 import com.uniz.domain.ChannelAttachVO;
 import com.uniz.domain.ChannelBoardVO;
 import com.uniz.domain.ChannelPageDTO;
@@ -34,6 +35,15 @@ public class ChannelServiceImpl implements ChannelService {
 		return mapper.getChannelList();
 	}
 	
+	@Override
+	public List<ChannelBoardVO> getList(Long channelSN){
+		
+		log.info("board매퍼 ======="+ mapper);
+		
+		return mapper.getList(channelSN);
+		
+	}
+	
 	public List<ChannelBoardVO> getPostList(Criteria cri ,Long channelSN){
 		log.info("해당 채널 게시글 목록 출력");
 		return mapper.getPostList( cri , channelSN);
@@ -58,6 +68,12 @@ public class ChannelServiceImpl implements ChannelService {
 		log.info("게시글 출력 ");
 		
 		return mapper.getPost(postSN);
+	}
+	
+	public int checkChannel(Long channelSN) {
+		
+		return mapper.checkChannel(channelSN);
+		
 	}
 	
 	public void createChannel(ChannelVO vo) {

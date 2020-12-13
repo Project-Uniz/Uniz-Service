@@ -37,14 +37,13 @@ import net.coobird.thumbnailator.Thumbnailator;
 public class UploardController {
 	
 	
-	
 	@PostMapping(value = "/uploadAjaxAction" , 
 			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
 		
 		List<AttachFileDTO> list = new ArrayList<>();
 		
-		String uploadFolder = "C:\\mp\\file";
+		String uploadFolder = "C:\\work\\Uniz-Service\\src\\main\\webapp\\resources\\imgUpload\\category";
 		
 		String uploadFolderPath = getFolder();
 		
@@ -114,7 +113,7 @@ public class UploardController {
 	@ResponseBody
 	public ResponseEntity<byte[]> getFile(String fileName){
 		
-		File file = new File("c:\\mp\\file\\" + fileName);
+		File file = new File("C:\\work\\Uniz-Service\\src\\main\\webapp\\resources\\imgUpload\\category\\" + fileName);
 		
 		ResponseEntity<byte[]> result = null;
 		
@@ -145,7 +144,7 @@ public class UploardController {
 		File file;
 
 		try {
-			file = new File("c:\\mp\\" + URLDecoder.decode(fileName, "UTF-8"));
+			file = new File("C:\\work\\Uniz-Service\\src\\main\\webapp\\resources\\imgUpload\\category\\" + URLDecoder.decode(fileName, "UTF-8"));
 
 			file.delete();
 

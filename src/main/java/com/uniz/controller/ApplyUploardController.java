@@ -30,17 +30,17 @@ import net.coobird.thumbnailator.Thumbnailator;
 
 @Controller
 @Log4j
-public class ChannelUploardController {
+public class ApplyUploardController {
 	
 
 	
-	@PostMapping(value = "/chuploadAjaxAction" , 
+	@PostMapping(value = "/apUploadAjaxAction" , 
 			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
 		
 		List<AttachFileDTO> list = new ArrayList<>();
 		
-		String uploadFolder = "C:\\work\\Uniz-Service\\src\\main\\webapp\\resources\\imgUpload\\channel";
+		String uploadFolder = "C:\\work\\Uniz-Service\\src\\main\\webapp\\resources\\imgUpload\\apply";
 		
 		String uploadFolderPath = getFolder();
 		
@@ -106,11 +106,12 @@ public class ChannelUploardController {
 		
 	}
 	
-	@GetMapping("/chdisplay")
+	@GetMapping("/apDisplay")
 	@ResponseBody
 	public ResponseEntity<byte[]> getFile(String fileName){
 		
-		File file = new File("C:\\work\\Uniz-Service\\src\\main\\webapp\\resources\\imgUpload\\channel\\" + fileName);
+		File file = new File("C:\\work\\Uniz-Service\\src\\main\\webapp\\resources\\imgUpload\\apply\\"
+		+ fileName);
 		
 		ResponseEntity<byte[]> result = null;
 		
@@ -132,7 +133,7 @@ public class ChannelUploardController {
 		
 	}
 	
-	@PostMapping("/chdeleteFile")
+	@PostMapping("/apDeleteFile")
 	@ResponseBody
 	public ResponseEntity<String> deleteFile(String fileName, String type) {
 
@@ -141,7 +142,8 @@ public class ChannelUploardController {
 		File file;
 
 		try {
-			file = new File("C:\\work\\Uniz-Service\\src\\main\\webapp\\resources\\imgUpload\\channel\\" + URLDecoder.decode(fileName, "UTF-8"));
+			file = new File("C:\\work\\Uniz-Service\\src\\main\\webapp\\resources\\imgUpload\\apply\\"
+					+ URLDecoder.decode(fileName, "UTF-8"));
 
 			file.delete();
 
@@ -164,6 +166,7 @@ public class ChannelUploardController {
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 
 	}
+	
 	
 	
 	private String getFolder() {

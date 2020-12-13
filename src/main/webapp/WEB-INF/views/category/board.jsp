@@ -8,6 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<c:forEach items="${board}" var="board">
+	<h1><c:out value="${board.boardTitle}"/></h1>
+	</c:forEach>
 	<div id ="board"></div>
 	
 	

@@ -93,7 +93,7 @@
 						
 						<div class="form-group">
 							
-							<input  class="form-control" name='userSN' value='${userId.userSN}'  >
+							<input  class="form-control" name='userSN' value=''  >
 						</div>
 						
 						<div class="form-group">
@@ -106,6 +106,13 @@
 							</ul>
 						</div>
 						
+					<div class="panel-body">	
+						<div class="form-group uploadDiv">
+							<input type='file' name='uploadFile' multiple>
+						</div>
+						
+					</div>
+					<br>
 						<button type="submit" class="btn btn-default">작성완료</button>
 						<button type="reset" class="btn btn-default">전체 지우기</button>
 						
@@ -114,13 +121,8 @@
 			</div>
 		</div>
 	</div>    
-					<div class="panel-body">	
-						<div class="form-group uploadDiv">
-							<input type='file' name='uploadFile' multiple>
-						</div>
-						
-					</div>
 				
+					
   
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/category.js"></script>
@@ -147,6 +149,8 @@
 			str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
 			str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
 			str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+jobj.data("type")+"'>";
+			
+			alert(str);
 			
 		});
 		
@@ -269,20 +273,6 @@
 		
 	});
 	
-	
-	function addFile() {
-	    var str = "<div class='file-group'><input type='file' name='file'><a href='#this' name='file-delete'>삭제</a></div>";
-	    $("#file-list").append(str);
-	    $("a[name='file-delete']").on("click", function(e) {
-	        e.preventDefault();
-	        deleteFile($(this));
-	    });
-	}
-	
-	function deleteFile(obj) {
-	    obj.parent().remove();
-	}
-
 
 
 function checkTitle(){
