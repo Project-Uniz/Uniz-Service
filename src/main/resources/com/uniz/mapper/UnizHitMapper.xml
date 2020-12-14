@@ -19,7 +19,11 @@
 	</select>	
   
 	<select id="getVideo" resultType="com.uniz.domain.VideoDataVO">
-		SELECT * FROM videoData where videoSn = #{videoSN}
+
+		SELECT * 
+		FROM videoData 
+		where videoSn = #{videoSN}
+    
 	</select>
 
 	<select id="keywordHitList" resultType="com.uniz.domain.VideoDataVO">

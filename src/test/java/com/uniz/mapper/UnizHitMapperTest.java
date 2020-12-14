@@ -1,5 +1,9 @@
 package com.uniz.mapper;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
@@ -7,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.uniz.domain.UnizLayerListVO;
 import com.uniz.domain.UnizVO;
 import com.uniz.domain.VideoDataVO;
 
@@ -28,16 +33,35 @@ public class UnizHitMapperTest {
 //	}
 //	
 
+//	@Test
+//	public void testReadList() {
+//		
+//		mapper.getHitList().forEach(video -> log.info(video));
+//
+//		
+//	}
+	
+//	@Test
+//	public void testkeywordList() {
+//		
+//		List<VideoDataVO> video = mapper.keywordHitList((long) 20);
+//		
+//		video.forEach(list -> log.info(list));
+//		
+//	}
+	
 	@Test
-	public void testReadList() {
+	public void testkeywordUniz() {
 		
-		mapper.getHitList().forEach(video -> log.info(video));
-
+		List<UnizLayerListVO> video = mapper.keywordUniz((long)1002);
 		
+		video.forEach(list -> log.info(list));
+		
+		List<VideoDataVO> video2 = mapper.keywordHitList(video);
+		
+		video2.forEach(list2 -> log.info(list2));
 	}
 	
 	
-
-
-
+	
 }

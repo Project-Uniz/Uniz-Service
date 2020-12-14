@@ -26,4 +26,6 @@ public interface UnizMapper {
 
 	public List<UnizVO> getFavoriteList(@Param("userSN") Long userSN, @Param("fvPoint") int point, @Param("limit") int limit);
 
+	public Long findParentUniz(@Param("utbCateSN")Long utbCateSN);
+
 }

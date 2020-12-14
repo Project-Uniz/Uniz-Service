@@ -15,24 +15,32 @@ import lombok.ToString;
 @ToString
 public class VideoDataVO {
 
-	private Long	videoSN;
-	private String	title;
-	private String	authorID;
-	private String	authorNick;
-	private String	urlPath;
-	private String	thumbUrl;
+	private int videoSN; //비디오번호
+	private String title; //제목
+	private String authorNick; //게시자 닉네임
+	private String description; // 본문
+	private String urlPath; // 유튜브URL
+	private String thumbUrl; //썸네일URL
+	private Long likeCnt; //좋아요수
+	private Long dislikeCnt; //싫어요 수
+	private Long followCnt; //팔로워수
+	private Long viewCnt; // 조회수
+	private int duration; //영상시간
+	private String utbCateGory; //유튜브 카테고리명
+	private Long utbCateSN; //유튜브 번호
+	private String isFamilyFriendly; //모름
+	private String titleHashTags; //타이틀 해시태크
+	private String descHashTags; //;
+	private String utbVideoID; //영상아아디ㅣ
+	private String authorId; //게시자 아이디
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	private Date yUploadDateTime; //게시글작성일
+	private String keywords;
 	
-	private Long	likeCnt;
-	private Long	followCnt;
-	private Long	viewCnt;
-	private int		utbCateSN;
-	private String	utbVideoID;
-
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-	private Date createDateTime;
-
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-	private Date updateDateTime;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	private Date createDateTime; //생성일
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	private Date updateDateTime; //변경일
 
 	@Override
 	public boolean equals(Object obj) {
@@ -48,7 +56,10 @@ public class VideoDataVO {
 				return false;
 		} else if (!urlPath.equals(other.urlPath))
 			return false;
-		if (utbCateSN != other.utbCateSN)
+		if (utbCateSN == null) {
+			if (other.utbCateSN != null)
+				return false;
+		} else if (!utbCateSN.equals(other.utbCateSN))
 			return false;
 		if (utbVideoID == null) {
 			if (other.utbVideoID != null)
@@ -57,15 +68,17 @@ public class VideoDataVO {
 			return false;
 		return true;
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((urlPath == null) ? 0 : urlPath.hashCode());
-		result = prime * result + utbCateSN;
+		result = prime * result + ((utbCateSN == null) ? 0 : utbCateSN.hashCode());
 		result = prime * result + ((utbVideoID == null) ? 0 : utbVideoID.hashCode());
 		return result;
 	}
+
+
+
 
 }

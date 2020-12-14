@@ -11,7 +11,7 @@
 <body>
 탈퇴하기 전에 개인정보를 입력해주세요 
 
-
+<h1>${msg }</h1>
 <form action="" method="post">
 유저아이디 : <input type="text" name="userId" id="userId"><br>
 패스워드 : <input type="password" name="password" id="password"><br>

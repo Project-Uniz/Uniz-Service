@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uniz.domain.MyUnizPoint;
 import com.uniz.domain.UnizTypeEnum;
 import com.uniz.domain.UnizVO;
+import com.uniz.mapper.UnizMapper;
 import com.uniz.service.UnizPointService;
 import com.uniz.service.UnizService;
 
@@ -226,5 +229,19 @@ public class UnizController {
 				? new ResponseEntity<>(result, HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-
+	
+	//대
+	@PostMapping("/addMypoint")
+	public @ResponseBody Map<String, Object> showVideoAddMyPoint(MyUnizPoint myUnizPoint){
+		String resultStr = "FAIL";
+		Map<String, Object> map = new HashMap<String, Object>(); 	 
+		if(myUnizPoint.getUserSN() != null) {
+			
+			resultStr = upsvc.showVideoAddPoint(myUnizPoint);
+			
+		}
+		
+		map.put("result",  resultStr);
+		return map;
+	}
 }

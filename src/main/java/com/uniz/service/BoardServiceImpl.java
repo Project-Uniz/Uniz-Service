@@ -80,6 +80,7 @@ public class BoardServiceImpl implements BoardService {
 		
 		mapper.insertPost(board);
 		log.info("BoardPost 데이터 추가");
+
 		log.info("postSN1 : " + board.getPostSN());
 		
 		mapper.insertCont(board);
@@ -88,16 +89,19 @@ public class BoardServiceImpl implements BoardService {
 		if(board.getAttachList() == null || board.getAttachList().size() <= 0) {
 			return;
 		}
-		
 		board.getAttachList().forEach(attach ->{
 			
 			log.info("postSN3 : " + board.getPostSN());
 			attach.setPostSN(board.getPostSN());
 			attachMapper.insert(attach);
-			
 		});
 		
-	}
+		log.info(board);
+    
+		mapper.insertCont(board);
+		log.info(board);
+		log.info("BoardPostContent 데이터 추가");
+}
 	
 	@Transactional
 	@Override

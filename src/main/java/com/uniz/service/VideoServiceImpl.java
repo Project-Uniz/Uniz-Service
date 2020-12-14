@@ -1,5 +1,7 @@
 package com.uniz.service;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +19,13 @@ import lombok.extern.log4j.Log4j;
 public class VideoServiceImpl implements VideoService{
 	
 	@Setter(onMethod_ = @Autowired)
-	private VideoMapper mapper;
+	private VideoMapper videoMapper;
+	private UnizMapper unizMapper;
 	
 	@Override
-	public VideoDataVO getVideo(long videoSn) {
-		log.info("getVideoInfo" + videoSn);
+	public VideoDataVO getVideo(long videoSn, Long userSN) {
 		
-		VideoDataVO videoVO = mapper.getVideo(videoSn);
+		VideoDataVO videoVO = videoMapper.getVideo(videoSn);
 	
 		String changeURL = videoVO.getUrlPath();
 		
