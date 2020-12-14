@@ -28,7 +28,30 @@
 	
 	
 	<select id="getVideo" resultType="com.uniz.domain.VideoDataVO">
-		SELECT * FROM videoData2 where videoSn = #{videoSN}
+		SELECT * 
+		FROM videoData2 
+		where videoSn = #{videoSN}
+	</select>
+	
+	<select id="keywordHitList" resultType="com.uniz.domain.VideoDataVO">
+		SELECT v.videoSN,v.thumbUrl,v.title
+		FROM  videoData2 v , uniz u
+		WHERE v.utbCateSN = u.unizSN
+			  and utbCateSN IN 
+		<foreach item="unizSN" index="index" collection="unizSNlist" open="(" separator="," close=")">
+			#{unizSN.unizSN}
+		</foreach>
+	</select>
+	
+
+	
+	
+	<select id="keywordUniz" resultType="com.uniz.domain.UnizLayerListVO">
+		select unizsn
+		from unizlayerlist
+		where parentunizsn = #{unizSN}
+	
+	
 	</select>
 	
 </mapper>
