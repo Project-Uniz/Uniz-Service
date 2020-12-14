@@ -8,7 +8,7 @@
                 <li><a href="/UnizHit/UnizHit">인기</a></li>
                 <li><a href="#">추천</a></li>
                 <li><a href="/search/index">검색</a></li>
-                <li><a href="/board/list">커뮤니티</a></li>
+                <li><a href="/category/main">커뮤니티</a></li>
                 <span>
                     <ul>
                     
