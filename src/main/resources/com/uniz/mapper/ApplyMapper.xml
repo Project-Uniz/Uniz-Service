@@ -50,7 +50,6 @@
 	<select id="getAllApply" resultType="com.uniz.domain.ApplyVO">
 		select *
 			from applycreator
-			where state = 0
 			order by applysn asc
 	</select>
 	

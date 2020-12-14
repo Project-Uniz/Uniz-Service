@@ -34,29 +34,6 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
-	<!-- Gmail -->
-  	<bean id="mailSender" class ="org.springframework.mail.javamail.JavaMailSenderImpl" >
-        <property name="host" value="smtp.gmail.com" />
-        <property name="port" value="587" />
-        <property name="defaultEncoding" value="utf-8"/>
-        <property name="username" value="unizproject@gmail.com" />
-        <property name="password" value="MgrUniz4#" />
-       
-        <property name="javaMailProperties">
-            <props>
-                <prop key="mail.smtp.starttls.enable">true</prop>
-                <prop key="mail.smtp.auth">true</prop>
-            </props>
-        </property>
-       
-    </bean>
-    
-    <bean id="email" class="com.uniz.domain.EmailVO"></bean>
-    <bean id="emailSender" class="com.uniz.utils.EmailSender"></bean>
-
-
-	
-	
 	<tx:annotation-driven/>
 	
 	<mybatis-spring:scan base-package="com.uniz.mapper"/>
