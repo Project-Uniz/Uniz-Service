@@ -2,6 +2,9 @@ package com.uniz.controller;
 
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,8 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.uniz.domain.UserDTO;
 import com.uniz.domain.VideoDataVO;
 import com.uniz.service.UnizHitService;
 
@@ -23,7 +30,8 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/UnizHit/*")
 @AllArgsConstructor
 public class UnizHitController {
-
+	
+	
 	private UnizHitService service;
 	//private UserService userService;
 	
@@ -37,17 +45,27 @@ public class UnizHitController {
 		
 	}
 	
+
+	
 	@GetMapping("/UnizHit")
 	public String unizHitView(Model model) {
 		
 		return "UnizHit/unizHitMain";
 	}
 	
-	@GetMapping("/UnizHit/{videoSn}")
-	public String videoList(@PathVariable long videoSn, Model model) {
-		log.info("videoSn : " + videoSn);
+	@GetMapping("/UnizHit/{videoSN}")
+	public String videoList(@PathVariable long videoSN, Model model, HttpSession session) {
+		log.info("videoSn : " + videoSN);
 		
-		VideoDataVO videoVO= service.getVideo(videoSn);
+		//USERSN없으면 에러임
+		if(session.getAttribute("user") != null) {			
+			UserDTO userDto= (UserDTO)session.getAttribute("user");//대윤추가
+			Long userSN = userDto.getUserSN(); // 대윤추가
+			
+			model.addAttribute("userSN",userSN);
+		}
+		
+		VideoDataVO videoVO= service.getVideo(videoSN); //대윤변경 (매개변수 userSN추가)
 		
 		log.info("videoVO : " + videoVO); 
 		
@@ -55,7 +73,17 @@ public class UnizHitController {
 		
 		return "videoDetail";
 	}
-		
+	
+
+	
+	@GetMapping(value = "/keywordHitlist/{unizSN}",
+			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	
+			public ResponseEntity<List<VideoDataVO>>keywordHitlist(
+			@PathVariable("unizSN") Long unizSN)
+				{
+				return new ResponseEntity<List<VideoDataVO>>(service.keywordHitList(unizSN),HttpStatus.OK);
+				} 
 	
 		//0.로그인 여부는 당장 상관없음.(추후고려)
 

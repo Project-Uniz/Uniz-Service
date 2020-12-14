@@ -2,28 +2,27 @@ package com.uniz.domain;
 
 import java.util.Date;
 
-import javax.xml.ws.BindingType;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Builder
-public class MyUnizPoint {
+public class UnizLayerListVO {
 
-	private Long userSN;
-	private Long unizSN;
-	private Integer point;
-	private String unizKeyword;
+	private Long	unizSN;
+	private Long 	PARENTUNIZSN;
+	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-	Date createDateTime;
-
+	private Date createDateTime;
+	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-	Date updateDateTime;
+	private Date updateDateTime;
 }
