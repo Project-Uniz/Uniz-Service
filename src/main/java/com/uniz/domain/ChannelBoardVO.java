@@ -1,6 +1,7 @@
 package com.uniz.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -18,5 +19,8 @@ public class ChannelBoardVO {
 	private int likeCnt;
 	private Date createDateTime;
 	private Date updateDateTime;
+	private int replyCnt;
+	
+	private List<ChannelAttachVO> attachList;
 	
 }

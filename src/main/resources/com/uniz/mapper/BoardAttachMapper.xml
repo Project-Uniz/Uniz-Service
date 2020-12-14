@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.uniz.mapper.BoardAttachMapper">
+
+	<insert id="insert">
+		insert into BOARD_IMGFILE
+		(uuid, uploadpath, filename, filetype, postsn)
+		values
+		(#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{postSN})
+	</insert>
+	
+	<delete id="delete">
+		delete from BOARD_IMGFILE where postSN = #{postSN}
+	</delete>
+	
+	<select id="findByPostSN" resultType="com.uniz.domain.BoardAttachVO">
+		select * from BOARD_IMGFILE where postSN = #{postSN}
+	</select>
+	
+	<delete id="deleteAll">
+		delete BOARD_IMGFILE where postSN = #{postSN}
+	</delete>
+
+</mapper>

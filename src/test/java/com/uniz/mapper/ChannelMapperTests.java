@@ -1,5 +1,7 @@
 package com.uniz.mapper;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.uniz.domain.ChannelBoardVO;
+import com.uniz.domain.Criteria;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -18,6 +21,9 @@ public class ChannelMapperTests {
 	
 	@Setter(onMethod_ =@Autowired)
 	private ChannelMapper mapper;
+	
+	@Setter(onMethod_ =@Autowired)
+	private ApplyMapper apMapper;
 	
 //	@Test
 //	public void testCreateChannle() {
@@ -54,4 +60,21 @@ public class ChannelMapperTests {
 //		log.info("ttttttttt=" + mapper.checkPost(83L));
 //	}
 //	
+//	@Test
+//	public void testList() {
+//		
+//		Criteria cri = new Criteria(2,10);
+//		
+//		List<ChannelBoardVO> vo = mapper.getAllPost(cri);
+//		
+//		vo.forEach(board -> log.info("======== " + board));
+//	}
+	
+	@Test
+	public void testApply() {
+		
+		log.info("=== " + apMapper.checkApply(1L));
+		
+	}
+	
 }

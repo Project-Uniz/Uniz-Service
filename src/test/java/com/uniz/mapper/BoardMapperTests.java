@@ -1,15 +1,12 @@
 package com.uniz.mapper;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.uniz.domain.BoardVO;
-import com.uniz.domain.Criteria;
+import com.uniz.domain.ChannelAttachVO;
 import com.uniz.service.BoardService;
 
 import lombok.Setter;
@@ -25,6 +22,12 @@ public class BoardMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
 	private BoardService service;
+	
+	@Setter(onMethod_ = @Autowired)
+	private BoardAttachMapper attachMapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private ChannelAttachMapper chAttachMapper;
 	
 //	@Test
 //	public void testGetList() {
@@ -50,6 +53,21 @@ public class BoardMapperTests {
 //	}
 	
 //	@Test
+//	public void insertCh() {
+//		
+//		ChannelAttachVO vo = new ChannelAttachVO();
+//		
+//		vo.setFileName("test");
+//		vo.setFileType(true);
+//		vo.setPostSN(1L);
+//		vo.setUploadPath("test");
+//		vo.setUuid("test");
+//		
+//		chAttachMapper.insert(vo);
+//		
+//	}
+	
+//	@Test
 //	public void testRead() {
 //		
 //		BoardVO board = mapper.read(50L);
@@ -61,7 +79,7 @@ public class BoardMapperTests {
 //	@Test
 //	public void testDelete() {
 //		
-//		log.info("결과 : " + mapper.deleteReply(51L)) ;
+//		log.info("결과 : " + mapper.deletePost(194L)) ;
 //		
 //	}
 //	
@@ -92,16 +110,49 @@ public class BoardMapperTests {
 //		
 //	}
 	
+//	@Test
+//	public void testSearch() {
+//		
+//		Criteria cri = new Criteria();
+//		cri.setKeyword("오민뚱");
+//		cri.setType("W");
+//		
+//		List<BoardVO> list = mapper.getListWithPaging(cri);
+//		
+//		list.forEach(board -> log.info(board));
+//		
+//	}
+	
+//	@Test
+//	public void testGetBoardList() {
+//		
+//		log.info("=====" + mapper.getBoardList());
+//	}
+	
+//	@Test
+//	public void testGetPostList() {
+//		
+//		log.info("------- " + mapper.getPostList(1L));
+//	}
+	
+//	@Test
+//	public void testList() {
+//		
+//		mapper.getTotalCountByBoard(3L);
+//		
+//	}
+	
+//	@Test
+//	public void attachDelete() {
+//		
+//		attachMapper.deleteAll(226L);
+//		log.info("삭제 성공");
+//	}
+	
 	@Test
-	public void testSearch() {
+	public void testDelet() {
 		
-		Criteria cri = new Criteria();
-		cri.setKeyword("오민뚱");
-		cri.setType("W");
-		
-		List<BoardVO> list = mapper.getListWithPaging(cri);
-		
-		list.forEach(board -> log.info(board));
+		log.info("삭제 됬니? : " + service.delete(54L) );
 		
 	}
 	

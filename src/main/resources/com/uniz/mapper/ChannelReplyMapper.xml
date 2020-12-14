@@ -6,11 +6,31 @@
 <mapper namespace="com.uniz.mapper.ChannelReplyMapper">
 
 	<select id="getList" resultType="com.uniz.domain.ChannelReplyVO">
-		select r.postSN , r.replySN , r.replyContent, u.nick , r.createdatetime , u.usersn
-		from channelReply r , userdata u
-		where postSN = #{postSN}
-		and u.usersn = r.usersn
-		order by replySN asc
+	  <![CDATA[	
+		select *
+		from (
+			select rownum rn , a.*
+			from
+				(
+				 select r.postSN , r.replySN , r.replyContent, u.nick , r.createdatetime , u.usersn
+				 from channelReply r , userdata u
+				 where postSN = #{postSN}
+				 and u.usersn = r.usersn
+				 order by replySN asc
+				) a
+				where
+	  ]]>	
+	  <![CDATA[
+	  	rownum <= #{cri.pageNum} * #{cri.amount}
+	  	)
+	  	where rn > (#{cri.pageNum} -1 ) * #{cri.amount}
+	  ]]>			
+	</select>
+	
+	<select id="getCount" resultType="int">
+		<![CDATA[
+			select count(replySN) from channelreply where postSN = #{postSN}
+		]]>
 	</select>
 
 	<select id="read" resultType="com.uniz.domain.ChannelReplyVO">

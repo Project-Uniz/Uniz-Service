@@ -10,6 +10,7 @@
   <body>
   	<div class="wrap">
 		<div class="videoContainer">	
+
 		<%@ include file="/WEB-INF/views/includes/nav.jsp"%>		
 	<!-- Nav bar -->
        
