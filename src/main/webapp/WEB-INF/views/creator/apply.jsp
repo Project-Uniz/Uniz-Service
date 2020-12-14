@@ -36,35 +36,6 @@
 	
 }
 
-.bigPictureWrapper {
-
-	position : absolute;
-	display : none;
-	justify-content : center;
-	align-items : center;
-	top : 0%;
-	width : 100%;
-	height : 100%;
-	background-color : gray;
-	z-index : 100;
-	background : rgba(255,255,255,0.5);
-
-}
-
-.bigPicture {
-
-	position : relative;
-	display : flex;
-	justify-content : center;
-	align-items : center;
-
-}
-
-.bigPicture img {
-
-	width : 600px;
-
-}
 
 </style>
 <body>

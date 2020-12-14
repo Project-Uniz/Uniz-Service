@@ -51,7 +51,7 @@
                         <strong>Your browser does not support the video tag.</strong>
                       </video></p>
                       <p><video  muted autoplay loop>
-                        <source src="/resources/project/Light - 44008.mp4" type="video/mp4">
+                        <source src="/resourcels/project/Light - 44008.mp4" type="video/mp4">
                         <strong>Your browser does not support the video tag.</strong>
                       </video></p>
                       <p><video  muted autoplay loop>

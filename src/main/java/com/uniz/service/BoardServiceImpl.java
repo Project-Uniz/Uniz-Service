@@ -27,10 +27,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Setter(onMethod_ =@Autowired)
 	private BoardAttachMapper attachMapper;
-	
-//	@Resource(name="fileUtils")
-//	private FileUtils fileUtils;
-	
+
 	@Override
 	public List<BoardVO> getBoardList(){
 		return mapper.getBoardList();
