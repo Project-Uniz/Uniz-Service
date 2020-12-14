@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uniz.domain.MyUnizPoint;
+import com.uniz.domain.UnizLayerListVO;
+import com.uniz.domain.UnizVO;
 import com.uniz.domain.VideoDataVO;
 import com.uniz.mapper.UnizHitMapper;
 import com.uniz.mapper.UnizMapper;
 import com.uniz.mapper.UnizPointMapper;
 import com.uniz.mapper.UserMapper;
-
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -65,6 +66,15 @@ public class UnizHitServiceImpl implements UnizHitService {
 		
 		return videoVO;
 	}
-	
 
+	@Override
+	public List<VideoDataVO> keywordHitList(Long unizSN) {
+		
+		List<UnizLayerListVO> unizSN2 = mapper.keywordUniz(unizSN);
+		
+		log.info("get keyword List" + unizSN);
+	
+		return mapper.keywordHitList(unizSN2);
+	
+	}
 }

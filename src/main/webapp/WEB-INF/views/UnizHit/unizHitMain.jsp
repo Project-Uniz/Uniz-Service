@@ -90,10 +90,10 @@ span ul {
 	<div class="inner-div-1200">
 		<div class="video-align-center">
 			<br>
-
+			
 			<!--리스트 5개 반복되는 구조 -->
 			<div id="hit"></div>
-
+						
 			<!--end -->
 
 
@@ -105,7 +105,10 @@ span ul {
 
 	<script>
 		$(document).ready(function() {
-			getList();
+			
+			
+			getListAll();
+			
 
 		});
 	</script>
@@ -113,38 +116,56 @@ span ul {
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	let UnizHitMenuNum = 5;
+	let UnizHitMenuNum = 4;
 
-	setUnitagsByPreset(UnizHitMenuNum, 13);
+	setUnitagsByPreset(UnizHitMenuNum, 12);
 	
 	function setUnitagsByPreset(menu, limit) {
 		unizService.getPreset(
 				{menu : menu},
 				function(result) {
 					let keys = [];
-
-					let tagsHTML = ""; 
+					let tagsHTML = "";
+					let unizSN = [];
 
 					//tagsHTML += "<p><button id='tag' name='unitags' value='야구'>야구</button></p>"
 					for(let idx = 0 ; idx<limit ; idx++) {
 						let uniz = result[idx];
-						tagsHTML += "<p><button id='tag"+ idx +"' name='unitags' value='" + uniz.unizKeyword + "'>"  + uniz.unizKeyword + "</button></p>"
+						
+						tagsHTML += "<p><button id='tag"+ idx +"' name='unitags' data-unizsn='"+uniz.unizSN+"' value='" + uniz.unizKeyword + "'>"  + uniz.unizKeyword + "</button></p>"
+						
 						keys.push(uniz.unizKeyword);
+						unizSN.push(uniz.unizSN);
+						
 					}
 
 					$("#unitags").html(tagsHTML);
 
 					$("button[name='unitags']").each(function(i){
-						$(this).click(function(e){
+						$(this).on("click",function(e){
+							
+							let unizsn = $(this).data("unizsn");
+							
 							e.preventDefault();
 							$("#keyword").val($(this).val());
+							
+							console.log("unizSN=====" + unizsn)
+					
+							
+		getList({unizSN:unizsn});
+							
 						})
 					});
 				}
 			);
 	}
+	
 });
+
 </script>
+
+
+	
 </body>
 </html>
 

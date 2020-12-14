@@ -21,10 +21,10 @@ public class VideoDataVO {
 	private String description; // 본문
 	private String urlPath; // 유튜브URL
 	private String thumbUrl; //썸네일URL
-	private int likeCnt; //좋아요수
-	private int dislikeCnt; //싫어요 수
-	private int followCnt; //팔로워수
-	private int viewCnt; // 조회수
+	private Long likeCnt; //좋아요수
+	private Long dislikeCnt; //싫어요 수
+	private Long followCnt; //팔로워수
+	private Long viewCnt; // 조회수
 	private int duration; //영상시간
 	private String utbCateGory; //유튜브 카테고리명
 	private Long utbCateSN; //유튜브 번호
@@ -41,6 +41,7 @@ public class VideoDataVO {
 	private Date createDateTime; //생성일
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date updateDateTime; //변경일
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

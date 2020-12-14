@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.uniz.mapper.VideoReplyMapper">
+
+	<insert id = "insert">
+	
+		insert into VideoReply (replySN, userSN, videoSN, replyContent, createDateTime, updateDateTime)
+		values (VIDEOREPLY_SEQ.nextval, #{userSN}, #{videoSN}, #{replyContent},sysdate,sysdate)
+	
+	
+	</insert>
+	
+	<select id="read" resultType="com.uniz.domain.VideoReplyVO">
+	
+		select * from videoReply where replySN = #{replySN}
+	
+	</select>
+	
+	<delete id="delete">
+	
+		delete from videoReply where replySN = #{replySN}
+	
+	</delete>
+	
+	<update id="update">
+	
+		update videoReply set replyContent = #{replyContent}, updateDateTime =sysdate
+		where replySN = #{replySN}
+	
+	</update>
+	
+	<select id ="getListWithPaging" resultType="com.uniz.domain.VideoReplyVO">
+		select replySN, videoSN,userSN, replyContent, createDateTime, updateDateTime
+		from videoReply
+		where videoSN = #{videoSN}
+		order by replySN asc
+	
+	</select>
+
+	
+	
+	
+
+
+</mapper>
