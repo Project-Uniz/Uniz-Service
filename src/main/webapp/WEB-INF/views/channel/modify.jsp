@@ -264,7 +264,6 @@ $(document).ready(function(){
 				return false;
 			}
 			formData.append("uploadFile", files[i]);
-			console.log("formData : " + formData);
 		}
 	    
 	    $.ajax({
@@ -275,7 +274,6 @@ $(document).ready(function(){
 			type : 'POST',
 			dataType : 'json' ,
 			success : function(result){
-				console.log(result);
 			    showUploadResult(result); //업로드 결과 처리 함수 
 	     }
 	 }); //$.ajax
