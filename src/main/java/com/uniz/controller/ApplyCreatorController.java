@@ -48,11 +48,7 @@ public class ApplyCreatorController {
 			
 		}
 		
-		log.info("등록 체크 전=======");
-		
 		final int CHECKAPPLY = service.checkApply(vo.getUserSN());
-		
-		log.info("등록 체크 후=======");
 		
 		if(CHECKAPPLY != 1) {
 			
@@ -127,6 +123,7 @@ public class ApplyCreatorController {
 		return new ResponseEntity<>(service.getAllApply(), HttpStatus.OK);
 		
 	}
+	
 	
 	private void deleteFiles(List<ApplyAttachVO> attachList) {
 			

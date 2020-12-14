@@ -9,7 +9,7 @@
 		update applycreator
 			set userType = 2,
 			state = 1
-			where applySN = #{applySN}	
+			where userSN = #{userSN}	
 	</update>
 	
 	<update id="changeUser" parameterType="com.uniz.domain.UserData">
