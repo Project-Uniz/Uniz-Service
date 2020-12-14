@@ -23,6 +23,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class AdminController {
 	
+	
 	private AdminService adminService;
 	private ApplyCreatorService service;
 	private EmailSender emailSender;
