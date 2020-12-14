@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.uniz.domain.ChannelReplyPageDTO;
 import com.uniz.domain.ChannelReplyVO;
 import com.uniz.domain.Criteria;
+import com.uniz.mapper.ChannelMapper;
 import com.uniz.mapper.ChannelReplyMapper;
 
 import lombok.Setter;
@@ -19,9 +22,14 @@ public class ChannelReplyServiceImpl implements ChannelReplyService {
 	@Setter(onMethod_ = @Autowired)
 	private ChannelReplyMapper mapper;
 	
+	@Setter(onMethod_ = @Autowired)
+	private ChannelMapper channelMapper;
+	
+	@Transactional
 	@Override
 	public int register(ChannelReplyVO vo) {
-		// 객체 주입 받아서 댓글 생성
+		
+		channelMapper.updateReplyCnt(vo.getPostSN(), 1);
 		return mapper.insert(vo);
 	}
 
@@ -36,10 +44,14 @@ public class ChannelReplyServiceImpl implements ChannelReplyService {
 		// 수정할 댓글 번호와 수정 댓글 내용을 객체로 받아와 댓글 수정
 		return mapper.update(vo) ;
 	}
-
+	
+	@Transactional
 	@Override
 	public int delete(Long replySN) {
-		// 댓글 삭제
+		
+		ChannelReplyVO vo = mapper.read(replySN);
+		
+		channelMapper.updateReplyCnt(vo.getPostSN(), -1);
 		return mapper.deleteReply(replySN) ;
 	}
 	
@@ -48,6 +60,14 @@ public class ChannelReplyServiceImpl implements ChannelReplyService {
 		//postSN 해당하는 댓글 목록 불러옴
 		
 		return mapper.getList(cri, postSN);
+	}
+	
+	@Override
+	public ChannelReplyPageDTO getListPage(Criteria cri , Long postSN) {
+		
+		return new ChannelReplyPageDTO(mapper.getCount(postSN),
+									   mapper.getList(cri, postSN));
+		
 	}
 
 }

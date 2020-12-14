@@ -31,10 +31,10 @@ $(document).ready(function(){
 		str += "<thead><tr><th>채널명</th><th>글 제목</th><th>작성자</th><th>작성 일</th></tr></thead>"
 		for (var i = 0, len = list.length || 0; i < len; i++){
 			
-			str += "<thead><tr><th>"+list[i].channelTitle + "</th>";
-			str += "<th><a  href='/channel/get/"+list[i].postSN+"'>"+list[i].title+"</a></th>";
-			str += "<th>"+list[i].nick + "</th>";
-			str += "<th>"+channelService.displayTime(list[i].createDateTime) +"</th></tr></thead>";
+			str += "<thead><tr><td>"+list[i].channelTitle + "</td>";
+			str += "<td><a  href='/channel/get/"+list[i].postSN+"'>"+list[i].title+"["+list[i].replyCnt+"]"+"</a></td>";
+			str += "<td>"+list[i].nick + "</td>";
+			str += "<td>"+channelService.displayTime(list[i].createDateTime) +"</td></tr></thead>";
 			
 		}
 		
@@ -66,16 +66,16 @@ $(document).ready(function(){
 		var str = "<ul class='pagaination pull-right'>";
 		
 		if(prev){
-			str += "<li class='page-item'><a class='page-link' href='"+(startNum -1) +"'>Previous</a></li>";
+			str += "<li class='page-item'><a class='page-link' href='"+(startNum -1) +"'>Previous</a>";
 		}
 		for ( var i = startNum; i <= endNum; i++){
 			var active = pageNum == i ? "active":"";
 			str += "<li class='page-item "+active +" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
 		}
 		if(next){
-			str += "<li class='page-item'><a class='page-link' href='"+ (endNum + 1) + "'>Next</a></li>";
+			str += "<a class='page-link' href='"+ (endNum + 1) + "'>Next</a></li>";
 		}
-		str += "</ul></div>";
+		str += "</ul>";
 		
 		postFooter.html(str);
 	}
@@ -91,10 +91,14 @@ $(document).ready(function(){
 	
 	
 	$("#boardPost").on("click",function(){
-		self.location = "/board/list";
+		self.location = "/category/main";
 	});
 	$("#createChannel").on("click" , function(){
 		self.location = "/channel/chcreate";
+	});
+	
+	$("#registerCreator").on("click", function(){
+		self.location = "/creator/apply";
 	});
 	
 });

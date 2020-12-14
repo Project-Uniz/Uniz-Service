@@ -43,7 +43,7 @@ public class HomeController {
 		
 		return "home";
 	}
-	
+	 
 	@RequestMapping(value = "/maincontent", method = RequestMethod.GET)
 	public void home2(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);

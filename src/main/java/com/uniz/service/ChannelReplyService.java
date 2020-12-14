@@ -2,6 +2,7 @@ package com.uniz.service;
 
 import java.util.List;
 
+import com.uniz.domain.ChannelReplyPageDTO;
 import com.uniz.domain.ChannelReplyVO;
 import com.uniz.domain.Criteria;
 
@@ -16,5 +17,7 @@ public interface ChannelReplyService {
 	public int delete(Long replySN);
 	
 	public List<ChannelReplyVO> getList(Criteria cri , Long postSN);
+	
+	public ChannelReplyPageDTO getListPage(Criteria cri, Long postSN);
 	
 }

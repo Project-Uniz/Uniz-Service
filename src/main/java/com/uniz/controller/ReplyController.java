@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uniz.domain.ChannelReplyPageDTO;
 import com.uniz.domain.Criteria;
 import com.uniz.domain.ReplyPageDTO;
 import com.uniz.domain.ReplyVO;
@@ -46,16 +49,14 @@ public class ReplyController {
 	}
 	
 	//해당 글의 댓글들 보여줌
-	@GetMapping(value = "/pages/{postSN}/{page}" ,
-			produces = {
-					MediaType.APPLICATION_XML_VALUE,
-					MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<ReplyPageDTO> getList( @PathVariable("page") int page, @PathVariable("postSN") Long postSN ){
+	@RequestMapping("/page/{postSN}/{page}")
+	@ResponseBody
+	public ReplyPageDTO getList(@PathVariable("page") int page, @PathVariable("postSN") Long postSN, Model model){
 		
-		log.info("test-------------");
+		
 		Criteria cri = new Criteria(page, 10);
-		
-		return new ResponseEntity<>(service.getListPage(cri, postSN), HttpStatus.OK);
+
+		return service.getListPage(cri, postSN);
 		
 	}
 	

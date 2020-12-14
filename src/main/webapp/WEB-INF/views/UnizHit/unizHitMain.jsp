@@ -69,9 +69,12 @@ span ul {
 	width: 250px;
 	height: 140px;
 }
+
 </style>
 
 <body>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<div class="wrap">
 
@@ -149,7 +152,7 @@ $(document).ready(function() {
 							e.preventDefault();
 							$("#keyword").val($(this).val());
 							
-							console.log("unizSN=====" + unizsn)
+							//console.log("unizSN=====" + unizsn)
 					
 							
 		getList({unizSN:unizsn});
