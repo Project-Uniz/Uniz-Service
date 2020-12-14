@@ -79,5 +79,10 @@
 	ORDER BY m.point DESC
 	]]>
 	</select>
-
+	
+	<select id="findParentUniz" resultType="Long">
+		SELECT PARENTUNIZSN
+		FROM UNIZLAYERLIST
+		WHERE UNIZSN = #{utbCateSN}
+	</select>
 </mapper>

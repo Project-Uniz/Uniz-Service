@@ -2,46 +2,146 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.uniz.mapper.UserMapper">
 
-<insert id="insertUserData">
-insert into userData 
-( userSN, nick, userId, password, imgUrl, userType, state, 
-lastLoginDateTime,createDateTime,updateDateTime, lastStateDateTime )
-values(userData_seq.nextval, #{nick}, #{userId}, #{password}, #{imgUrl}, #{userType}, #{state}, 
-sysdate, sysdate, sysdate, sysdate)
+<insert id="userDataInsert">
+	<selectKey keyProperty="userSN" order="BEFORE" resultType="long">
+		SELECT USERDATA_SEQ.NEXTVAL FROM DUAL
+	</selectKey>
+	INSERT INTO USERDATA
+	(USERSN, USERID, PASSWORD,NICK,IMGURL)
+	VALUES
+	(#{userSN},#{userId}, #{password}, #{nick}, #{imgUrl})
+
 </insert>
 
+<insert id="userSelectUnizInsert">
+	<selectKey keyProperty="userSN" order="BEFORE" resultType="long">
+		SELECT USERDATA_SEQ.CURRVAL FROM DUAL
+	</selectKey>
+	<foreach item="item" collection="unizSN" separator=" " open="INSERT ALL " close="SELECT * FROM DUAL">
+	INTO MYUNIZPOINTLIST
+	(USERSN, UNIZSN, POINT)
+	VALUES
+	(#{userSN}, #{item}, 50)
+	</foreach>
+</insert>
+
+<insert id="registerUserStateLog">
+	<selectKey keyProperty="userSN" order="BEFORE" resultType="long">
+		SELECT USERDATA_SEQ.CURRVAL FROM DUAL
+	</selectKey>
+	INSERT INTO USERSTATELOG
+	(USERSN, STATUSSN)
+	VALUES
+	(#{userSN}, #{state})
+</insert>
+
+<select id="userDuplicationCheck" resultType="Integer">
+	SELECT COUNT(*) 
+	FROM USERDATA
+	WHERE NICK = #{nick}
+	OR USERID = #{userId}
+</select>
+
+
+<select id="userNickDuplicationCheck" resultType="Integer">
+	SELECT COUNT(*)
+	FROM USERDATA
+	WHERE NICK = #{nick}
+
+</select>
+
+<select id="userIdkDuplicationCheck" resultType="Integer">
+	SELECT COUNT(*)
+	FROM USERDATA
+	WHERE USERID = #{userId}
+
+</select>
+
+<select id="userLogin" resultType="Integer">
+	SELECT COUNT(*) 
+	FROM USERDATA WHERE USERID = #{userId} 
+	AND PASSWORD = #{password}
+</select>
+
 <select id="getUserData" resultType="com.uniz.domain.UserDTO">
-select * from userData where userSN = #{userSN}
+	SELECT * 
+	FROM USERDATA 
+	WHERE USERSN = #{userSN}
 </select>
 
-<select id="findExistingUserId" resultType="INTEGER">
-select count(*) from userData 
-where userId = #{userId}
+<select id="getUser" resultType="com.uniz.domain.UserDTO">
+	SELECT * 
+	FROM USERDATA 
+	WHERE USERID = #{userId}
 </select>
 
-<select id="findExistingNick" resultType="INTEGER">
-select count(*) from userData 
-where nick = #{nick}
-</select>
-
-
-<select id="isIdPwdValid" resultType="INTEGER">
-select count(*) from userData where userId  = #{userId}  and password = #{password}
-</select>
-
-
-<select id="selectState"  resultType="INTEGER">
-select state from userData where userId = #{userId} and password = #{password}
-</select>
-
-<update id="updateUserInfo">
-update userData
-set nick = #{nick}, 
- password = #{password}
-
-
-where userId = #{userId}
+<update id="updateUserLogin">
+	UPDATE 
+	  USERDATA
+	SET
+	  LASTSTATEDATETIME = sysdate
+	WHERE 
+	  USERSN = #{userSN}
 </update>
 
+<select id="userUniz" resultType="com.uniz.domain.MyUnizPoint">
+	SELECT UP.USERSN,U.UNIZSN,U.UNIZKEYWORD, UP.POINT 
+	FROM MYUNIZPOINTLIST UP, UNIZ U 
+	WHERE UP.USERSN = #{userSN}
+	AND UP.UNIZSN = U.UNIZSN
 
+</select>
+
+<update id ="userDataUpdate">
+	UPDATE 
+	  USERDATA
+	SET
+	  USERSN = #{userSN},
+	  USERID = #{userId},
+	  PASSWORD = #{password},
+	  UPDATEDATETIME = SYSDATE
+	WHERE
+	  USERSN = #{userSN}  
+</update>
+
+<update id ="changeUserState">
+	UPDATE 
+	  USERDATA
+	SET 
+	  STATE = #{state},
+	  LASTSTATEDATETIME = sysdate
+	WHERE 
+	  USERSN = #{userSN}   
+</update>
+
+<insert id = "userStateLogInsert">
+	INSERT INTO USERSTATELOG
+	(USERSN, STATUSSN)
+	VALUES
+	(#{userSN}, #{state})
+
+</insert>
+
+<insert id="addMyPlaylog">
+		MERGE INTO myplaylog
+			  USING dual
+			  ON (
+			 	 userSN = #{userSN} 
+			 	 AND
+			  	 videoSN = #{videoSN}
+			  )
+		WHEN MATCHED THEN
+		  UPDATE SET 
+		  lastposition = #{position},
+		  startdatetime = sysdate
+
+		WHEN NOT MATCHED THEN
+			
+		  INSERT(
+		  	usersn, videosn, lastposition
+		  ) 
+		  VALUES 
+		  (#{userSN}, #{videoSN}, #{position}) 
+		  
+	</insert> 
 </mapper>

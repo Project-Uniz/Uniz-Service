@@ -42,7 +42,8 @@
 			#{unizSN}
 		</foreach>
 	</update>
-
+	
+	
 	<update id="decMyUnizPoint">
 	UPDATE
 		myunizpointlist
@@ -68,9 +69,28 @@
 	</select>
 
 	<insert id="addHistory">
-		INSERT INTO unizpointhistory (userSN, unizSN, point, type)
-		VALUES (#{userSN}, #{unizSN}, #{point}, #{type})
+		INSERT INTO unizpointhistory (historySN,userSN, unizSN, point, type)
+		VALUES (unizpointhistory_seq.nextval ,#{userSN}, #{unizSN}, #{point}, #{type})
 	</insert>
 
-
+	<insert id="addMyUnizPoint">
+		MERGE INTO myunizpointlist
+			  USING dual
+			  ON (
+			 	 userSN = #{userSN} 
+			 	 AND
+			  	 unizSN = #{unizSN}
+			  )
+		WHEN MATCHED THEN
+		  UPDATE SET 
+		  point = point + #{addPoint},
+		  updateDateTime = sysdate
+		  
+		WHEN NOT MATCHED THEN
+		  INSERT(
+		  	userSN, unizSN, point
+		  ) 
+		  VALUES 
+		  (#{userSN}, #{unizSN}, #{addPoint}) 
+	</insert> 
 </mapper>

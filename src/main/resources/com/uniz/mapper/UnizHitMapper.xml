@@ -2,20 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.uniz.mapper.UnizHitMapper">
 
-	<select id="read" resultType = "com.uniz.domain.VideoDataVO">
-	
-	<![CDATA[
-	select* from videodata where videoSN = #{vodeoSN}
-	]]>
-	
-	</select>	
-	
 	<select id="getHitList" resultType = "com.uniz.domain.VideoDataVO">
 	<![CDATA[
 	
 	SELECT videoSN,thumbUrl,yuploaddatetime
 	
-	FROM videoData2
+	FROM videoData
 	
 	where yuploaddatetime >= (select SYSDATE - 60
                           from dual
@@ -25,17 +17,16 @@
 			
 	]]>
 	</select>	
-	
-	
+  
 	<select id="getVideo" resultType="com.uniz.domain.VideoDataVO">
 		SELECT * 
-		FROM videoData2 
+		FROM videoData 
 		where videoSn = #{videoSN}
 	</select>
-	
+
 	<select id="keywordHitList" resultType="com.uniz.domain.VideoDataVO">
 		SELECT v.videoSN,v.thumbUrl,v.title
-		FROM  videoData2 v , uniz u
+		FROM  videoData v , uniz u
 		WHERE v.utbCateSN = u.unizSN
 			  and utbCateSN IN 
 		<foreach item="unizSN" index="index" collection="unizSNlist" open="(" separator="," close=")">
@@ -43,15 +34,10 @@
 		</foreach>
 	</select>
 	
-
-	
-	
 	<select id="keywordUniz" resultType="com.uniz.domain.UnizLayerListVO">
 		select unizsn
 		from unizlayerlist
 		where parentunizsn = #{unizSN}
-	
-	
 	</select>
 	
 </mapper>

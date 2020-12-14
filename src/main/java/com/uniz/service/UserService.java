@@ -1,34 +1,38 @@
 package com.uniz.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.uniz.domain.MyUnizPoint;
 import com.uniz.domain.UserDTO;
 
 public interface UserService {
 
-	public boolean validateForm(UserDTO dto);
+	//대윤
+	public int userRegister(UserDTO dto,List<Long> unizSN);
 	
-	public boolean getExistingUserId( String userId);
-	public boolean getExistingNick( String nick);
-	public boolean insertUserData(UserDTO dto);
-	public int register(UserDTO dto, Model model);
+	public boolean isNotUserDTO(UserDTO dto); //test용
+	
+	public String userNickDuplicationCheck(String nick); //test용
+	
+	public String userIdDuplicationCheck(String userId); // test용
+	
+	public int userLogin(UserDTO user, HttpSession session);
+
+	public List<MyUnizPoint> getUserUniz(Long userSN);
+
+	public String modifyUser(UserDTO userDto, UserDTO modifyUserDto, String c_password, HttpSession session);
+
+	public void changeUserState(Long userSN, int STATECODE);
+
+	public String addMyPlayLog(Long userSN, Long videoSN, int currentTime);
+	
 	
 
-	public boolean stateCheck(String userId);
-	
-	public boolean isIdPwdValid(UserDTO dto);
-	
-	public int login(UserDTO dto, Model model, HttpServletRequest request, HttpServletResponse response);
-	
-	public void validateSession(HttpServletRequest request, String userId);
-	public void deleteCookie(HttpServletRequest request, HttpServletResponse response);
-	public void makeCookie(HttpServletResponse response, String userId);
-
-	public boolean isIdRememberChecked(HttpServletRequest request); 
-	
-	public boolean modifyUserInfo(UserDTO dto);
 }

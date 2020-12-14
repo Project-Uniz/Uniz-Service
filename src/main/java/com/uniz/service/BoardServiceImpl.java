@@ -46,8 +46,11 @@ public class BoardServiceImpl implements BoardService {
 		
 		mapper.insertPost(board);
 		log.info("BoardPost 데이터 추가");
+		log.info(board);
+		
 		
 		mapper.insertCont(board);
+		log.info(board);
 		log.info("BoardPostContent 데이터 추가");
 	}
 	
