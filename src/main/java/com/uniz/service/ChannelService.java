@@ -2,12 +2,12 @@ package com.uniz.service;
 
 import java.util.List;
 
-import com.uniz.domain.BoardVO;
 import com.uniz.domain.ChannelAttachVO;
 import com.uniz.domain.ChannelBoardVO;
 import com.uniz.domain.ChannelPageDTO;
 import com.uniz.domain.ChannelVO;
 import com.uniz.domain.Criteria;
+import com.uniz.domain.UserData;
 
 public interface ChannelService {
 	
@@ -26,6 +26,8 @@ public interface ChannelService {
 	public ChannelBoardVO getPost(Long postSN);
 	
 	public int checkChannel(Long channelSN);
+	
+	public List<UserData> checkUserType(Long userSN);
 	
 	public void createChannel(ChannelVO vo);
 	

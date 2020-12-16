@@ -78,10 +78,12 @@
 	<![CDATA[
 		select *
 		from (
-			select rownum rn , a.*
+			select rownum list , a.*
 			from
 				(
-				select b.boardsn , p.postsn , p.title, p.createdatetime , b.boardComment, u.nick , p.replycnt
+				select row_number() over(order by p.postsn , rownum desc) rn ,
+				b.boardsn , p.postsn , p.title, p.createdatetime , b.boardComment, u.nick , p.replycnt
+				
 				from board b , boardpost p , userdata u
 				where b.boardsn = #{boardSN}
 				and b.boardsn = p.boardsn
@@ -93,7 +95,8 @@
 	<![CDATA[
 	  	rownum <= #{cri.pageNum} * #{cri.amount}
 	  	)
-	  	where rn > (#{cri.pageNum} -1 ) * #{cri.amount}
+	  	where list > (#{cri.pageNum} -1 ) * #{cri.amount}
+	  	
 	  ]]>	
 	</select>
 	

@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.uniz.domain.BoardVO;
 import com.uniz.domain.ChannelAttachVO;
 import com.uniz.domain.ChannelBoardVO;
 import com.uniz.domain.ChannelPageDTO;
 import com.uniz.domain.ChannelVO;
 import com.uniz.domain.Criteria;
+import com.uniz.domain.UserData;
 import com.uniz.mapper.ChannelAttachMapper;
 import com.uniz.mapper.ChannelMapper;
 
@@ -73,6 +73,12 @@ public class ChannelServiceImpl implements ChannelService {
 	public int checkChannel(Long channelSN) {
 		
 		return mapper.checkChannel(channelSN);
+		
+	}
+	
+	public List<UserData> checkUserType(Long userSN) {
+		
+		return mapper.checkUserType(userSN);
 		
 	}
 	

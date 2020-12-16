@@ -11,6 +11,7 @@ public class ChannelBoardVO {
 	private Long postSN;
 	private Long channelSN;
 	private Long userSN;
+	private Long rn;
 	private String postContent;
 	private String channelTitle;
 	private String title;

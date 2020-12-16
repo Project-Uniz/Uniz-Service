@@ -29,7 +29,7 @@
 		<load-on-startup>1</load-on-startup>
 		
 		<multipart-config>
-			<location>C:\\mp\\file</location>
+			<location>C:\work\Uniz-Service\src\main\webapp\resources\imgUpload</location>
 			<max-file-size>20971520</max-file-size>
 			<max-request-size>41943040</max-request-size>
 			<file-size-threshold>20971520</file-size-threshold>

@@ -65,18 +65,19 @@ $(document).ready(function(){
 			var str = "";
 			
 			if(list == null || list.length == 0){
-				return;
-			}
-			
-			str += "<thead><tr><th>글 번호</th><th>글 제목</th><th>작성자</th><th>작성 일</th></tr></thead>"
+				
+				str = "<thead><tr><th> 글 번호 </th><th> 글 제목 </th><th> 작성자 </th><th> 작성 일 </th></tr></thead>";
+				
+			} 
+				
+				str = "<thead><tr><th>글 번호</th><th>글 제목</th><th>작성자</th><th>작성 일</th></tr></thead>";
 				for ( var i = 0, len = list.length || 0; i < len; i ++){
-					str += "<th>"+list[i].postSN + "</th>";
+					str += "<th>"+list[i].rn + "</th>";
 					str +=  "<th><a class='move' href='/channel/get/"+list[i].postSN+"'>"+list[i].title+"["+list[i].replyCnt+"]"+"</a></th>";
 					str += "<th>"+list[i].nick + "</th>";
 					str += "<th>"+channelService.displayTime(list[i].createDateTime) +"</th></tr></thead>";	
 					
 				}
-				
 				post.html(str);
 				showPostPage(postCnt);
 			});
