@@ -1,86 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+	<link rel="stylesheet" href="../resources/css/apply.css">
 </head>
-<style>
-
-.uploadResult{
-
-	whidth : 100%;
-
-}
-
-.uploadResult ul{
-
-	display : flex;
-	flex-flow : row;
-	justify-content : center;
-	align-items: center;
-
-}
-
-.uploadResult ul li {
-
-	list-style : none;
-	padding : 10px;
-
-}
-
-.uploadResult ul li img{
-
-	width : 100%;
-	
-}
-
-
-</style>
 <body>
-	
-	
-    
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="panel panel-default">
-				<div class="panel-heading"><h1>크리에이터 등록 페이지</h1></div>
-				<!-- /.panel-heading -->
-				<div class="panel-body">
-					
+
+<%@ include file="/WEB-INF/views/includes/nav.jsp"%>
+
+	<div class="applyMain">
+			<div class="creatorRegisterHeader">
+				<h1>크리에이터 등록 페이지</h1>
+			</div>
+				<div class="createForm">
 					<form role="form" action="/creator/apply" method="post" >
-					
-						<div class="form-group">
 						
-							<p>[운영하는 채널 이름]</p>
-							
-							<label>채널 이름</label>
-							
-							<input class="form-control" name='channelTitle' id='channelTitle'>
-							
-						</div>
+					<div class="RegisterForm">
 						
-						<br>
+							<label class="label">(운영하는)채널 이름</label>
+							<!--<input class="form-control" name='channelTitle' id='channelTitle'> -->
+							<input class="form-control" name='channelTitle' id='channelTitle' placeholder="channelName">
+				
+							<label class="label">UserSN</label>
+							<!-- <input class="form-control" name='userSN' id='userSN'> -->
+							<input class="form-control" name='userSN' id='userSN' placeholder="userSN">
 						
-						<div class="form-group">
-						
-							<p>[userSN]</p>
-							
-							<label>userSN</label>
-							
-							<input class="form-control" name='userSN' id='userSN'>
-							
-						</div>
-						
-						<br>
-						
-						<div class="form-group">
-						
-							<p>[운영하는 채널의 주 카테고리]</p>
-							
-							<label>카테고리 목록</label>
-							
+						<div class="CateList">
+							<label class="label catList">(운영 채널 주)카테고리 목록</label>
 							<select name='category' id='category'>
 								<option value='영화/애니메이션'>영화/애니메이션</option>
 								<option value='자동차/교통'>자동차/교통</option>
@@ -98,51 +49,43 @@
 								<option value='과학기술'>과학기술</option>
 								<option value='비영리/사회운동'>비영리/사회운동</option>
 							</select>
-							
 						</div>
 						
-						<br>
-						
-						<div class="form-group">
-						
-							<p>[연락 받을 이메일 주소를 입력하세요] </p>
+						<div class="emailForm">
+							<label class="label" for="">[연락 받을 이메일 주소를 입력하세요] </label>
 							
-							<label>이메일 주소</label>
-							
-							<input  class="form-control" name='email' value=''>
-							
+							<!-- <input  class="form-control" name='email' value=''> -->
+							<input  class="form-control" name='email' value='' placeholder="EmailAddress">
 						</div>
 						
-						<br>
 						
 						<div class="uploadResult">
-						
 							<ul>
 							</ul>
 							
 						</div>
 						
-						<br>
 						
-						<p>[본인 유튜브 스튜디오 메인 페이지 캡쳐 이미지 업로드 해주세요]</p>
 						
-		   				<div class="panel-body">	
-							<div class="form-group uploadDiv">
-								<input type='file' name='uploadFile' multiple>
+						<label class="label label5">[본인 유튜브 스튜디오 메인 페이지 캡쳐 이미지 업로드 해주세요]</label>						
+		   				<div class="uploadFileBox"> 
+							<label for="uploadFile">파일 선택하기</label> 
+								<div class="ChseBtn">
+								
+								<input type='file' name='uploadFile'id="uploadFile" multiple >
 							</div>
-							
 						</div>
 						
-						<br>
-						
-						<button type="submit" >등록 신청하기</button>
-						<button type="reset" class="btn btn-default">전체 지우기</button>
-					
-					</form>
-				</div>
-			</div>
+						<div class="applyBtnBox">
+						<!-- <button type="submit" >등록 신청하기</button> -->
+						<button class="submitBtn" type="submit" >등록 신청하기</button>
+						<!-- <button type="reset" class="btn btn-default">전체 지우기</button> -->
+ 						<button class="delBtn" type="reset" >전체 지우기</button>
+						</div>
+					</div>
+				</form>
 		</div>
-	</div> 
+ 	</div>
 	
 	
 					
