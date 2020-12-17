@@ -124,6 +124,7 @@ public class UserServiceImpl implements UserService{
 				//세션 생성
 				user = mapper.getUser(user);
 				session.setAttribute("user", user);
+				session.setAttribute("userType", user.getUserType());
 				
 				//로그인 이력 변경
 				mapper.updateUserLogin(user.getUserSN());

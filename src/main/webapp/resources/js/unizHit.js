@@ -22,7 +22,7 @@ function getList(param ){
 			
 		//data.length를 5개씩 나눠서 보여주기;
 			for (var i = 0, len = data.length ; i < len ; i++) {
-				console.log(data[i].videoSN);
+				
 						
 			
 				if(i == 0 || i % 5 == 0){
@@ -35,7 +35,7 @@ function getList(param ){
 				
 			}
 			
-				console.log("뭐지"+unizSN);
+				
 			hitdiv.html(str);
 
 		}
@@ -67,7 +67,7 @@ function getListAll(){
 			
 		//data.length를 5개씩 나눠서 보여주기;
 			for (var i = 0, len = data.length ; i < len ; i++) {
-				console.log(data[i].videoSN);
+			
 			
 				if(i == 0 || i % 5 == 0){
 				

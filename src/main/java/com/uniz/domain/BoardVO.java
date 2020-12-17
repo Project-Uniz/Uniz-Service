@@ -12,6 +12,7 @@ public class BoardVO {
 	private Long boardSN;
 	private Long replySN;
 	private Long userSN;
+	private Long rn;
 	private String boardTitle;
 	private String boardComment;
 	private String title;

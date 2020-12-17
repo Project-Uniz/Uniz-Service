@@ -92,10 +92,8 @@ var chReplyService = (function(){
 	        data : JSON.stringify(modify),
 			contentType : "application/json; charset=utf-8",
 	        success : function(data){
-	            if(data == 1)
-	            location.reload(true);
+	        	showList(1);
 	            	 //댓글 수정후 목록 출력 
-	            
 	        }
 	    });
 	}

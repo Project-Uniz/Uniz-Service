@@ -1,0 +1,322 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans KR", sans-serif, 나눔고딕, 돋움, Dotum, 굴림, Gulim, "Apple SD Gothic Neo";
+}
+.nav{
+    width: 100%;
+    height: 80px;
+    background-color: white;
+    border-bottom: 2px solid rgb(203, 192, 212);
+    display:flex;
+    justify-content: space-between;
+}
+.nav a{
+    text-decoration: none;
+    /* 로고 a줄 없애기.  */
+}
+.nav1{
+    display: flex;
+    align-items: center;
+}
+.unizLogo, .unizFont{
+    margin-left:5px;
+}
+    
+.navbar1-2 ul li{
+    list-style-type: none;
+    display: inline-block;
+}
+.nav1-2 ul li{
+    list-style-type: none;
+    display: inline-block;
+}
+.nav1-2 ul li a{
+    padding: 20px 20px;
+}
+.nav1-2 ul li:first-child{
+    margin-left: 15px;
+}
+.nav2{
+    /* background-color: chartreuse; */
+    width: 40%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.searchBox2{
+    width: 60%;
+    height: 100%;
+    /* background-color: mediumvioletred; */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+}
+form{
+    /* background-color: gray; */
+    position: relative;
+    width: 250px;
+    display: flex;
+}
+.searchBox2  input[type=text]{
+    padding: 11px 5px;
+    width: 80%; 
+    width: 250px;
+    border: 1px solid rgb(148, 148, 148);
+    border-radius: 4px 0 0 4px;
+    background-color: white;
+    outline: none;
+}
+.searchBox2  button{
+    width: 20%;
+    border: none;
+    padding: 2px; 
+    background-color: dodgerblue;
+    border-radius: 0 4px 4px 0;
+    /* border-radius: 4px; */
+    outline: none;
+}
+.btnBox{
+    /* background-color: blueviolet; */
+    height: 100%;
+    width: 40%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.btnBox button{
+    background-color: dodgerblue;
+    color: white;
+}
+.login, .register{
+    background-color: white;
+    border: 2px solid dodgerblue;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin-right: 10px;
+    outline: none;
+}
+.btnBox .login{
+    background-color: white;
+    border-color:white;
+    color: blue;
+}
+.btnBox .login:hover{
+    background-color: rgb(228, 249, 255);
+    border-color:  rgb(228, 249, 255);
+    color: rgb(13, 13, 214);
+    transition: 0.4s ease-in-out;
+}
+
+.register:hover{
+    border-color: rgb(29, 99, 230);
+    color: rgb(236, 236, 236);
+    background-color: rgb(29, 99, 230);
+    transition: 0.3s ease-in-out;
+}
+
+/* apply .html  */
+.applyMain{
+    /* background-color: rgb(45, 61, 105); */
+    width: 90%;
+    height: 1200px;
+    margin: 30px auto;
+    
+}
+.creatorRegisterHeader{
+    /* background-color: rgb(198, 238, 236); */
+    background-color: white;
+}
+.creatorRegisterHeader h1{
+    padding: 38px;
+    color: rgb(42, 42, 112);
+    text-align: center;
+}
+.formBox{
+    background-color: rgb(171, 202, 60);
+    width: 100%;
+    height: 700px;
+}
+.createForm{
+    /* background-color: rgb(227, 240, 243); */
+    width: 85%;
+    height: 700px;
+    margin: 13px auto;
+}
+body > div.applyMain > div.createForm > form{
+    /* background-color: brown; */
+    width: 100%;
+    height: 100%;
+}
+.RegisterForm{
+    /* background-color: rgb(192, 136, 15); */
+    width: 90%;
+    height: 500px;
+    font-size: 18px;
+    padding: 5px;
+    /* margin : 30px 80px; */
+    margin: 20px auto;
+}
+.form-control{
+    background-color: rgb(246, 252, 255);
+    font-size: 20px;
+    padding: 10px 15px;
+    width: 90%;
+    height: 50px;
+    border: 1px solid rgb(161, 161, 161);
+    border-radius: 3px;
+    margin: 14px 3px;
+    outline: none;
+    display: block;
+    margin: 10px auto;
+    margin-bottom: 25px;
+    
+}
+.form-control:focus{
+    border: 2px solid rgb(36, 66, 122);
+}
+#category{
+    margin-top: 10px;
+    padding:  5px 12px;
+    border-radius: 3px;
+    border : 2px solid rgb(99, 116, 139);
+    outline: none;
+    color: rgb(70, 69, 69);
+}
+#category:hover{
+    background-color: rgb(222, 225, 241);
+    transition: 0.4s;
+    color: black;
+}
+.label{
+    margin:  50px 30px;
+    color: rgb(0, 134, 187);
+    font-weight: bold;
+    padding: 30px 20px;
+}
+.label5{
+    /* 본인 유튜브 스튜디오 메인 페이지~~~ 문구 */
+    line-height: 80px;
+}
+body > div.applyMain > div.createForm > form > div > div.CateList > label{
+   line-height: 30px;
+}
+.form-control:nth-child(4){
+    /* (운영 채널 주)카테고리 목록 */
+    margin-bottom: 20px;
+}
+.CateList{
+    width: 100%;
+    height: 60px;
+    /* background-color: palevioletred; */
+}
+.catList{
+    margin-right: 0;
+}
+.thumbNail{
+    background-color: rgb(202, 235, 238);
+    width: 90%;
+    height: 260px;
+    margin: 0 auto;
+}
+.timesBtn{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    background-color: white;
+    border: 2px solid grey;
+    border-radius: 3px;
+}
+.timesBtn svg{
+    position:absolute;
+    top: 5%;
+    right: 20%;
+    color: rgb(0, 0, 175);
+}
+.uploadFileBox{
+    /* background-color: gold; */
+    width:90%;
+    height: 60px;
+    margin: 0 auto;
+}
+.ChseBtn{
+    padding:  0 10px;
+}
+.ChseBtn input[type="file"]{
+    font-size: 20px;
+    color: rgb(14, 79, 184);
+    display: none;
+}
+.uploadFileBox label{
+    padding: 6px 25px;
+    background-color: paleturquoise;
+    border-radius: 4px;
+}
+.uploadFileBox label:hover{
+    background-color: rgb(27, 154, 228);
+    color: rgb(245, 245, 245);
+    transition: 0.3s;
+}
+.applyBtnBox{
+    /* background-color: darkred; */
+    width: 90%;
+    margin: 60px auto;
+}
+.submitBtn, .delBtn{
+    margin: 8px;
+    padding:  12px 16px;
+    font-size: 18px;
+    background-color: white;
+    color: rgb(0, 100, 139);
+    border: 3px solid rgb(119, 154, 168);
+    border-radius: 3px;
+    outline: none;
+    
+}
+.submitBtn:hover , .delBtn:hover{
+    background-color: mintcream;
+    color: rgb(0, 111, 126);
+}
+
+.footer{
+    background-color: rgb(85, 163, 241);
+    width: 100%;
+    height: 200px;
+    display: flex;
+}
+.footer1{
+    /* background-color:yellow; */
+    width: 30%;
+    height: 100%;
+    padding: 40px 10px;
+    margin: 0 auto;
+}
+.footer2{
+    /* background-color: yellowgreen; */
+    width: 20%;
+    height: 100%;
+    padding: 40px;
+}
+.footer3{
+    /* background-color: aquamarine; */
+    width: 50%;
+    height: 100%;
+    padding: 40px 16px;
+    
+}
+.footer1, .footer2, .footer3{
+    color: white;
+}
+
+
+/* get get.html */
+.uploadResult ul li, .thumbNail ul li{
+    list-style-type: none;
+}
+
+.applyMain{
+    height: 700px;
+}

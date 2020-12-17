@@ -2,8 +2,6 @@ package com.uniz.domain;
 
 import java.util.Date;
 
-import javax.xml.ws.BindingType;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;

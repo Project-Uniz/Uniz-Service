@@ -75,6 +75,8 @@ public class UnizHitServiceImpl implements UnizHitService {
 		log.info("get keyword List" + unizSN);
 	
 		return mapper.keywordHitList(unizSN2);
-	
+		
+		
 	}
+
 }

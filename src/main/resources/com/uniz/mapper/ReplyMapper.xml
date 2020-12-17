@@ -27,6 +27,13 @@
 	  ]]>	
 	</select>
 	
+	<select id="getList" resultType="com.uniz.domain.ReplyVO">
+		select * 
+		from boardpostreply r , userdata u
+		where r.postsn = #{postSN}
+		and r.userSN = u.userSN
+	</select>
+	
 	<select id="getCountByPostSN" resultType="int">
 		<![CDATA[
 			select count(replySN) from boardpostreply where postSN = #{postSN}

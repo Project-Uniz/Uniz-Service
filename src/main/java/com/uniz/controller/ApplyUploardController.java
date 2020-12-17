@@ -85,7 +85,7 @@ public class ApplyUploardController {
 						new FileOutputStream(new File(uploadPath, "s_" + uploadFileName ));
 					
 					Thumbnailator.createThumbnail(multipartFile.getInputStream(), 
-							thumbnail, 400, 400);
+							thumbnail, 100, 100);
 					
 					log.info("thumbnail : " + thumbnail);
 					thumbnail.close();

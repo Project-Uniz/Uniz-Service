@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.uniz.domain.BoardVO;
 import com.uniz.domain.ChannelBoardVO;
 import com.uniz.domain.ChannelVO;
 import com.uniz.domain.Criteria;
+import com.uniz.domain.UserData;
 
 public interface ChannelMapper {
 
@@ -26,6 +26,8 @@ public interface ChannelMapper {
 	public ChannelBoardVO getPost(Long postSN);
 	
 	public int checkChannel(Long channelSN);
+	
+	public List<UserData> checkUserType(Long userSN);
 	
 	public int checkPost(Long postSN);
 	

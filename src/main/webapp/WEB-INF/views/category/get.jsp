@@ -104,21 +104,24 @@
 			</div>
 	
 		<br>
-	<button id='modify'>글 수정</button>
+	<c:if test = "${user.userSN eq board.userSN}" >
+		<button id='modify'>글 수정</button>
+	</c:if>
 	<button id='list'>목록으로</button>
 	
 	<div>
 	</div>
 	
 	<br>
-
+		
 	<div class="container">
         <label for="content">comment</label>
         <form name="commentInsertForm" >
             <div class="input-group">
-               <input class='postSN' type="text" name="postSN" value="${postSN}"/>
-               <input class='userSN' type="text" name="userSN" value=""/>
-               <input class='registerReply' type="text" class="form-control" id="replyContent" name="replyContent" placeholder="내용을 입력하세요.">
+               <input class='postSN' type="hidden" name="postSN" value="${postSN}"/>
+               <input class='userSN' type="hidden" id="userSN" name="userSN" value="${user.userSN}"/>
+               <input class='registerReply' type="text" class="form-control" 
+               id="replyContent" name="replyContent" placeholder="내용을 입력하세요." onclick="return checkSession();" >
                <span class="input-group-btn">
                     <button id='registerBtn' type="submit" >등록</button>
                </span>
@@ -130,9 +133,11 @@
 	
 	<div>
 			
+			
 			<div class="reply">
 			
 			</div>
+			
 			<div class="panel-footer">
 			</div>	
 		
@@ -146,6 +151,7 @@
 $(document).ready(function(){
 	
 	
+	
 	var postSN = '<c:out value="${postSN}"/>';
 	var boardSN = '<c:out value="${board.boardSN}"/>';
 	
@@ -155,6 +161,12 @@ $(document).ready(function(){
 		
 		var postSN = '<c:out value="${postSN}"/>';
 		var boardSN = '<c:out value="${board.boardSN}"/>';
+		
+		var chSession = '<c:out value="${user.userSN}"/>';
+		
+		sessionStorage.setItem('user', chSession);
+		
+		var session = parseInt(sessionStorage.getItem('user'));
 		
 		replyService.commentList({postSN : postSN, page : page || 1} ,function(replyCnt, list){
 			
@@ -171,13 +183,21 @@ $(document).ready(function(){
 			}
 			
 			for (var i = 0, len = list.length || 0; i < len; i++){
+				console.log("userSN : " + list[i].userSN);
 				  a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
 	                a += '<div class="commentInfo'+list[i].replySN+'">'+'댓글번호 : '+list[i].replySN+' / 작성자 : '+list[i].nick;
-	                a += '<a onclick="commentUpdate('+list[i].replySN+',\''+list[i].replyContent+'\');"> 수정 </a>';
-	                a += '<a role="button" class="deleteBtn" onclick="remove('+list[i].replySN+');"> 삭제 </a> </div>';
-	                a += '<div class="commentContent'+list[i].replySN+'"> <p> 내용 : '+list[i].replyContent +'</p>';
+	                
+	                if(session == list[i].userSN){
+	                	
+		                a += '<a onclick="commentUpdate('+list[i].replySN+',\''+list[i].replyContent+'\');"> 수정 </a>';
+		                a += '<a role="button" class="deleteBtn" onclick="remove('+list[i].replySN+');"> 삭제 </a> </div>';
+	                	
+	                }
+	                
+	                a += '<div class="commentContent'+list[i].replySN+'"> <p> 내용 : '+list[i].replyContent +'</p></div>';
 	                a += '</div></div>';
 			}
+
 			 $(".reply").html(a);
 			 showReplyPage(replyCnt);
 		});
@@ -220,19 +240,6 @@ $(document).ready(function(){
 		});
 	
 	});
-	
-//	var deleteBtn = $(".deleteBtn");
-//	
-//	deleteBtn.on("click", function(e){
-//	
-//		if(confirm("삭제하시겠습니까?")){
-//			replyService.remove(replySN , function(result){
-//				showList(1);			
-//			});
-//		}
-//		
-//	});
-	
 	
 
 
@@ -278,7 +285,6 @@ $(document).ready(function(){
 		replyService.showList(pageNum);
 	});
 
-	
 });
 
 function remove(replySN){
@@ -293,10 +299,10 @@ function remove(replySN){
 
 function commentUpdate(replySN, replyContent){
     var a ='';
-    console.log("test = " + replySN);
+    
     a += '<div class="input-group">';
     a += '<input type="text" class="form-control" name="content_'+replySN+'" value="'+replyContent+'"/>';
-    a += '<input type="text" class="form-control" name="replySN_'+replySN+'" value="'+replySN+'"/>';
+    a += '<input type="hidden" class="form-control" name="replySN_'+replySN+'" value="'+replySN+'"/>';
     a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="replyUpdate('+replySN+');">수정</button> </span>';
     a += '</div>';
     
@@ -320,12 +326,25 @@ function replyUpdate(replySN){
 		if(str.value == '' || str.value == null || str.value.replace(blank_pattern, '').length == 0){
 			alert("댓글 내용을 입력하세요");
 			return false;
-
+		}
 	}
 	
-
+	var chSession = '<c:out value="${user.userSN}"/>';
 	
-}
+	sessionStorage.setItem('user', chSession);
+	
+	var session = sessionStorage.getItem('user');
+	
+	function checkSession(){
+		
+		console.log("~~~~~ " + session);
+		
+		if(session == '' ){
+			alert("로그인이 필요합니다");
+			return false;
+		}
+	}
+
 
 </script>
 <script>
