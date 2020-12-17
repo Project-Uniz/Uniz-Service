@@ -25,57 +25,97 @@
 		</trim>
 	</sql>	
 	
-	<select id="getListWithPaging" resultType="com.uniz.domain.BoardVO">
-		<![CDATA[
+<select id="getAllPost" resultType="com.uniz.domain.BoardVO">
+  <![CDATA[
 	select  *
     	from(
             select rownum rn , a.*
             from
             	(
             	select
-           		p.postsn , p.title , p.createdatetime , u.usersn , u.nick 
-            	from boardpost p ,  userdata u
+           		p.postsn , p.title , p.createdatetime , u.usersn , u.nick , b.boardcomment , p.replycnt
+            	from boardpost p ,  userdata u , board b
     			where u.usersn = p.usersn 
-    			order by postsn desc
+    			and b.boardsn = p.boardsn
+    			order by p.postsn desc
     			)a
-			where 
-		]]>	
-			<include refid="criteria"></include>			
-		
-		<![CDATA[
-			 rownum <= #{pageNum} * #{amount} 
+  ]]>	
+				
+  <![CDATA[
+		where rownum <= #{cri.pageNum} * #{cri.amount}
 			)
-		where rn > (#{pageNum} -1 ) * #{amount}
-		]]>
-	</select>
+	where rn > (#{cri.pageNum} -1 ) * #{cri.amount}
+  ]]>
+</select>
+
 			
 	
 	
 	<select id="getTotalCount" resultType="int">
 		
 		select count(*) from boardpost 
-		where
-		postSN > 0
+		
+	</select>
+	
+	<select id="getTotalCountByBoard" resultType="int">
+		
+		select count(boardsn) from boardpost where boardsn = #{boardSN}
 		
 	</select>
 	
 	<select id="getList"  resultType="com.uniz.domain.BoardVO">
 		
-		<![CDATA[
-			select p.postsn, p.title, c.postcontent, p.createDateTime , u.nick
-			from boardpost p , boardpostcontent c , userdata u
-			where p.postsn = c.postsn and u.usersn = p.usersn
-			order by p.postsn desc
-		]]>
+		select * from board where boardsn = #{boardSN}
 		
+	</select>
+	
+	<select id="getBoardList" resultType="com.uniz.domain.BoardVO">
+		select boardsn , boardtitle, boardcomment, createdatetime
+		from board
+	</select>
+	
+	<select id="getPostList" resultType="com.uniz.domain.BoardVO">
+	<![CDATA[
+		select *
+		from (
+			select rownum list , a.*
+			from
+				(
+				select row_number() over(order by p.postsn , rownum desc) rn ,
+				b.boardsn , p.postsn , p.title, p.createdatetime , b.boardComment, u.nick , p.replycnt
+				
+				from board b , boardpost p , userdata u
+				where b.boardsn = #{boardSN}
+				and b.boardsn = p.boardsn
+				and u.usersn = p.usersn
+				order by p.postsn desc
+				) a
+				where
+	]]>	
+	<![CDATA[
+	  	rownum <= #{cri.pageNum} * #{cri.amount}
+	  	)
+	  	where list > (#{cri.pageNum} -1 ) * #{cri.amount}
+	  	
+	  ]]>	
 	</select>
 	
 	<select id="read" resultType="com.uniz.domain.BoardVO">
 		
-			select p.postSN, u.nick, p.title, c.postcontent, p.createdatetime , p.userSN
-			from boardpost p , boardpostcontent c , userdata u
-			where p.postSN = #{postSN} and p.postsn = c.postsn and u.usersn = p.usersn
+			select p.postSN, p.boardsn ,u.nick, p.title, c.postcontent, 
+				   p.createdatetime , p.userSN, b.boardcomment
+                
+			from boardpost p , boardpostcontent c , userdata u , board b 
+			where p.postSN = #{postSN}
+			and p.postsn = c.postsn 
+			and u.usersn = p.usersn
+			and b.boardsn = p.boardsn    
 			
+	</select>
+	
+	
+	<select id="checkBoard" resultType="int">
+		select count(*) from board where boardsn = #{boardSN}
 	</select>
 	
 	<insert id="insertPost">
@@ -83,9 +123,9 @@
 			select boardpost_seq.nextval from dual
 		</selectKey>
 		insert into boardpost
-		(postSN, userSN, title)
+		(postSN, userSN, title , boardSN )
 		values 
-		(#{postSN}, #{userSN} , #{title} )
+		(#{postSN}, #{userSN} , #{title} , #{boardSN} )
 	</insert>
 	
 	<insert id="insertCont">
@@ -96,6 +136,17 @@
 		(#{postSN} , #{postContent} )
 	
 	</insert>
+	
+	<insert id="insertFile" parameterType="hashMap">
+		insert into board_imgfile
+		(filesn, postsn, orgname, changename, filesize)
+		values
+		(boardimgfile_seq.nextval, #{postSN}, #{orgName}, #{changeName}, #{fileSize})
+	</insert> 
+	
+	<delete id="deleteFile">
+		delete from board_imgfile where postSN = #{postSN}
+	</delete>
 	
 	<delete id="deletePost">
 		delete from boardpost where postSN = #{postSN}
@@ -121,5 +172,19 @@
 		set postContent = #{postContent}
 		where postSN = #{postSN}		
 	</update>
+	
+	<update id="updateReplyCnt">
+		update boardpost 
+		set replycnt = replycnt + #{amount} 
+		where postSN = #{postSN}
+	</update>
+	
+	<select id="findByPostSN" parameterType="long" resultType="hashmap">
+		select filesn , orgname , changename , round(filesize/1024 , 1) 
+		from board_imgfile
+		where postsn = #{postSN}
+		and del_ck = 'N'
+	</select>
+	
 	
 </mapper>

@@ -1,6 +1,14 @@
 package com.uniz.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,14 +20,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.uniz.domain.ChannelAttachVO;
 import com.uniz.domain.ChannelBoardVO;
 import com.uniz.domain.ChannelPageDTO;
 import com.uniz.domain.ChannelVO;
 import com.uniz.domain.Criteria;
+import com.uniz.domain.UserDTO;
 import com.uniz.mapper.ChannelMapper;
 import com.uniz.service.ChannelService;
+import com.uniz.service.UserService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -30,6 +42,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class ChannelController {
 	
+	private UserService userService;
 	private ChannelService service;
 	private ChannelMapper mapper;
 	
@@ -42,8 +55,29 @@ public class ChannelController {
 	
 	//채널 생성 페이지로 이동
 	@GetMapping("/chcreate")
-	public String getChCreate(Model model) {
-		return "channel/chcreate";
+	
+	public String getChCreate( UserDTO user , Model model ,  HttpSession session) throws Exception {
+		
+		 
+		 
+		
+		Integer userType = (Integer)session.getAttribute("userType");
+		
+		if( session.getAttribute("user") != null && userType >= 2) {
+			
+			return "/channel/chcreate";
+			
+		}else if(session.getAttribute("user") != null && (int)session.getAttribute("userType") == 1) {
+			
+			return "channel/main";
+			
+		} else {
+			
+			return "/user/loginForm";
+			
+		}
+		
+		
 	}
 	
 	
@@ -66,19 +100,17 @@ public class ChannelController {
 				
 			}
 		
-		
-	
-		
 	}
 	
 	// 채널 게시판으로 이동
 	@GetMapping("/board/{channelSN}")
 	public String getBoard(@PathVariable("channelSN")Long channelSN, ChannelBoardVO vo ,Model model) {
 		
+		final int CHECKCHANNEL = service.checkChannel(channelSN);
 		
-		if(mapper.checkChannel(channelSN) == 1){
-		
-			model.addAttribute("channel", vo);
+		if(CHECKCHANNEL== 1){
+			
+			model.addAttribute("channel", service.getList(channelSN));
 		
 			return "channel/board";
 
@@ -107,7 +139,14 @@ public class ChannelController {
 	
 	// 게시글 작성
 	@PostMapping("/register")
-	public String register( ChannelBoardVO vo , Long channelSN , RedirectAttributes rttr) {
+	public String register( ChannelBoardVO vo , RedirectAttributes rttr) {
+		
+		if(vo.getAttachList() != null) {
+			
+			vo.getAttachList().forEach(attach -> log.info(attach));
+			
+		}
+		
 		service.register(vo);
 		
 		rttr.addFlashAttribute("result", vo.getPostSN());
@@ -116,6 +155,7 @@ public class ChannelController {
 		return "redirect:/channel/board/" + vo.getChannelSN();
 	}
 	
+	//채널 게시판 생성
 	@PostMapping("/chcreate")
 	public String createChannel (ChannelVO vo , RedirectAttributes rttr) {
 		service.createChannel(vo);
@@ -134,12 +174,15 @@ public class ChannelController {
 	}
 	
 	// 채널 별 게시글 목록 보여줌
-	@GetMapping(value ="/list/{channelSN}",
+	@GetMapping(value ="/list/{channelSN}/{page}",
 			produces = {
 					 MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<ChannelBoardVO>>getPostList(@PathVariable("channelSN") Long channelSN ){
-		log.info("get Post List.....");
-		return new ResponseEntity<>(service.getPostList(channelSN), HttpStatus.OK);
+	public ResponseEntity<ChannelPageDTO>getPostList (@PathVariable("channelSN") Long channelSN, @PathVariable("page") int page ){
+		
+		Criteria cri = new Criteria(page, 10);
+		
+		return new ResponseEntity<>(service.getPostListPaging( cri , channelSN), HttpStatus.OK);
+		
 	}
 	
 	// 채널 게시물 전체 목록 보여줌
@@ -164,19 +207,19 @@ public class ChannelController {
 	}
 	
 	
-	// 게시글 조회
-//	@GetMapping("/getPost/{postSN}")
-//	public void getPost(@RequestParam("postSN") Long postSN , Model model) {
-//		model.addAttribute("board", service.getPost(postSN));
-//		log.info("얍얍얍 = " + model);
-//	}
-	
 	//게시글 삭제
 	@PostMapping(value ="/remove")		
 	public String remove(@RequestParam("postSN") Long postSN,@RequestParam("channelSN") Long channelSN ,RedirectAttributes rttr){
 		
+		List<ChannelAttachVO> attachList = service.getAttachList(postSN);
+		
 		log.info("게시물 삭제 : " + postSN);
-		if(service.delete(postSN)) {
+		
+		boolean deletecheck = service.delete(postSN);
+		
+		if(deletecheck) {
+			
+			deleteFiles(attachList);
 			rttr.addFlashAttribute("result", "success");
 		}
 		
@@ -197,6 +240,48 @@ public class ChannelController {
 		
 	}
 	
+	@GetMapping(value ="/chgetAttachList",
+			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<ChannelAttachVO>> getAttachList(Long postSN){
+		
+		log.info("getAttachList====== : " + postSN);
+		
+		return new ResponseEntity<>(service.getAttachList(postSN) , HttpStatus.OK);
+		
+	}
+	
+	
+private void deleteFiles(List<ChannelAttachVO> attachList) {
+		
+		if(attachList == null || attachList.size() == 0) {
+			return;
+		}
+		attachList.forEach(attach -> {
+			
+		  try {
+			  
+		  
+			Path file = Paths.get("C:\\ch\\file\\" + attach.getUploadPath()+ "\\"+
+					attach.getUuid()+"_" + attach.getFileName());
+			
+			Files.deleteIfExists(file);
+			
+			if(Files.probeContentType(file).startsWith("image")) {
+				
+				Path thumNail = Paths.get("C:\\ch\\file\\" + attach.getUploadPath() + 
+						"\\s_" + attach.getUuid()+"_"+attach.getFileName());
+				
+				Files.delete(thumNail);
+				
+			}
+			
+		  }catch(Exception e) {
+			  log.error("delete File error " + e.getMessage());
+		  }
+		});
+		
+	}
 	
 	
 }

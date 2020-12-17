@@ -1,0 +1,148 @@
+.boardHeader{
+    /* background-color: gold; */
+    width: 75%;
+    margin: 0 auto;
+    color: rgb(44, 44, 44);
+    padding-top: 50px;
+}
+.mainPage{
+    background-color: white;
+}
+.post{
+    /* background-color: rgb(223, 223, 223); */
+    height: 450px;
+    margin-top: 10px;
+}
+
+.list{
+    font-size: 16px;
+    padding: 20px 150px;
+    color: rgb(29, 29, 29);
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  td, th {
+    border: 1px solid #9c95a7;
+    text-align: left;
+    padding:10px;
+  }
+  th{
+      padding-left: 15px;
+      border-color: black;
+  }
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  .post{
+    table-layout: fixed;
+  }
+  .boardTable a{
+      color: rgb(0, 36, 136);
+  }
+  .boardTable thead tr td{
+    /* 반드시 필요. 지우지 말기 */
+    padding: 10px 20px;
+    color: rgb(28, 21, 121);
+    text-overflow:ellipsis; 
+    overflow:hidden; 
+    white-space:nowrap;
+}
+tr:hover{
+    background-color: rgb(233, 236, 243);
+    transition: 0.3s ease-in;
+}
+table th:first-child{
+    width: 8%;
+    text-align: center;
+}
+table td:first-child{
+    text-align: center;
+}
+table th{
+    text-align: center;
+    background-color: rgb(31, 31, 31);
+    color: white;
+}
+table td:not(:nth-child(2)){
+    text-align: center;
+}
+table th:nth-child(2){
+    width: 80%;
+}
+table th:nth-child(3), table th:nth-child(4){
+    width: 15%;
+    table-layout: fixed;
+    text-overflow:ellipsis; 
+    overflow:hidden; 
+    white-space:nowrap;
+}
+.active{
+    background-color: rgb(64, 199, 233);
+}
+
+.chBoardBtn{
+    /* background-color: gold; */
+    width: 80%;
+    margin: 0 auto;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+#createBtn, #listBtn{
+    padding: 10px 16px;
+    margin-right: 10px;
+    border-radius: 4px;
+    color: white;
+    border: 2px solid darkblue;
+    background-color: rgb(16, 34, 83);
+}
+#createBtn{
+    background-color: rgb(224, 238, 255);
+    color:rgb(29, 29, 29);
+    border-color: rgb(143, 205, 255);
+
+}
+#createBtn:hover{
+    background-color: rgb(164, 207, 255);
+    transition: 0.3s;
+
+}
+
+/* pagination */
+.postFooter{
+  margin-top: 50px;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+}
+.postFooter ul li{
+  list-style-type: none;
+  display: inline;   
+  border-spacing: 0;
+}
+.postFooter ul li a{
+  text-decoration: none;
+  border-collapse: none;
+  padding: 10px 12px;
+  font-size: 16px;
+  color: dodgerblue;
+  border : 1px solid rgb(199, 199, 199);
+}
+.postFooter ul li a:hover, .active{
+  color: rgb(0, 100, 182);
+  background-color: rgb(223, 246, 255);
+  transition: 0.3s ease-in-out;
+}
+body > div.mainPage > div > div.postFooter > ul > li:nth-child(1) > a{
+  border-radius: 5px 0 0 5px;
+}
+body > div.mainPage > div > div.postFooter > ul > li:nth-child(3) > a{
+  border-radius: 0 5px 5px 0;
+
+}

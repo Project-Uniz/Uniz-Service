@@ -10,7 +10,7 @@
   <body>
   	<div class="wrap">
 		<%@ include file="/WEB-INF/views/includes/nav.jsp"%>		
-	<!-- Nav bar -->
+	  <!-- Nav bar -->
        
      </div>
      

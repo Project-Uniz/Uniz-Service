@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService{
 
 	private UserMapper mapper;
 	private UnizPointMapper unizPointMapper;
+	
 	@Transactional
 	@Override
 	public int userRegister(UserDTO dto,List<Long> unizSN) {
@@ -127,6 +128,7 @@ public class UserServiceImpl implements UserService{
 				//세션 생성
 				user = mapper.getUser(user);
 				session.setAttribute("user", user);
+				session.setAttribute("userType", user.getUserType());
 				
 				//로그인 이력 변경
 				mapper.updateUserLogin(user.getUserSN());

@@ -15,6 +15,8 @@
 			<result property="postContent" column="postContent"></result>
 			<result property="createDateTime" column="createdatetime"></result>
 			<result property="nick" column="nick"></result>
+			<result property="replyCnt" column="replycnt"></result>
+			<result property="rn" column="rn"></result>
 		</resultMap>
 		
 		<!--  채널 유무 판단 -->
@@ -27,6 +29,11 @@
 			select count(*) from channelpost where postSN = #{postSN}
 		</select>
 		
+		<!-- 유저 타입 체크 -->
+		<select id="checkUserType" resultType="com.uniz.domain.UserData">
+			select * from userdata where userSN = #{userSN}
+		</select>
+		
 		<!--review 채널 상태 테이블 구상 -->
 		<!-- 채널 게시판 목록 보여주기 -->
 		<select id="getChannelList" resultType="com.uniz.domain.ChannelVO" resultMap="getAllPostList">
@@ -37,17 +44,33 @@
 		
 		<!-- 해당 게시판의 게시글 목록 보여주기 -->
 		<select id ="getPostList" resultType="com.uniz.domain.ChannelBoardVO" resultMap="getAllPostList">
-			select p.channelsn , p.title , p.createdatetime , c.channeltitle , u.nick ,p.postSN 
-			from channelpost p , channel c , userdata u
-			where p.channelsn = #{channelSN} 
-			and c.channelsn = p.channelsn 
-			and u.usersn = p.usersn
-			order by p.postsn desc
+		<![CDATA[
+		select *
+		from (
+			select rownum list , a.*
+			from
+				(
+				select row_number() over(order by p.postsn , rownum desc) rn ,
+				p.channelsn , p.title , p.createdatetime , c.channeltitle , u.nick ,p.postSN , p.replycnt 
+				from channelpost p , channel c , userdata u
+				where p.channelsn = #{channelSN} 
+				and c.channelsn = p.channelsn 
+				and u.usersn = p.usersn
+				order by p.postsn desc
+				) a
+				where
+	]]>	
+	<![CDATA[
+	  	rownum <= #{cri.pageNum} * #{cri.amount}
+	  	)
+	  	where list > (#{cri.pageNum} -1 ) * #{cri.amount}
+	  ]]>	
 		</select>
 		
-		<select id="getTotal" resultType="int">
-			select count(*) from channelpost
-			where postsn > 0
+		<select id="getList" resultType="com.uniz.domain.ChannelBoardVO">
+		
+			select * from channel where channelsn = #{channelSN}
+		
 		</select>
 		
 		<!-- 게시글 전체 목록 보여주기	 -->
@@ -59,7 +82,7 @@
             	from
                 	(
                 	select
-                    	c.channelTitle , p.postsn , p.title , u.nick , p.createdatetime
+                    	c.channelTitle , p.postsn , p.title , u.nick , p.createdatetime , p.replycnt
                     	from channel c , channelpost p , userdata u
                     	where p.usersn = u.usersn and c.channelsn = p.channelsn
                     	order by p.postsn desc
@@ -71,9 +94,16 @@
 			where rn >= (#{cri.pageNum} -1 ) * #{cri.amount}
 			]]>
 		</select>
-
+	
+	
+		<!--  채널 게시물 총 갯수 -->
 		<select id="getCountByPost" resultType="int">
 			select count(*) from channelpost
+		</select>
+		
+		<!-- 해당 채널 게시물 총 수  -->
+		<select id="getTotalCountByChannel" resultType="int">
+			select count(*) from channelpost where channelsn = #{channelSN}
 		</select>
 		
 		<!-- 게시글 보여 주기 -->
@@ -117,6 +147,10 @@
 			delete from ChannelPostContent where postSN = #{postSN}
 		</delete>
 		
+		<delete id="deleteReply">
+			delete from channelreply where postSN = #{postSN}
+		</delete>
+		
 		<update id="updatePost" parameterType="com.uniz.domain.ChannelBoardVO">
 			update ChannelPost
 			set title = #{title},
@@ -127,6 +161,12 @@
 		<update id="updateCont" parameterType="com.uniz.domain.ChannelBoardVO">
 			update ChannelPostContent
 			set postContent = #{postContent}
+			where postSN = #{postSN}
+		</update>
+		
+		<update id="updateReplyCnt">
+			update channelpost
+			set replycnt = replycnt + #{amount}
 			where postSN = #{postSN}
 		</update>
 		

@@ -7,18 +7,31 @@
 
 	<select id="getReplyListWithPaging" resultType="com.uniz.domain.ReplyVO">
 	<![CDATA[
-		select replySN , postSN, userSN , createdatetime ,replyContent
-		from(
-				select /* + INDEX(boardpostreply idx_reply) */
-				rownum rn, replySN, postSN, userSN, createdatetime ,replyContent
-				from boardpostreply
-				where postSN = #{postSN}
-				and replySN > 0
-				and rownum <= #{cri.pageNum} * #{cri.amount}
-			)
-		where rn > (#{cri.pageNum} -1 ) * #{cri.amount}
+		select *
+		from (
+			select rownum rn , a.*
+			from
+				(
+				 select r.postSN , r.replySN , r.replyContent, u.nick , r.createdatetime , u.usersn
+				 from boardpostreply r , userdata u
+				 where postSN = #{postSN}
+				 and u.usersn = r.usersn
+				 order by replySN asc
+				) a
+				where
 	]]>	
+	<![CDATA[
+	  	rownum <= #{cri.pageNum} * #{cri.amount}
+	  	)
+	  	where rn > (#{cri.pageNum} -1 ) * #{cri.amount}
+	  ]]>	
+	</select>
 	
+	<select id="getList" resultType="com.uniz.domain.ReplyVO">
+		select * 
+		from boardpostreply r , userdata u
+		where r.postsn = #{postSN}
+		and r.userSN = u.userSN
 	</select>
 	
 	<select id="getCountByPostSN" resultType="int">

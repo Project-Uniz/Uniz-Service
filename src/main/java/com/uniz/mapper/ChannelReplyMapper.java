@@ -19,4 +19,6 @@ public interface ChannelReplyMapper {
 	
 	public List<ChannelReplyVO> getList(@Param("cri") Criteria cri, @Param("postSN") Long postSN);
 	
+	public int getCount(Long postSN);
+	
 }

@@ -25,26 +25,6 @@ var replyService = (function(){
 		$.ajax({
 			type : 'delete',
 			url : '/replies/' + replySN,
-			success : function(deleteResult, status, xhr){
-				if(callback){
-					callback(deleteResult);
-				}
-			},
-			error : function(xhr, status, er){
-				if(error){
-					error(er);
-				}
-			}
-		});
-	}
-	
-	function update(replyContent, callback, error){
-		console.log("replySN: " + replyContent.replySN);
-		$.ajax({
-			type : 'put',
-			url : '/replies/' + replyContent.replySN,
-			data : JSON.stringify(replyContent),
-			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr){
 				if(callback){
 					callback(result);
@@ -56,6 +36,28 @@ var replyService = (function(){
 				}
 			}
 		});
+	}
+	
+	function commentUpdateProc(replySN){
+		   
+		var updateContent = $('[name=content_'+replySN+']').val();
+	   	var updateReplySN = $('[name=replySN_'+replySN+']').val();
+		var modify = {'replyContent' : updateContent, 'replySN' : updateReplySN};
+		console.log("js : " + updateReplySN);
+		console.log("js cotent : " + updateContent);
+	    
+		$.ajax({
+			url : '/replies/update/'+updateReplySN,
+			type : 'put',
+			data : JSON.stringify(modify),
+			contentType : "application/json; charset=utf-8",
+	        success : function(data){
+	            if(data == 1)
+	            location.reload(true);
+	            	 //댓글 수정후 목록 출력 
+	            
+	        }
+	    });
 	}
 	
 	function get(replySN, callback, error){
@@ -91,26 +93,30 @@ var replyService = (function(){
 		}
 	};
 	
-	function getList(param, callback, error){
+function commentList(param, callback, error){
+		
 		var postSN = param.postSN;
 		var page = param.page || 1;
-		$.getJSON("/replies/pages/" + postSN + "/" + page + ".json",
+		
+		$.getJSON("/replies/page/" + postSN + "/" + page + ".json",
 				function(data){
 			if(callback){
 				callback(data.replyCnt, data.list);
 			}
-		}).fail(function(xhr, status,err){
+		}).fail(function(xhr, status, err){
 			if(error){
 				error();
 			}
 		});
-	}
+	    
+	}   
+
 	
 	return {
 		add :add,
-		getList : getList,
+		commentList : commentList,
 		remove : remove,
-		update : update,
+		commentUpdateProc : commentUpdateProc,
 		get : get,
 		displayTime : displayTime
 	};

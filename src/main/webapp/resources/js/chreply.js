@@ -7,43 +7,54 @@ var chReplyService = (function(){
 		$.ajax({
 			type : 'post',
 			url : '/chreplies/add' ,
-
-			data : reply,
-			//contentType : "application/json; charset=utf-8",
-			success : function(data){
-				if(data == 1 ){
-					chReplyService.commentList(reply.replySN);
+			data : JSON.stringify(reply),
+			contentType : "application/json; charset=utf-8",
+			success : function(result, status, xhr){
+				if(callback){
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er){
+				if(error){
+					error(er);
 				}
 			}
-			
+		})
+	}
+	
+	function remove(replySN, callback, error){
+		$.ajax({
+			type : 'delete',
+			url : '/chreplies/delete/' + replySN,
+			success : function(deleteResult, status, xhr){
+				if(callback){
+					callback(deleteResult);
+				}
+			},
+			error : function(xhr, status, er){
+				if(error){
+					error(er);
+				}
+			}
 		});
 	}
 	
-	function commentList(param){
+	function commentList(param, callback, error){
 		
 		var postSN = param.postSN;
 		var page = param.page || 1;
 		
-		
-	    $.ajax({
-	        url : '/chreplies/page/'+postSN+ "/" + page ,
-	        type : 'get',
-	        dataType : 'json',
-			contentType : "application/json; charset=utf-8",
-	        success : function(data){
-	            var a =''; 
-	            $.each(data, function(key, value){ 
-	                a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-	                a += '<div class="commentInfo'+value.replySN+'">'+'댓글번호 : '+value.replySN+' / 작성자 : '+value.nick;
-	                a += '<a onclick="commentUpdate('+value.replySN+',\''+value.replyContent+'\');"> 수정 </a>';
-	                a += '<a onclick="commentDelete('+value.replySN+');"> 삭제 </a> </div>';
-	                a += '<div class="commentContent'+value.replySN+'"> <p> 내용 : '+value.replyContent +'</p>';
-	                a += '</div></div>';
-	            });
-	            
-	            $(".reply").html(a);
-	        }
-	    });
+		$.getJSON("/chreplies/page/" + postSN + "/" + page + ".json",
+				function(data){
+			if(callback){
+				callback(data.replyCnt, data.list);
+			}
+		}).fail(function(xhr, status, err){
+			if(error){
+				error();
+			}
+		});
+	    
 	}   
 
 		
@@ -69,28 +80,36 @@ var chReplyService = (function(){
 		}
 	};
 	
+	function commentUpdateProc(replySN){
+		   
+		var updateContent = $('[name=content_'+replySN+']').val();
+	   	var updateReplySN = $('[name=replySN_'+replySN+']').val();
+		var modify = {'replyContent' : updateContent, 'replySN' : updateReplySN};
+	    
+	    $.ajax({
+	        url : '/chreplies/update/'+updateReplySN,
+	        type : 'put',
+	        data : JSON.stringify(modify),
+			contentType : "application/json; charset=utf-8",
+	        success : function(data){
+	        	showList(1);
+	            	 //댓글 수정후 목록 출력 
+	        }
+	    });
+	}
 
-//	function getList(param, callback, error){
-//		var postSN = param.postSN;
-//		var page = param.page || 1;
-//		$.getJSON("/chreplies/page/" + postSN + "/" + page + ".json",
-//				function(data){
-//			if(callback){
-//				console.log("aaaaaaa= " + data);
-//				callback(data);
-//				
-//			}
-//		}).fail(function(xhr, status,err){
-//			if(error){
-//				error();
-//			}
-//		});
-//	}
 	
-	return {
+	return{
+		
+		
 		add : add,
+		remove : remove,
 		commentList : commentList,
-
+		commentUpdateProc : commentUpdateProc,
 		displayTime : displayTime
+		
 	};
+
+	
+
 })();

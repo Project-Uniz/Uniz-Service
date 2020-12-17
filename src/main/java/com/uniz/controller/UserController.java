@@ -37,7 +37,6 @@ public class UserController {
 	
 	@GetMapping("/loginForm")
 	public String goLoginForm() {
-		
 		return "/user/loginForm";
 	}
 
@@ -195,7 +194,6 @@ public class UserController {
 			resultStr = userService.addMyPlayLog(userSN, videoSN, currentTime);
 		}
 		
-
 		map.put("result", resultStr);
 		return map;
 	}
