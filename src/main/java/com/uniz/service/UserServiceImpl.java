@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.uniz.domain.MyUnizPoint;
 import com.uniz.domain.UserDTO;
+import com.uniz.mapper.UnizPointMapper;
 import com.uniz.mapper.UserMapper;
 
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ import lombok.extern.log4j.Log4j;
 public class UserServiceImpl implements UserService{
 
 	private UserMapper mapper;
+	private UnizPointMapper unizPointMapper;
 	
 	@Transactional
 	@Override
@@ -32,6 +34,8 @@ public class UserServiceImpl implements UserService{
 		final int SUCCESS = 1;
 		final int NO_DUPLICATION = 0;
 		final int DB_ERROR = -1;
+		final int ADD_POINT = 50;//포인트 증가값
+		final int TYPE = 2; //관심 유니즈 등록 =2 
 		log.info("dto : "+ dto);
 		
 		if(dto.getImgUrl()==null) {
@@ -45,7 +49,7 @@ public class UserServiceImpl implements UserService{
 					mapper.userDataInsert(dto);	
 					mapper.userSelectUnizInsert(unizSN);
 					mapper.registerUserStateLog(dto.getState());
-					
+					unizPointMapper.addHistorys(dto.getUserSN(), unizSN, ADD_POINT, TYPE);
 					return SUCCESS;
 				}catch(Exception e){
 					e.printStackTrace();

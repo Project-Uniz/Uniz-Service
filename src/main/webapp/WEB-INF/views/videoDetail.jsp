@@ -98,6 +98,7 @@
 		//전체 영상 길이의 20%
 		let min_duration = duration * 0.20;
 		
+			
 		console.log("start : " + startTime);
 		
 		//1. 머문시간이 전체 영상시간의 20프로가 넘으면 유니즈 포인트 증가
@@ -157,7 +158,6 @@
 			});
 			
 		};
-
 	});
 	
 	var videoValue = '${videoData.videoSN}';
@@ -256,7 +256,6 @@
 				return false;
 				}
 			}
-
 </script>
 </body>
 </html>

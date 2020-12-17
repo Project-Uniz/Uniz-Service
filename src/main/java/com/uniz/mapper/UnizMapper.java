@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.uniz.domain.MyUnizPoint;
 import com.uniz.domain.UnizVO;
 
 public interface UnizMapper {
@@ -27,5 +28,7 @@ public interface UnizMapper {
 	public List<UnizVO> getFavoriteList(@Param("userSN") Long userSN, @Param("fvPoint") int point, @Param("limit") int limit);
 
 	public Long findParentUniz(@Param("utbCateSN")Long utbCateSN);
+
+	public List<MyUnizPoint> getMyPointHistory(@Param("userSN")Long userSN);
 
 }

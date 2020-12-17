@@ -74,6 +74,7 @@ public class UnizHitController {
 		return "videoDetail";
 	}
 	
+
 	
 	@GetMapping(value = "/keywordHitlist/{unizSN}",
 			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

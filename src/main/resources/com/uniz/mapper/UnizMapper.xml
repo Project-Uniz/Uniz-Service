@@ -85,4 +85,12 @@
 		FROM UNIZLAYERLIST
 		WHERE UNIZSN = #{utbCateSN}
 	</select>
+	
+	<select id="getMyPointHistory" resultType="com.uniz.domain.MyUnizPoint">
+		select u.unizkeyword, uh.point, uh.type, uh.createdatetime
+		from unizpointhistory uh, uniz u
+		where uh.usersn = #{userSN}
+		and u.unizsn = uh.unizsn
+
+	</select>
 </mapper>
