@@ -2,7 +2,6 @@ package com.uniz.domain;
 
 import java.util.Date;
 
-import javax.xml.ws.BindingType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -20,7 +19,8 @@ public class MyUnizPoint {
 	private Long userSN;
 	private Long unizSN;
 	private Integer point;
-	private String unizKeyword;
+	private String unizKeyword;  
+	private int type;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	Date createDateTime;
 

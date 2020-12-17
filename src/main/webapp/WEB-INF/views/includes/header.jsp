@@ -2,5 +2,5 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
-<link href="/resources/css/style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/resources/css/nav.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css"/>

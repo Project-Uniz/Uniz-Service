@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -32,9 +34,10 @@ public class UserController {
 
 	private UserService userService;
 	private UnizService unizService;
-
+	
 	@GetMapping("/loginForm")
 	public String goLoginForm() {
+		
 		return "/user/loginForm";
 	}
 
@@ -195,5 +198,21 @@ public class UserController {
 
 		map.put("result", resultStr);
 		return map;
+	}
+	
+	//유저의 POINT획득 로그 가져오기
+	@GetMapping("/getMyPointHistory")
+	public @ResponseBody Map<String, Object> getMyPointHistory(HttpSession session){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(session.getAttribute("user") != null) {
+			UserDTO userDto = (UserDTO) session.getAttribute("user");
+			List<MyUnizPoint> myUnizPointHs = unizService.getMyPointHistory(userDto.getUserSN());
+			
+			map.put("data",myUnizPointHs);
+		}
+		
+		log.info("myUnizPointHs " +map);
+		return map; 
 	}
 }

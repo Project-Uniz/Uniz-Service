@@ -69,8 +69,18 @@
 	</select>
 
 	<insert id="addHistory">
-		INSERT INTO unizpointhistory (historySN,userSN, unizSN, point, type)
-		VALUES (unizpointhistory_seq.nextval ,#{userSN}, #{unizSN}, #{point}, #{type})
+		INSERT INTO unizpointhistory (userSN, unizSN, point, type)
+		VALUES (#{userSN}, #{unizSN}, #{point}, #{type})
+	</insert>
+	
+	<insert id="addHistorys">
+		<foreach item="unizListSN" collection="unizSN" separator=" " open="INSERT ALL " close="SELECT * FROM DUAL">
+		INTO unizpointhistory
+		(USERSN, UNIZSN, POINT,TYPE)
+		VALUES
+		(#{userSN},#{unizListSN}, #{point}, #{type})
+		</foreach>
+		
 	</insert>
 
 	<insert id="addMyUnizPoint">
@@ -93,4 +103,5 @@
 		  VALUES 
 		  (#{userSN}, #{unizSN}, #{addPoint}) 
 	</insert> 
+	
 </mapper>
