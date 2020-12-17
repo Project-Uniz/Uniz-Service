@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
+<link rel="stylesheet" href="/resources/css/Navbar.css">
+<!-- <link rel="stylesheet" href="/resources/css/hitVideo.css"> -->
 </head>
 <style>
 
@@ -75,8 +77,11 @@ span ul {
 <body>
 
 
+<%@ include file="/WEB-INF/views/includes/nav.jsp"%>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	<div class="wrap">
+<div class="wrap">
 
 	<div class="inner-div-800">
 

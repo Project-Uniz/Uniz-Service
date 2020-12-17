@@ -1,3 +1,4 @@
+
 /* apply .html  */
 .applyMain{
     /* background-color: rgb(45, 61, 105); */
@@ -97,7 +98,6 @@ body > div.applyMain > div.createForm > form > div > div.CateList > label{
     margin-right: 0;
 }
 .uploadResult{
-
     background-color: rgb(202, 235, 238);
     width: 90%;
     height: 260px;
@@ -129,7 +129,9 @@ body > div.applyMain > div.createForm > form > div > div.CateList > label{
 .ChseBtn input[type="file"]{
     font-size: 20px;
     color: rgb(14, 79, 184);
+
     display: none; 
+
 }
 .uploadFileBox label{
     padding: 6px 25px;

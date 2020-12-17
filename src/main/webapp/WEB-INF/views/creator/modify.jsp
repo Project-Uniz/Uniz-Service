@@ -8,8 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
 	<link rel="stylesheet" href="/resources/css/apply.css"> 
 	<link rel="stylesheet" href="/resources/css/Navbar.css">
+
 
 </head>
 <body>
@@ -19,7 +21,7 @@
     <div class="creatorRegisterHeader">
         <h1>신청 수정 페이지</h1>
     </div>
-    
+
 	<div class="createForm">
 	<form role="form" action="/creator/modify" method="post">
 	
@@ -75,8 +77,9 @@
 		
 	</div>
 	
+
 	
-	
+
 	<div class="thumbNail">
 		<div class="uploadResult">
 			<ul>
@@ -86,10 +89,12 @@
 	</div>
 	
 	<div class="uploadFileBox" style="margin-top: 30px;"> 
+
 		<label for="uploadFile">파일 선택하기</label> 
 			<div class="ChseBtn">
 				<input type="file" id="uploadFile" name="uploadFile" multiple="multiple">
 			</div>
+
 	</div>
 	
 	<!-- <button type="submit" data-oper='modify' class="btn btn-default">수정완료</button> -->
@@ -99,8 +104,10 @@
 	<!-- <button data-oper='list'>널 게시판으로 이동</button> -->
 	<button class="submitBtn" data-oper='list'>채널 게시판으로 이동</button>
 	</div>
+
 	
 	</form>
+
 	</div>
 </div>
 
