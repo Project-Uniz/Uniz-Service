@@ -1,10 +1,13 @@
 package com.uniz.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -53,16 +56,12 @@ public class ChannelController {
 	//채널 생성 페이지로 이동
 	@GetMapping("/chcreate")
 	
-	public String getChCreate( UserDTO user , Model model , HttpSession session) {
+	public String getChCreate( UserDTO user , Model model ,  HttpSession session) throws Exception {
 		
-		log.info("session check : " + session.getAttribute("user"));
-		
-		log.info("userType : " + session.getAttribute("userType"));
+		 
+		 
 		
 		Integer userType = (Integer)session.getAttribute("userType");
-		
-		
-		log.info("userType ====== " + session.getAttribute("userType"));
 		
 		if( session.getAttribute("user") != null && userType >= 2) {
 			
@@ -70,7 +69,7 @@ public class ChannelController {
 			
 		}else if(session.getAttribute("user") != null && (int)session.getAttribute("userType") == 1) {
 			
-			return "/channel/main";
+			return "channel/main";
 			
 		} else {
 			

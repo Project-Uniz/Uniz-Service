@@ -127,15 +127,29 @@
 <script type="text/javascript" src="/resources/js/chreply.js"></script>	
 <script type="text/javascript">
 
-$(document).ready(function(){	
-	
+	$(document).ready(function(){	
+		
+		var postSN = '<c:out value="${postSN}"/>';
+		
+		channelService.getPost({postSN:postSN});
+		
+		showList(1);
+		
+	});	
+		
 	var postSN = '<c:out value="${postSN}"/>';
+		
+	var str = "";
+	var newReply = $(".container");
 	
-	console.log("게시글 번호 : " + postSN);
-	channelService.getPost({postSN:postSN});
-	showList(1);
+	var inputReply = newReply.find("input[name='replyContent']");
+	var inputUserSN = newReply.find("input[name='userSN']");
+	var inputReplySN = newReply.find("input[name='replySN']");
+	var registerBtn = $("#registerBtn");
+	
 	
 	function showList(page){
+		
 		
 		var chSession = '<c:out value="${user.userSN}"/>';
 		
@@ -163,29 +177,18 @@ $(document).ready(function(){
 	                a += '<div class="commentInfo'+list[i].replySN+'">'+'댓글번호 : '+list[i].replySN+' / 작성자 : '+list[i].nick;
 	                
 	                if(session == list[i].userSN){
-	                	
 		                a += '<a onclick="commentUpdate('+list[i].replySN+',\''+list[i].replyContent+'\');"> 수정 </a>';
 		                a += '<a role="button" class="deleteBtn" onclick="remove('+list[i].replySN+');"> 삭제 </a></div>';
-	                	
 	                }
+	                
 	                a += '<div class="commentContent'+list[i].replySN+'"> <p> 내용 : '+list[i].replyContent +'</p></div>';
 	                a += '</div></div>';
 			}
 			 $(".reply").html(a);
 			 showReplyPage(replyCnt);
 		});
-
+	
 	}
-	
-	
-	
-	var str = "";
-	var newReply = $(".container");
-
-	var inputReply = newReply.find("input[name='replyContent']");
-	var inputUserSN = newReply.find("input[name='userSN']");
-	var inputReplySN = newReply.find("input[name='replySN']");
-	var registerBtn = $("#registerBtn");
 	
 	registerBtn.on("click" , function(e){
 		var str = /^\s+|\s+$/g;
@@ -202,7 +205,7 @@ $(document).ready(function(){
 		}
 	
 		chReplyService.add(reply, function(result){
-			showList(-1);
+			showList(1);
 		});
 	
 	});
@@ -247,41 +250,36 @@ $(document).ready(function(){
 		pageNum = targetPageNum;
 		showList(pageNum);
 	});
-
-
 	
-});	
-
-function commentUpdate(replySN, replyContent){
-    var a ='';
-   
-    a += '<div class="input-group">';
-    a += '<input type="text" class="form-control" name="content_'+replySN+'" value="'+replyContent+'"/>';
-    a += '<input type="hidden" class="form-control" name="replySN_'+replySN+'" value="'+replySN+'"/>';
-    a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="replyUpdate('+replySN+');">수정</button> </span>';
-    a += '</div>';
-    
-    $('.commentContent'+replySN).html(a);
-    
-}
-
-function replyUpdate(replySN){
-	
-	chReplyService.commentUpdateProc(replySN);
-	location.reload(true);
-	
-}
-
-function remove(replySN){
-	
-	if(confirm("삭제하시겠습니까?")){
-		chReplyService.remove(replySN);
-		location.reload(true);
+	function commentUpdate(replySN, replyContent){
+	    var a ='';
+	   
+	    a += '<div class="input-group">';
+	    a += '<input type="text" class="form-control" name="content_'+replySN+'" value="'+replyContent+'"/>';
+	    a += '<input type="hidden" class="form-control" name="replySN_'+replySN+'" value="'+replySN+'"/>';
+	    a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="replyUpdate('+replySN+');">수정</button> </span>';
+	    a += '</div>';
+	    
+	    $('.commentContent'+replySN).html(a);
+	    
 	}
 
-}
-
+	function replyUpdate(replySN){
+		
+		chReplyService.commentUpdateProc(replySN);
+		showList(1);
+		//location.reload(true);
+		
+	}
 	
+	function remove(replySN){
+		
+		if(confirm("삭제하시겠습니까?")){
+			chReplyService.remove(replySN);
+			showList(1);
+		}
+	
+	}
 
 	function checkTitle(){
 		
@@ -301,6 +299,8 @@ function remove(replySN){
 	var session = sessionStorage.getItem('user');
 	
 	function checkSession(){
+		
+		console.log("===== " + session);
 		
 		if(session == '' ){
 			alert("로그인이 필요합니다");

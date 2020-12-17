@@ -23,15 +23,13 @@
 	
 	<div class="board"></div>
 	<div></div>
+
 	<h3 class="list">게시글 목록</h3>
-	
 	<div class="post">
 	
 	</div>
 	
 	<div class="chBoardBtn">
-		<c:if test="${sessionScope.userId !=null }">
-		</c:if>
 		<button id="createBtn" type="button">게시글 작성</button>
 		<button id="listBtn" type="button">채널 게시판으로 이동</button>
 	</div>

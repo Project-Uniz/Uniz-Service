@@ -26,12 +26,12 @@
 					<div class="RegisterForm">
 						
 							<label class="label">(운영하는)채널 이름</label>
-							<!--<input class="form-control" name='channelTitle' id='channelTitle'> -->
 							<input class="form-control" name='channelTitle' id='channelTitle' placeholder="channelName">
 				
+							<label class="label">닉네임</label>
+							<input class="form-control" name='nick' id='nick' placeholder="nick" readonly="readonly">
 							<label class="label">UserSN</label>
-							<!-- <input class="form-control" name='userSN' id='userSN'> -->
-							<input class="form-control" name='userSN' id='userSN' placeholder="userSN">
+							<input class="form-control" name='userSN' id='userSN' value="${user.userSN}" placeholder="userSN">
 						
 						<div class="CateList">
 							<label class="label catList">(운영 채널 주)카테고리 목록</label>
