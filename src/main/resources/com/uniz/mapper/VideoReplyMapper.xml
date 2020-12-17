@@ -33,10 +33,11 @@
 	</update>
 	
 	<select id ="getListWithPaging" resultType="com.uniz.domain.VideoReplyVO">
-		select replySN, videoSN,userSN, replyContent, createDateTime, updateDateTime
-		from videoReply
-		where videoSN = #{videoSN}
-		order by replySN asc
+		select v.replySN, v.videoSN,v.userSN, v.replyContent, v.createDateTime, v.updateDateTime, u.nick
+		from videoReply v,userData u
+		where v.videoSN = #{videoSN}
+				and v.userSN = u.userSN
+		order by v.replySN asc
 	
 	</select>
 

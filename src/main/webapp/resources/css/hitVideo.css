@@ -1,0 +1,90 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans KR", sans-serif, 나눔고딕, 돋움, Dotum, 굴림, Gulim, "Apple SD Gothic Neo";
+}
+/* 인기페이지 */
+.Pbanner{
+    background-color: burlywood;
+    width: 100%;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+}
+.Pbanner img{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: -230px;
+}
+
+.keywordBox{
+    height: 60px;
+    /* background-color: gold; */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 10px;
+}
+.keyword{
+    width: 105px;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid rgb(185, 185, 185);
+    background-color: white;
+    color:rgb(71, 70, 70);
+    font-size: 14px;
+    outline: none;
+}
+.keyword:hover{
+    background-color: rgb(220, 238, 255);
+    color: rgb(0, 83, 139);
+    border-color:  rgb(8, 108, 175);
+    transition: 0,4s ease-in-out;
+}
+.active{
+    background-color: rgb(229, 248, 252);
+    color: rgb(68, 106, 211);
+    font-weight: bold;
+    border-color: rgb(84, 150, 207);
+}
+.videoBox{
+    /* background-color: cadetblue; */
+    width: 100%;
+    height: 660px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+    padding: 25px;
+}
+.video{
+    background-color: gold;
+    width: 100%;
+    height: 290px;
+    margin: 0 auto;
+    border-radius: 3px;
+}
+.video iframe{
+    width: 100%;
+    height: 80%;
+}
+.words {
+    /* background-color: white; */
+    height: 15%;
+    text-align: center;
+    padding:  0 7px;
+    display:flex;
+    align-items: center;
+}
+p{
+    text-align: center;
+    width: 400px;
+    margin: 0 auto;
+    font-weight: normal;
+    font-size: 19px;
+    overflow:hidden; 
+    text-overflow:ellipsis; 
+    white-space:nowrap;
+    color: rgb(71, 71, 71);
+}
