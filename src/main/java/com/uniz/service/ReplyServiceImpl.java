@@ -72,5 +72,6 @@ public class ReplyServiceImpl implements ReplyService {
 								mapper.getReplyListWithPaging(cri, postSN));
 		
 	}
+	
 
 }

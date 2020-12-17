@@ -1,9 +1,14 @@
 package com.uniz.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,14 +23,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.uniz.domain.BoardAttachVO;
 import com.uniz.domain.ChannelAttachVO;
 import com.uniz.domain.ChannelBoardVO;
 import com.uniz.domain.ChannelPageDTO;
 import com.uniz.domain.ChannelVO;
 import com.uniz.domain.Criteria;
+import com.uniz.domain.UserDTO;
 import com.uniz.mapper.ChannelMapper;
 import com.uniz.service.ChannelService;
+import com.uniz.service.UserService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -36,6 +42,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class ChannelController {
 	
+	private UserService userService;
 	private ChannelService service;
 	private ChannelMapper mapper;
 	
@@ -48,8 +55,29 @@ public class ChannelController {
 	
 	//채널 생성 페이지로 이동
 	@GetMapping("/chcreate")
-	public String getChCreate(Model model) {
-		return "channel/chcreate";
+	
+	public String getChCreate( UserDTO user , Model model ,  HttpSession session) throws Exception {
+		
+		 
+		 
+		
+		Integer userType = (Integer)session.getAttribute("userType");
+		
+		if( session.getAttribute("user") != null && userType >= 2) {
+			
+			return "/channel/chcreate";
+			
+		}else if(session.getAttribute("user") != null && (int)session.getAttribute("userType") == 1) {
+			
+			return "channel/main";
+			
+		} else {
+			
+			return "/user/loginForm";
+			
+		}
+		
+		
 	}
 	
 	
@@ -81,7 +109,7 @@ public class ChannelController {
 		final int CHECKCHANNEL = service.checkChannel(channelSN);
 		
 		if(CHECKCHANNEL== 1){
-		
+			
 			model.addAttribute("channel", service.getList(channelSN));
 		
 			return "channel/board";

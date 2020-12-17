@@ -24,7 +24,9 @@ import com.uniz.domain.BoardAttachVO;
 import com.uniz.domain.BoardVO;
 import com.uniz.domain.Criteria;
 import com.uniz.domain.PageDTO;
+import com.uniz.domain.ReplyVO;
 import com.uniz.service.BoardService;
+import com.uniz.service.ReplyService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -36,6 +38,7 @@ import lombok.extern.log4j.Log4j;
 public class BoardController {
 	
 	private BoardService service;
+	private ReplyService reService;
 	
 	// 카테고리 별 게시판 메인으로 이동
 	@GetMapping("/main")
@@ -145,11 +148,14 @@ public class BoardController {
 	public String get(@PathVariable("postSN") Long postSN , @ModelAttribute("cri") Criteria cri
 	, Model model) {
 		
+		log.info("postSN : " + postSN);
+		
 		BoardVO vo = service.get(postSN);
 		
 		if(vo != null) {
 
 			model.addAttribute("board", vo);
+			
 			return "category/get";
 		
 		}else {

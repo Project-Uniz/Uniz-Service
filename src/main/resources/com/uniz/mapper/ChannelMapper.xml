@@ -16,6 +16,7 @@
 			<result property="createDateTime" column="createdatetime"></result>
 			<result property="nick" column="nick"></result>
 			<result property="replyCnt" column="replycnt"></result>
+			<result property="rn" column="rn"></result>
 		</resultMap>
 		
 		<!--  채널 유무 판단 -->
@@ -26,6 +27,11 @@
 		<!--  게시글 유무 판단 -->
 		<select id="checkPost" resultType="INTEGER">
 			select count(*) from channelpost where postSN = #{postSN}
+		</select>
+		
+		<!-- 유저 타입 체크 -->
+		<select id="checkUserType" resultType="com.uniz.domain.UserData">
+			select * from userdata where userSN = #{userSN}
 		</select>
 		
 		<!--review 채널 상태 테이블 구상 -->
@@ -41,10 +47,11 @@
 		<![CDATA[
 		select *
 		from (
-			select rownum rn , a.*
+			select rownum list , a.*
 			from
 				(
-				select p.channelsn , p.title , p.createdatetime , c.channeltitle , u.nick ,p.postSN , p.replycnt 
+				select row_number() over(order by p.postsn , rownum desc) rn ,
+				p.channelsn , p.title , p.createdatetime , c.channeltitle , u.nick ,p.postSN , p.replycnt 
 				from channelpost p , channel c , userdata u
 				where p.channelsn = #{channelSN} 
 				and c.channelsn = p.channelsn 
@@ -56,7 +63,7 @@
 	<![CDATA[
 	  	rownum <= #{cri.pageNum} * #{cri.amount}
 	  	)
-	  	where rn > (#{cri.pageNum} -1 ) * #{cri.amount}
+	  	where list > (#{cri.pageNum} -1 ) * #{cri.amount}
 	  ]]>	
 		</select>
 		

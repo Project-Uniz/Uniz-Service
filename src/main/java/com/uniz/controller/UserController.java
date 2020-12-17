@@ -174,6 +174,8 @@ public class UserController {
 		log.info("user :" + user);
 
 		int loginResult = userService.userLogin(user, session);
+		
+		log.info("loginResult == " + loginResult);
 
 		log.info("session Check : " + session.getAttribute("user"));
 

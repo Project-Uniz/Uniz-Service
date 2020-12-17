@@ -76,6 +76,7 @@ span ul {
 
 <body>
 
+
 <%@ include file="/WEB-INF/views/includes/nav.jsp"%>
 
 

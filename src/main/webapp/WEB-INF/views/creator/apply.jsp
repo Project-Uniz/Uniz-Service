@@ -8,6 +8,7 @@
 	<title>Document</title>
 	<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 	<link rel="stylesheet" href="../resources/css/apply.css">
+	<link rel="stylesheet" href="/resources/css/Navbar.css"> 
 </head>
 <body>
 
@@ -19,16 +20,18 @@
 			</div>
 				<div class="createForm">
 					<form role="form" action="/creator/apply" method="post" >
+
 						
 					<div class="RegisterForm">
 						
 							<label class="label">(운영하는)채널 이름</label>
-							<!--<input class="form-control" name='channelTitle' id='channelTitle'> -->
 							<input class="form-control" name='channelTitle' id='channelTitle' placeholder="channelName">
 				
+							<label class="label">닉네임</label>
+							<input class="form-control" name='nick' id='nick' placeholder="nick" readonly="readonly">
 							<label class="label">UserSN</label>
-							<!-- <input class="form-control" name='userSN' id='userSN'> -->
-							<input class="form-control" name='userSN' id='userSN' placeholder="userSN">
+							<input class="form-control" name='userSN' id='userSN' value="${user.userSN}" placeholder="userSN">
+
 						
 						<div class="CateList">
 							<label class="label catList">(운영 채널 주)카테고리 목록</label>
@@ -65,13 +68,12 @@
 							
 						</div>
 						
-						
-						
 						<label class="label label5">[본인 유튜브 스튜디오 메인 페이지 캡쳐 이미지 업로드 해주세요]</label>						
 		   				<div class="uploadFileBox"> 
 							<label for="uploadFile">파일 선택하기</label> 
 								<div class="ChseBtn">
 								
+
 								<input type='file' name='uploadFile'id="uploadFile" multiple >
 							</div>
 						</div>
@@ -155,7 +157,7 @@ $(document).ready(function(e){
 	        	str += "data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"'data-type='"+obj.image+"'"		
 	        	str += "><div>";
 	        	str += "<span>" + obj.fileName + "</span>";
-	        	str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='image' class='btn btn-warning btn-circle'> <i class='fa fa-times'>x</i></button><br>";
+	        	str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='image' class='btn btn-warning btn-circle'> <i class='fa fa-times'></i></button><br>";
 	        	str += "<img src='/apDisplay?fileName="+fileCallPath+"'>";
 	        	str += "</div>";
 	        	str += "</li>";

@@ -1,5 +1,7 @@
 package com.uniz.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,10 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uniz.domain.ChannelReplyPageDTO;
 import com.uniz.domain.Criteria;
 import com.uniz.domain.ReplyPageDTO;
 import com.uniz.domain.ReplyVO;
@@ -81,12 +83,13 @@ public class ReplyController {
 	}
 	//댓글 수정
 	@RequestMapping(method = { RequestMethod.PUT, RequestMethod.PATCH },
-			value = "/{replySN}",
+			value = "/update/{replySN}",
 			consumes = "application/json",
 			produces = { MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> modify(@RequestBody ReplyVO vo, @PathVariable("replySN") Long replySN){
 		
 		vo.setReplySN(replySN);
+		log.info("수정 될 번호 : " + vo.getReplySN());
 		log.info("수정 될 댓글 번호 : " + replySN);
 		log.info("수정될 내용: " + vo);
 		

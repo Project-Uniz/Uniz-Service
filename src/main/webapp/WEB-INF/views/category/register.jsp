@@ -93,12 +93,12 @@
 						
 						<div class="form-group">
 							
-							<input  class="form-control" name='userSN' value=''  >
+							<input type='hidden' class="form-control" name='userSN' value='${user.userSN}'  >
 						</div>
 						
 						<div class="form-group">
 							
-							<input type="text" class="form-control" name='boardSN' value="${boardSN}">
+							<input type="hidden" class="form-control" name='boardSN' value="${boardSN}">
 						</div>
 						
 						<div class="uploadResult">

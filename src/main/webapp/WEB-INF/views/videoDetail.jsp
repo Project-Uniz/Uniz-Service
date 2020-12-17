@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -27,6 +28,8 @@
           		<div class="slideshow-container">
             		
 				<h3>${videoData.title}</h3>
+
+
 				<p>게시자닉네임${videoData.authorNick}</p>
 				<p><i class="far fa-eye"></i>조회수 :${videoData.viewCnt}회</p>
 				<p><i class="far fa-thumbs-up"></i>좋아요 : ${videoData.likeCnt}개</p>
@@ -40,9 +43,11 @@
 	                <input type="hidden" id="videoSN" name ="videoSN" value="${videoData.videoSN}">
 	                <input type="hidden" id="unizSN" name ="unizSN" value="${videoData.utbCateSN}">
 	                <input type="hidden" id="userSN" name ="userSN" value="${userSN}">
+
                 </form>  
                 
 				<div class="commentPage">
+
 					<ul class="chat">
 					
 						<!-- <li class="left clearfix" data-replySN='12'> -->
@@ -152,11 +157,12 @@
 			});
 			
 		};
-		
+
 	});
 	
 	var videoValue = '${videoData.videoSN}';
 	var replyUL = $(".chat");
+
 	var container = $('.addCmtBox');
 	var contextInputReply = container.find("input[name='content']");
 	var contextInputReplyer = container.find("input[name='userSN']");
@@ -164,6 +170,8 @@
 	var chSession = '<c:out value="${user.userSN}"/>';
 		sessionStorage.setItem('user', chSession);
 	var session = sessionStorage.getItem('user');
+
+	
 		//페이지 로딩시 댓글 목록 출력
     	//showList(목록)
 	function showList(page){
@@ -194,6 +202,7 @@
 			    var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
 			    
 			    var str = /^\s+|\s+$/g;
+
 			    var reply ={
 						replyContent : contextInputReply.val(),
 						userSN : contextInputReplyer.val(),
@@ -239,9 +248,7 @@
 		        }
 				});
 			}//end Update
-			
-
-			
+  
 			function checkSession(){
 			
 			if(session == ""){
@@ -249,11 +256,7 @@
 				return false;
 				}
 			}
-			
-			
-			
-		
-			
+
 </script>
 </body>
 </html>

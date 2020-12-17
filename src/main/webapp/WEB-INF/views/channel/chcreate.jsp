@@ -10,11 +10,13 @@
 </head>
 <body>
 
+
 	<%@ include file="/WEB-INF/views/includes/nav.jsp"%>
 
 	<div class="applyMain">
 		<div class="creatorRegisterHeader">
 			<h1>채널 등록 페이지</h1>
+
 		</div>
 		<div class="createForm">
 			<form action="/channel/chcreate" method="post">
@@ -23,16 +25,19 @@
 					<input class="form-control"name='channelTitle'>
 					<label class="label">등록할 채널 설명</label>
 					<input class="form-control"name='channelComment'>
+
+			
+					<div class="applyBtnBox">
+							<button class="submitBtn" data-oper='create' id='create' type='submit'>채널 만들기</button> 
+							<button class="submitBtn" data-oper='list' id='list'>채널 목록으로 이동</button>
+					</div>
+				</div>
+			</form>
 				
-				</form>
-				<div class="applyBtnBox">
-					 <button class="submitBtn" id='create' type='submit'>채널 만들기</button> 
-					 <button class="submitBtn" id='list'>채널 목록으로 이동</button>
-				</div>
-				
-				</div>
-				</div>
 			</div>
+		</div>
+		
+
 				
 		
 
@@ -41,11 +46,35 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	$("#list").on("click",function(){
-		self.location = "/channel/ch";
+	
+	console.log("ggggg");
+	
+	var formObj = $("form");
+	
+	$('button').on("click", function(e){
+		
+		console.log("click");
+		
+		console.log(oper);
+		
+		e.preventDefault();
+		
+		var oper = $(this).data('oper');
+		
+		if(oper == 'list'){
+			
+			self.location="/channel/ch";
+			return;
+			
+		} if(oper == 'create'){
+			
+			formObj.submit();
+			
+		}
+		
 	});
 	
-})
+});
 
 </script>
 

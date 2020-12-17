@@ -11,6 +11,8 @@
 
 <h1>카테고리 별 게시판</h1>
 	
+	<h1>${user.userSN}</h1>
+	
 	<div>
 		<button id="channelPost">채널 게시판으로 이동</button>
 	</div>
